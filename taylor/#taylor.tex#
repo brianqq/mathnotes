@@ -1,6 +1,6 @@
 \documentclass[10pt]{scrartcl}
 \usepackage{amssymb, amsmath}
-\usepackage[amsmath]{ntheorem}
+\usepackage[amsmath,thmmarks]{ntheorem}
 \usepackage{thmtools}
 %\usepackage{cfr-lm}
 %\usepackage{lmodern}
