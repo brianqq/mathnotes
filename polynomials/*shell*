@@ -1,8 +1,0 @@
-[brian@purple polynomials]$ latexmk -pvc -dpf
-Latexmk: -dpf bad option
-
-Latexmk: Bad options specified
-Use
-   latexmk -help
-to get usage information
-[brian@purple polynomials]$ latexmk -pvc -pdf
