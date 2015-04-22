@@ -1,6 +1,6 @@
 \documentclass[10pt]{scrartcl}
 \usepackage{amssymb, amsmath}
-\usepackage[amsmath,thmmarks,amsthm]{ntheorem}
+\usepackage[amsmath,thmmarks]{ntheorem}
 \usepackage{thmtools}
 %\usepackage{cfr-lm}
 %\usepackage{lmodern}
@@ -18,6 +18,27 @@
 %\usepackage[style=alphabetic,backend=bibtex]{biblatex}
 
 
+\makeatletter
+\newcommand{\openbox}{\leavevmode
+  \hbox to.77778em{%
+  \hfil\vrule
+  \vbox to.675em{\hrule width.6em\vfil\hrule}%
+  \vrule\hfil}}
+\gdef\proofSymbol{\openbox}
+\newcommand{\proofname}{Proof.}
+\newcounter{proof}\newcounter{currproofctr}\newcounter{endproofctr}%
+\newenvironment{proof}[1][\proofname]{
+  \th@nonumberplain
+  \def\theorem@headerfont{\ttfamily}%
+  \normalfont
+  %\theoremsymbol{\ensuremath{_\blacksquare}}
+  \@thm{proof}{proof}{#1}}%
+  {\@endtheorem}
+\makeatother
+
+\setkomafont{disposition}{\sffamily\bfseries\color{gray}}
+
+
 \usepackage{nameref}
 
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
@@ -28,6 +49,8 @@
 \newcounter{thms}
 \numberwithin{thms}{section}
 \theoremstyle{definition}
+\theoremheaderfont{\ttfamily}
+\theorembodyfont{\normalfont}
 \newtheorem{defn}[thms]{Definition}
 \newtheorem{defcat}[thms]{Category definition}
 \newtheorem{example}[thms]{Example}
@@ -54,7 +77,7 @@
 \newcommand{\cattop}{\mathtt{top}}
 \newcommand{\ab}{\mathtt{Ab}}
 
-\renewcommand{\lim}{\operatorname{\mathtt{lim}}}
+\renewcommand{\lim}{\operatorname{lim}}
  
 
 \AtBeginDocument{
