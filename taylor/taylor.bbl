@@ -1,0 +1,146 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.4 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{needham:visual-complex}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Needham}{N.}%
+     {Tristan}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Oxford University Press}%
+  }
+  \strng{namehash}{NT1}
+  \strng{fullhash}{NT1}
+  \field{labelalpha}{Nee12}
+  \field{sortinit}{N}
+  \field{isbn}{978-0-19-853446-4}
+  \field{title}{Visual Complex Analysis}
+  \list{location}{1}{%
+    {Great Clarendon Street, Oxford \textsc{ox2} \textsc{6dp} United Kingdom}%
+  }
+  \field{year}{2012}
+\endentry
+
+\entry{wiki:cauchy-rep-int}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wikipedia}{W.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{W1}
+  \strng{fullhash}{W1}
+  \field{labelalpha}{Wik15}
+  \field{extraalpha}{1}
+  \field{sortinit}{W}
+  \field{title}{Cauchy formula for repeated integration}
+  \verb{url}
+  \verb http://en.wikipedia.org/wiki/Cauchy_formula_for_repeated_integration
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\entry{wiki:mvt-int}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wikipedia}{W.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{W1}
+  \strng{fullhash}{W1}
+  \field{labelalpha}{Wik15}
+  \field{extraalpha}{2}
+  \field{sortinit}{W}
+  \field{title}{First mean value theorem for integration}
+  \verb{url}
+  \verb http://en.wikipedia.org/wiki/Mean_value_theorem#Mean_value_theorems_for
+  \verb _integration
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\entry{wiki:smooth-non-analytic}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wikipedia}{W.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{W1}
+  \strng{fullhash}{W1}
+  \field{labelalpha}{Wik15}
+  \field{extraalpha}{3}
+  \field{sortinit}{W}
+  \field{title}{Non-analytic smooth function}
+  \verb{url}
+  \verb http://en.wikipedia.org/wiki/Non-analytic_smooth_function
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\entry{wiki:ratio-test}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wikipedia}{W.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{W1}
+  \strng{fullhash}{W1}
+  \field{labelalpha}{Wik15}
+  \field{extraalpha}{4}
+  \field{sortinit}{W}
+  \field{title}{Ratio test}
+  \verb{url}
+  \verb http://en.wikipedia.org/wiki/Ratio_test#Proof
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\entry{wiki:sqrt}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wikipedia}{W.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{W1}
+  \strng{fullhash}{W1}
+  \field{labelalpha}{Wik15}
+  \field{extraalpha}{5}
+  \field{sortinit}{W}
+  \field{title}{Square root}
+  \verb{url}
+  \verb http://en.wikipedia.org/wiki/Square_root#Properties_and_uses
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

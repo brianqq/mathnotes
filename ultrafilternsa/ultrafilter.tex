@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+\usepackage{lmodern}
+\usepackage{microtype}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corr}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\begin{document}
+Let $X$ be a topological space. For $x\in *X$, define
+\[
+U_x:=\{A\subseteq X: x\in *A\}
+\]
+\begin{theorem}
+  $U_x$ is a (proper) filter on $X$. 
+\end{theorem}
+\begin{proof}
+  First, note that $\emptyset \notin U_x$ as $x\notin *\emptyset$.
+  Pick $A,B\in U_x$. Then as $x\in *A\cap *B$, $*A\cap *B$ is nonempty, so by transfer $A\cap B$ is nonempty.
+  Pick $A\in U_x$ and suppose $A\subseteq B$. Then $x\in *A\subseteq *B$, so $x\in *B$, so $B\in U_x$. 
+\end{proof}
+\begin{corr}
+  $U_x$ is an ultrafilter on $X$.
+\end{corr}
+\begin{proof}
+  We have shown that $U_x$ is a filter, so it suffices to show that for all $A\subseteq X$, either $A\in U_x$ or $A^c\in U_x$. Pick an arbitrary $A\subseteq X$. Suppose $x\in *A$. Then $A\in U_x$, and we are done. Otherwise, suppose $x\notin *A$. Therefore $x\in (*A)^c$. But $(*A)^c=*(A^c)$, so $A^c\in U_x$.
+\end{proof}
+
+\begin{theorem}[Ultrafilter lemma]
+  \label{ultrafilter-lemma-nsa}
+  Every filter $F$ can be completed to an ultrafilter $U_x$
+\end{theorem}
+\begin{proof}
+  By definition $F$ has the finite intersection property. Thus for a suitably saturated nonstandard model, there is some $x\in \bigcap_{U\in F}*U$. Then take $U_x$: by construction, $F\subseteq U_x$.
+\end{proof}
+This tells us that if we have access to a sufficiently saturated nostandard model of our theory, we automatically have the ultrafilter lemma
+\begin{corr}
+  Any ultrafilter $\mathfrak U$ on $X$ is of the form $U_x$ for some $x\in *X$.
+\end{corr}
+\begin{proof}
+  Applying theorem \ref{ultrafilter-lemma-nsa} to $\mathfrak U$ guarantees there is some $x\in *X$ such that $\mathfrak U\subseteq U_x$. By maximality of ultrafilters, $\mathfrak U = U_x$.
+\end{proof}
+
+Now we can move on to issues of convergence
+\begin{theorem}
+  Let $x\in *X$.
+  The filter $U_x$ converges to the standard point $y\in X$ iff $x\approx y$.
+\end{theorem}
+\begin{proof}
+  Suppose that $x\approx y$. Let $U$ be an arbitrary standard neighborhood of $y$. Then note that $\mu(y)$ is contained in  $*U$, so $U\in U_x$. Thus $U_x\to y$.
+  
+  Suppose $U_x\to y$. Then for any standard neighborhood $U$ of $y$, there is some $N\in U_x$ such that $N\subseteq U$. But then $x\in *N\subseteq *U$, so $x\in *U$. Thus $x\in \mu(y)$.
+\end{proof}
+This tells us that a nonprincipal ultrafilter converging to a point $x$ can be thought of as honing in infinitely close to $x$, but not quite on $x$. This gives a way to investigate the structure of ultrafilters converging to the same point:
+\begin{lemma}
+  For $x,y\in*X$, $U_x=U_y$ iff there is no standard set $A\subseteq X$ such that $x\in *A$ and $y\notin *A$.
+\end{lemma}
+\begin{proof}
+  Suppose $U_x=U_y$. Then by definition, every standard open set containing $x$ contains $y$.
+  
+  Suppose there is a standard set $A\subseteq X$ such that $x\in *A$ and $y\notin *A$. Then $A\in U_x$ but $A\notin U_y$, so $U_x\neq U_y$.
+\end{proof}
+
+We say that a standard set $A$ with $x\notin A$ splits the monad $\mu(y)$ iff $\mu(y)$ is not contained in $A$ but $A$ intersects $\mu(y)$. We say that the sets $A$ and $B$ split $\mu(y)$ equivalently iff $A\cap\mu(y)=B\cap\mu(y)$.
+
+\begin{corr}
+  The set of nonprincipal ultrafilters converging to some $x\in X$ is in bijective correspondence with the different ways of splitting $\mu(x)$ up to equivalence 
+\end{corr}
+\begin{proof}
+  todo
+\end{proof}
+\end{document}
+

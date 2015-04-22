@@ -1,0 +1,74 @@
+\defcounter {refsection}{0}\relax 
+\contentsline {lemma}{{Lemma}{1.1}{mean value theorem: integration}}{1}{lemma.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{1}{}}{1}{proof.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {defn}{{Definition}{1.2}{Taylor polynomial}}{1}{defn.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {theorem}{{Theorem}{1.3}{Taylor's theorem: Lagrange remainder}}{1}{theorem.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{2}{}}{1}{proof.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{1.4}{Cauchy's formula for repeated integration}}{2}{cor.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{1.5}{Taylor's theorem: no remainder}}{2}{cor.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{3}{}}{2}{proof.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {defn}{{Definition}{2.1}{}}{2}{defn.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {defn}{{Definition}{2.2}{}}{2}{defn.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {lemma}{{Lemma}{2.3}{ratio test}}{2}{lemma.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{4}{}}{2}{proof.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {defn}{{Definition}{2.4}{$\exp $}}{3}{defn.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {lemma}{{Lemma}{2.5}{$\exp $ homeomorphism}}{3}{lemma.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{5}{}}{3}{proof.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{2.6}{}}{3}{cor.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {lemma}{{Lemma}{2.7}{}}{3}{lemma.2.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{6}{}}{3}{proof.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {theorem}{{Theorem}{2.8}{Euler's theorem}}{3}{theorem.2.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{7}{}}{4}{proof.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {example}{{Example}{2.9}{hyperbolic trig}}{4}{example.2.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {example}{{Example}{2.10}{trig}}{4}{example.2.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {defn}{{Definition}{2.11}{$\ln $}}{4}{defn.2.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {theorem}{{Theorem}{2.12}{}}{4}{theorem.2.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{8}{}}{4}{proof.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{2.13}{}}{5}{cor.2.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{9}{}}{5}{proof.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {example}{{Example}{2.14}{$\taylor \sqrt {x}$}}{5}{example.2.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {lemma}{{Lemma}{2.15}{double factorial}}{5}{lemma.2.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{10}{}}{5}{proof.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{2.16}{}}{6}{cor.2.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {theorem}{{Theorem}{3.1}{radius of convergence}}{6}{theorem.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{11}{}}{6}{proof.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {cor}{{Corollary}{3.2}{}}{6}{cor.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {theorem}{{Theorem}{3.3}{identity theorem}}{6}{theorem.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {proof}{{\proofname }{12}{}}{6}{proof.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {counterex}{{Counter example}{4.1}{}}{6}{counterex.4.1}

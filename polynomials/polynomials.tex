@@ -1,0 +1,183 @@
+\documentclass[10pt]{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,thmmarks,amsthm]{ntheorem}
+\usepackage{thmtools}
+%\usepackage{cfr-lm}
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage{url}
+\usepackage{microtype}
+
+\usepackage{polynom}
+
+\usepackage[style=alphabetic,backend=bibtex]{biblatex}
+\bibliography{polynomials}
+
+\usepackage{nameref}
+
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\renewcommand{\ref}{\hyperref}
+
+\usepackage{cleveref}
+
+\newcounter{thms}
+%\numberwithin{thms}{section}
+\theoremstyle{definition}
+\newtheorem{defn}[thms]{Definition}
+\newtheorem{defcat}[thms]{Category definition}
+\newtheorem{example}[thms]{Example}
+\theoremstyle{definition}
+\newtheorem{counterex}[thms]{Counter example}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[thms]{Theorem}
+\newtheorem{lemma}[thms]{Lemma}
+\newtheorem{cor}[thms]{Corollary}
+
+\crefname{lemma}{lemma}{lemmas}
+\crefname{theorem}{theorem}{theorems}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\define}{:\equiv}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+
+%categories
+\newcommand{\cattop}{\mathtt{top}}
+\newcommand{\ab}{\mathtt{Ab}}
+
+\AtBeginDocument{
+  \pdfhorigin=\dimexpr\pdfhorigin-1.5in\relax
+  \pdfvorigin=\dimexpr\pdfvorigin-1in\relax
+  \pdfpagewidth=\dimexpr\pdfpagewidth-3in\relax
+  \pdfpageheight=\dimexpr\pdfpageheight-2in\relax
+}
+
+\begin{document}
+
+\begin{theorem}[polynomial remainder theorem]
+  Suppose $P(x):\C[x]$. Then 
+  \[
+  P(x)=Q(x)(x-k)+P(k)
+  \]
+  In particular, $(x-k)|P(x)$ iff $P(k)=0$
+\end{theorem}
+\begin{proof}
+  By synthetic division, 
+  \[
+  \begin{array}{llllll}
+    a_n & a_{n-1} & a_{n-2}             & \dots & a_0 \\
+         & ka_n   &  a_{n-1}k+a_nk^2    &\dots & ka_1+\dots k^na_n\\
+    \hline
+     a_n & a_{n-1}+ka_n & a_{n-2}+ a_{n-1}k+a_nk^2& \dots & a_0+ka_1+\dots k^na_n
+  \end{array}
+  \]
+\end{proof}
+
+
+\begin{defn}[Vandermonde matrix]
+  \[
+  V\define
+  \begin{bmatrix}
+    1 & x_0 & x_0^2&\dots&x_0^n \\
+    1 & x_1 & x_1^2&\dots&x_1^n \\
+    \vdots &\vdots & \vdots &\ddots&\vdots \\
+    1 & x_n & x_n^2&\dots&x_n^n 
+  \end{bmatrix}
+  \]
+  \cite{wiki:vandermonde}
+\end{defn}
+
+\begin{lemma}[Vandermonde determinant]
+  \label{vandermonde-det}
+  \[\det V = \prod_{1\leq i < j \leq n} (a_j-a_i)\]
+\end{lemma}
+\begin{proof}
+  Consider
+  \allowdisplaybreaks[2]
+  \begin{align*}
+    |V_n|&=
+           \begin{vmatrix}
+             1 & x_0 & x_0^2&\dots&x_0^n \\
+             1 & x_1 & x_1^2&\dots&x_1^n \\
+             \vdots &\vdots & \vdots &\ddots&\vdots \\
+             1 & x_n & x_n^2&\dots&x_n^n 
+           \end{vmatrix}\\
+         &=
+           \begin{vmatrix}
+             1 & x_0 & x_0^2&\dots&x_0^n \\
+             0 & x_1-x_0 & x_1^2-x_0^2&\dots&x_1^n-x_0^n \\
+             \vdots &\vdots & \vdots &\ddots&\vdots \\
+             0 & x_n-x_0 & x_n^2-x_0^2&\dots&x_n^n -x_0^n
+           \end{vmatrix}\\
+         &=
+            \begin{vmatrix}
+             1 & x_0 & x_0^2&\dots&0 \\
+             0 & x_1-x_0 & x_1^2-x_0^2&\dots&x_1^n-x_0x_1^{n-1} \\
+             \vdots &\vdots & \vdots &\ddots&\vdots \\
+             0 & x_n-x_0 & x_n^2-x_0^2&\dots&x_n^n -x_0x_n^{n-1}
+           \end{vmatrix}\\
+          &= 
+            \begin{vmatrix}
+              1 & 0 & 0 &\dots&0 \\
+              0 & x_1-x_0 & (x_1-x_0)x_1 & \dots & (x_1-x_0)x_1^{n-1} \\
+              \vdots &\vdots & \vdots &\ddots&\vdots \\
+             0 & x_n-x_0 & (x_n-x_0)x_n&\dots&(x_n-x_0)x_n^{n-1}
+           \end{vmatrix}\\
+         &= (x_n -x_0)\dots(x_1-x_0) 
+            \begin{vmatrix}
+              1 & x_1 & \dots & x_1^{n-1} \\
+              \vdots &\vdots &\ddots&\vdots \\
+              1 & x_n&\dots&x_n^{n-1}
+           \end{vmatrix}\\
+         &=(x_n-x_0)\dots (x_1-x_0)(x_n-x_1)\dots (x_n-x_{n-1})\dots
+  \end{align*}
+  \cite{proofwiki:vandermonde}
+\end{proof}
+
+\begin{theorem}[unisolvence theorem]
+  The $n+1$ points $(x_0,y_0)\dots (x_n,y_n)$ with distinct $x_i$ determine a unique $n$-degree polynomial. 
+\end{theorem}
+\begin{proof}
+  \begin{equation}
+  \begin{bmatrix}
+    1 & x_0 & x_0^2&\dots&x_0^n \\
+    1 & x_1 & x_1^2&\dots&x_1^n \\
+    \vdots &\vdots & \vdots &\ddots&\vdots \\
+    1 & x_n & x_n^2&\dots&x_n^n
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_0 \\
+    a_1 \\
+    \vdots \\
+    a_n
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    y_0\\
+    y_1 \\
+    \vdots \\
+    y_n
+  \end{bmatrix}
+\label{eq:poly-solve}
+\end{equation}
+  By \nameref{vandermonde-det}, $V$ is isomorphic, as each $x_i$ is distinct. Hence (\ref{eq:poly-solve}) has a unique solution. 
+\end{proof}
+
+
+\printbibliography
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+\usepackage{lmodern}
+\usepackage{microtype}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ie}{\emph i.e.}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corr}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\begin{document}
+Let $X$ be a Banach space over $\R$ and suppose the parallelogram law holds, \ie
+\end{document}
+

@@ -1,0 +1,125 @@
+\documentclass[10pt]{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,thmmarks,amsthm]{ntheorem}
+\usepackage{thmtools}
+%\usepackage{cfr-lm}
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage{url}
+\usepackage{microtype}
+
+\usepackage[style=alphabetic,backend=bibtex]{biblatex}
+\bibliography{taylor}
+
+\usepackage{nameref}
+
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\renewcommand{\ref}{\hyperref}
+
+\usepackage{cleveref}
+
+\newcounter{thms}
+\numberwithin{thms}{section}
+\theoremstyle{definition}
+\newtheorem{defn}[thms]{Definition}
+\newtheorem{defcat}[thms]{Category definition}
+\newtheorem{example}[thms]{Example}
+\theoremstyle{definition}
+\newtheorem{counterex}[thms]{Counter example}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[thms]{Theorem}
+\newtheorem{lemma}[thms]{Lemma}
+\newtheorem{cor}[thms]{Corollary}
+
+\crefname{lemma}{lemma}{lemmas}
+\crefname{theorem}{theorem}{theorems}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\define}{:\equiv}
+\DeclareMathOperator{\cl}{cl}
+
+%categories
+\newcommand{\cattop}{\mathtt{top}}
+\newcommand{\ab}{\mathtt{Ab}}
+
+\AtBeginDocument{
+  \pdfhorigin=\dimexpr\pdfhorigin-1.5in\relax
+  \pdfvorigin=\dimexpr\pdfvorigin-1in\relax
+  \pdfpagewidth=\dimexpr\pdfpagewidth-3in\relax
+  \pdfpageheight=\dimexpr\pdfpageheight-2in\relax
+}
+
+\begin{document}
+
+\begin{defn}[Vandermonde matrix]
+  \[
+  V\define
+  \begin{bmatrix}
+    1 & x_0 & x_0^2&\dots&x_0^n \\
+    1 & x_1 & x_1^2&\dots&x_1^n \\
+    \vdots &\vdots & \vdots &\ddots&\vdots \\
+    1 & x_n & x_n^2&\dots&x_n^n 
+  \end{bmatrix}
+  \]
+  \cite{wiki:vandermonde}
+\end{defn}
+
+\begin{lemma}[Vandermonde determinant]
+  \label{vandermonde-det}
+  \[\det V = \prod_{1\leq i < j \leq n} (a_j-a_i)\]
+\end{lemma}
+\begin{proof}
+  The determinant
+  \[
+  \det V = \sum_{\sigma : S_n} \sgn{\sigma}\prod_{i=0}^n x_i^\sigma(i)
+  \]
+  is an $n$-degree polynomial over variables $x_0\dots x_n$. If $x_i=x_j$, then $\det V=0$, hence $(x_j-x_i)$ is a factor of $\det V$. 
+\end{proof}
+
+\begin{theorem}
+  The $n+1$ points $(x_0,y_0)\dots (x_n,y_n)$ with distinct $x_i$ uniquely determines an $n$-degree polynomial. 
+\end{theorem}
+\begin{proof}
+  \begin{equation}
+  \begin{bmatrix}
+    1 & x_0 & x_0^2&\dots&x_0^n \\
+    1 & x_1 & x_1^2&\dots&x_1^n \\
+    \vdots &\vdots & \vdots &\ddots&\vdots \\
+    1 & x_n & x_n^2&\dots&x_n^n
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_0 \\
+    a_1 \\
+    \vdots \\
+    a_n
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    y_0\\
+    y_1 \\
+    \vdots \\
+    y_n
+  \end{bmatrix}
+\label{eq:poly-solve}
+\end{equation}
+  By \nameref{vandermonde-det}, $V$ is isomorphic, as each $x_i$ is distinct. Hence (\ref{eq:poly-solve}) has a unique solution. 
+\end{proof}
+
+
+\printbibliography
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

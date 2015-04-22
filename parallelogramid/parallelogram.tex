@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+\usepackage{lmodern}
+\usepackage{microtype}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ie}{\emph i.e.}
+
+\newcommand{\norm}[1]{|#1|}
+\newcommand{\normsq}[1]{\norm{#1}^2}
+\newcommand{\inner}[1]{\langle #1\rangle}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corr}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\begin{document}
+Let $X$ be a normed space space over $\R$ and suppose the parallelogram law holds, \ie 
+\begin{equation}
+  \tag{*}
+  \normsq{x+y}+\normsq{x-y}=2\normsq{x}+2\normsq{y}
+  \label{parid}
+\end{equation}
+for all $x,y\in X$. This is a necessary condition for $X$ to be an inner product space. I will show it is also a sufficient condition
+
+Let $\inner{x,y}:=\normsq{x+y}-\normsq x - \normsq y$.
+Note that $\inner{x,y}=\inner{y,x}$, so this is symmetric.
+Note also that $\inner{x,y}$ is continuous as a map from $X^2\to \R$.
+\begin{lemma}
+$\inner{-x,y}=-\inner{x,y}$
+\end{lemma}
+\begin{proof}
+  Observe that 
+  \begin{align*}
+    \inner{x,y}&=\normsq{x+y}-\normsq x - \normsq y\\
+    \inner{-x,y}&=\normsq{-x+y}-\normsq x - \normsq y
+  \end{align*}
+  So 
+  \[
+  \inner{x,y}+\inner{-x,y}=\normsq{x+y}+\normsq{x-y}-2\normsq x - 2\normsq y
+  \]
+  By \eqref{parid}, this is zero.
+\end{proof}
+
+\begin{lemma}
+  $\inner{a+b,c}=\inner{a,c}+\inner{b,c}$
+  \label{lem:adding}
+\end{lemma}
+\begin{proof}
+  Observe that
+  \begin{align*}
+    \inner{x+y,z}&=\normsq{x+y+z}-\normsq {x+y}-\normsq z\\
+    \inner{x-y,z}&=\normsq{x-y+z}-\normsq {x-y}-\normsq z
+  \end{align*}
+  and consider the sum
+  \[
+  \inner{x+y,z}+\inner{x-y,z}=\normsq{x+z+y}+\normsq{x+z-y}-(\normsq{x+y}+\normsq{x-y})-2\normsq z
+  \]
+  By \eqref{parid}, $\normsq{x+y}+\normsq{x-y}=2\normsq{x}+2\normsq{y}$ and $\normsq{x+y+z}+\normsq{x+y-z}=2\normsq{x+y}+2\normsq z$, so we get
+  \[
+  \inner{x+y,z}+\inner{x-y,z}=2\normsq{x+y}-2\normsq x - 2\normsq y
+  \]
+  which by \eqref{parid} is
+  \[
+  \normsq{x+y}-\normsq{x-y}= \normsq{x+y}-2\normsq x-2\normsq y -(\normsq{x-y}-2\normsq{x}-2\normsq{y})
+  \]
+  By \eqref{parid} a final time, we get
+  \[
+  \inner{x+y,z}+\inner{x-y,z}=\inner{x,z}-\inner{-x,z}=2\inner{x,z}
+  \]
+  Now note that $\inner{2x,y}=\inner{x+x,y}-\inner{x-x,y}=2\inner{x,y}$ by the above. Thus 
+  \[
+  \inner{x+y,z}+\inner{x-y,z}=\inner{2x,y}
+  \]
+  Letting $x=\frac{a+b}{2}$, $y=\frac{a-b}2$, and $z=c$ proves the lemma.
+\end{proof}
+
+\begin{theorem}[Linearity]
+  $\inner{kx+y,z}=k\inner{x,z}+\inner{y,z}$
+\end{theorem}
+\begin{proof}
+  By lemma \ref{lem:adding}, it suffices to show that $\inner{kx,y}=k\inner{x,y}$. To see this, first note it is trivial when $k=0$. Then consider the case where $k$ is a positive integer. We have 
+  \[
+  \inner{kx,y}=\inner{x+(k-1)x,y}=\inner{x,y}+\inner{(k-1)x,y}
+  \]
+  so it follows by induction that $\inner{kx,y}=k\inner{x,y}$. Now consider $\inner{k^{-1}x,y}$. By the previous result, we know $k\inner{k^{-1}x,y}=\inner{x,y}$, concluding $\inner{k^{-1}x,y}=k^{-1}\inner{x,y}$.
+
+  As any rational number $q=ab^{-1}$ where $a,b\in\Z$, $b\neq 0$, we see that $\inner{qx,y}=\inner{ab^{-1}x,y}=ab^{-1}\inner{x,y}=q\inner{x,y}$. By continuity, we can extend this to the case where $r\in\R$ is arbitrary, giving $\inner{rx,y}=r\inner{x,y}$.
+\end{proof}
+\end{document}
+

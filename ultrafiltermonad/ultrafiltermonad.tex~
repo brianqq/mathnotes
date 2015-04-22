@@ -1,0 +1,71 @@
+\documentclass[10pt]{article}
+\usepackage{amssymb, amsmath}
+\usepackage[amsmath,thmmarks,amsthm]{ntheorem}
+\usepackage{thmtools}
+%\usepackage{cfr-lm}
+%\usepackage{lmodern}
+\usepackage{float}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage{xfrac}
+\usepackage{euler}
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\setmonofont{Inconsolatazi4}
+
+%\usepackage[style=alphabetic,backend=bibtex]{biblatex}
+
+
+\usepackage{nameref}
+
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\renewcommand{\ref}{\hyperref}
+
+\usepackage{cleveref}
+
+\newcounter{thms}
+\numberwithin{thms}{section}
+\theoremstyle{definition}
+\newtheorem{defn}[thms]{Definition}
+\newtheorem{defcat}[thms]{Category definition}
+\newtheorem{example}[thms]{Example}
+
+\newtheorem{counterex}[thms]{Counter example}
+
+\newtheorem{theorem}[thms]{Theorem}
+\newtheorem{lemma}[thms]{Lemma}
+\newtheorem{cor}[thms]{Corollary}
+
+\crefname{lemma}{lemma}{lemmas}
+\crefname{theorem}{theorem}{theorems}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\define}{:\equiv}
+\DeclareMathOperator{\cl}{cl}
+
+%categories
+\newcommand{\cattop}{\mathtt{top}}
+\newcommand{\ab}{\mathtt{Ab}}
+
+\AtBeginDocument{
+  \pdfhorigin=\dimexpr\pdfhorigin-1.5in\relax
+  \pdfvorigin=\dimexpr\pdfvorigin-1in\relax
+  \pdfpagewidth=\dimexpr\pdfpagewidth-3in\relax
+  \pdfpageheight=\dimexpr\pdfpageheight-2in\relax
+}
+
+\begin{document}
+\begin{defn}[Ultrafilter]
+  
+\end{defn}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
