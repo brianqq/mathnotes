@@ -1,10 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{brian}
 
-\RequirePackage{amsmath, amssymb, url, euler, microtype, nameref, xcolor}
+\RequirePackage{amsmath, amssymb, url, euler, microtype, xcolor}
+\usepackage[amsmath,thmmarks]{ntheorem}
+\usepackage{thmtools}%for nameref to work right
+\usepackage{nameref}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{cleveref}
-\usepackage[amsmath,thmmarks]{ntheorem}
+
 \renewcommand{\ref}{\hyperref}
 
 \providecommand{\Z}{\mathbb{Z}}
