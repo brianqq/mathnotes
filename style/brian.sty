@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{brian}
+
+\RequirePackage{amsmath, amssymb, url, euler, microtype, nameref, xcolor}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{cleveref}
+\usepackage[amsmath,thmmarks]{ntheorem}
+\renewcommand{\ref}{\hyperref}
+
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\E}{\mathbb{E}}
+
+\providecommand{\define}{:\equiv}
+
+% proof environment
+\makeatletter
+\newcommand{\openbox}{\leavevmode
+  \hbox to.77778em{%
+  \hfil\vrule
+  \vbox to.675em{\hrule width.6em\vfil\hrule}%
+  \vrule\hfil}}
+\gdef\proofSymbol{\openbox}
+\newcommand{\proofname}{Proof.}
+\newcounter{proof}\newcounter{currproofctr}\newcounter{endproofctr}%
+\newenvironment{proof}[1][\proofname]{
+  \th@nonumberplain
+  \def\theorem@headerfont{\ttfamily}%
+  \normalfont
+  \theoremsymbol{\ensuremath{_\blacksquare}}
+  \@thm{proof}{proof}{#1}}%
+  {\@endtheorem}
+\makeatother
+
+%fontspec 
+\RequirePackage{fontspec}
+\setmainfont{Linux Libertine O}
+\setmonofont{Inconsolatazi4}
+
+
+
+% theorem stuff 
+\newcounter{thms}
+\numberwithin{thms}{section}
+\theoremheaderfont{\ttfamily}
+\theorembodyfont{\normalfont}
+\newtheorem{defn}[thms]{Definition}
+\newtheorem{defcat}[thms]{Category definition}
+\newtheorem{example}[thms]{Example}
+
+\newtheorem{counterex}[thms]{Counter example}
+
+\newtheorem{theorem}[thms]{Theorem}
+\newtheorem{lemma}[thms]{Lemma}
+\newtheorem{cor}[thms]{Corollary}
+\newtheorem{note}[thms]{Note}
+% koma
+\setkomafont{disposition}{\sffamily\bfseries\color{gray}}

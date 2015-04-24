@@ -1,79 +1,19 @@
 \documentclass[10pt]{scrartcl}
-\usepackage{amssymb, amsmath}
-\usepackage[amsmath,thmmarks]{ntheorem}
-\usepackage{thmtools}
+\usepackage{brian}
 %\usepackage{cfr-lm}
 %\usepackage{lmodern}
-\usepackage{xcolor}
 \usepackage{float}
-\usepackage{url}
-\usepackage{microtype}
-\usepackage{xfrac}
-\usepackage{euler}
-\usepackage{fontspec}
-\setmainfont{Linux Libertine O}
-\setmonofont{Inconsolatazi4}
 
 \usepackage[style=alphabetic,backend=bibtex]{biblatex}
 \bibliography{taylor}
 
-\usepackage{nameref}
-
 % proof environmnet definition 
-\makeatletter
-\newcommand{\openbox}{\leavevmode
-  \hbox to.77778em{%
-  \hfil\vrule
-  \vbox to.675em{\hrule width.6em\vfil\hrule}%
-  \vrule\hfil}}
-\gdef\proofSymbol{\openbox}
-\newcommand{\proofname}{Proof.}
-\newcounter{proof}\newcounter{currproofctr}\newcounter{endproofctr}%
-\newenvironment{proof}[1][\proofname]{
-  \th@nonumberplain
-  \def\theorem@headerfont{\ttfamily}%
-  \normalfont
-  %\theoremsymbol{\ensuremath{_\blacksquare}}
-  \@thm{proof}{proof}{#1}}%
-  {\@endtheorem}
-\makeatother
-
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \renewcommand{\ref}{\hyperref}
 
-\usepackage{cleveref}
-\newcounter{thms}
-\numberwithin{thms}{section}
-\theoremstyle{definition} 
-\theoremheaderfont{\ttfamily}
-\theorembodyfont{\normalfont}
-\newtheorem{defn}[thms]{Definition}
-\newtheorem{defcat}[thms]{Category definition}
-\newtheorem{example}[thms]{Example}
-
-\newtheorem{counterex}[thms]{Counter example}
-
-\newtheorem{theorem}[thms]{Theorem}
-\newtheorem{lemma}[thms]{Lemma}
-\newtheorem{cor}[thms]{Corollary}
-
-\crefname{lemma}{lemma}{lemmas}
-\crefname{theorem}{theorem}{theorems}
-
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\E}{\mathbb{E}}
-
-\newcommand{\define}{:\equiv}
-\DeclareMathOperator{\cl}{cl}
 
 %categories
 \newcommand{\cattop}{\mathtt{top}}
 \newcommand{\ab}{\mathtt{Ab}}
-
-\setkomafont{disposition}{\sffamily\bfseries\color{gray}}
 
 
 \AtBeginDocument{
@@ -84,7 +24,7 @@
 }
 
 \begin{document}
-\section{Taylor series}
+\section{taylor series}
 \newcommand{\taylor}{\mathtt{taylor}}
 \begin{lemma}[mean value theorem: integration]
   \label{mvt-int}
@@ -179,7 +119,7 @@ The $x^*$ is given by \nameref{mvt-int}.
   \]
 \end{proof}
 
-\section{Analytic functions}
+\section{analytic functions}
 \begin{defn}
   A function $f:C^\infty(\R;\R)$ is analytic in an open interval $(a,b)$ iff $f|(a,b)=\taylor^\infty f|(a,b)$. The function is analytic on $\R$ iff for each $x:\R$, there is some open interval containing $x$ on which $f$ is analytic. The space of analytic functions is denoted $C^\omega(\R;\R)$. 
 \end{defn}
@@ -377,7 +317,7 @@ $\left(\exp(it)\right)^*=\exp(-it)$
   \]
   as in \cite{wiki:sqrt}.
 \end{cor}
-\section{Power series}
+\section{power series}
 \begin{theorem}[radius of convergence]
   Let $P$ be a power series, $a:\C$. If $P(a)$ converges, then for all $z:\C$ such that $|z|<|a|$, we have $P(z)$ converges absolutely \cite{needham:visual-complex}.
 \end{theorem}
@@ -413,7 +353,7 @@ $\left(\exp(it)\right)^*=\exp(-it)$
   Taking a limit gives $a_1=b_1$. Repeating this inductively gives $P=Q$. 
 \end{proof}
 
-\section{Non-analytic smooth functions}
+\section{non-analytic smooth functions}
 \begin{counterex}
   \[
   f(x)\define

@@ -1,0 +1,280 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{brian}
+\providecommand{\ref}{\hyperref}
+\begin{document}
+\section{exponents}
+We will start from exponents as repeated multiplication, and bootstrap up to a general definition. 
+\subsection{positive integer exponents}
+\begin{defn}[positive integer exponents]
+  Define 
+  \[
+  b^n\define \underbrace{b\cdot b \dots b}_n
+  \]
+\end{defn}
+
+\begin{theorem}[exponent multiplication]
+  \label{th:exp-mult}
+  \begin{equation}
+    \label{eq:exp-mult}
+    b^n \cdot b^m = b^{n+m}
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    b^n\cdot b^m &= (\underbrace{b\dots b}_n) (\underbrace{b\dots b}_m) \\
+    b^n\cdot b^m &= \underbrace{b\dots b}_{n+m} \\
+    b^n\cdot b^m &= b^{n+m}
+  \end{align*}
+\end{proof}
+\begin{cor}[nested exponents]
+  \label{th:exp-exp}
+  \begin{equation}
+    \label{eq:exp-exp}
+    \left(b^n\right)^m = b^{nm}
+  \end{equation}
+\end{cor}
+\begin{proof}
+  \[
+  (b^n)^m = \underbrace{(b^n)\dots (b^n)}_m = b^{nm}
+  \]
+\end{proof}
+
+\begin{cor}[exponent division]
+  \label{th:exp-div0}
+  \begin{equation}
+    \label{eq:exp-div0}
+    \frac{b^n}{b^m}=
+    \begin{cases}
+      b^{n-m},&\textrm{ if } n\geq m \\
+      \frac{1}{b^{m-n}},&\textrm{ if } n < m
+    \end{cases}
+  \end{equation}
+\end{cor}
+\begin{proof}
+  \[
+  \frac{b^n}{b^m}=\frac{\overbrace{b\dots b}^n}{\underbrace{b\dots b}_m}
+  \]
+
+  If $n\geq m$, then cancel $b$ in the numerator and denominator $m$ times. This gives $b^{n-m}$. 
+  
+If $n<m$, then cancel $b$ in the numerator and denominator $n$ times. This gives $1/b^{m-n}$. 
+\end{proof}
+
+This statement is rather awkward. This is because we don't know how to take negative exponents, so we need to handle the cases where $n\geq m$ and $n<m$ separately. In the next section, we will work this out.
+
+\subsection{integer exponents}
+ Here we extend the definition of exponents to non-positive powers. We want to ensure that \cref{eq:exp-mult}, and hence \cref{eq:exp-exp,eq:exp-div0}, still hold. 
+
+If you sum zero (no) elements, it should sum to $0$, the neutral value for addition. Analogously, a product of zero elements should be $1$, the neutral value for multiplication. \Cref{eq:exp-mult} forces us to make this choice. 
+\begin{theorem}
+  \[
+  b^0 = 1
+  \]
+  is the only way we can define $b^0$ where \cref{eq:exp-mult} will still be true.
+\end{theorem}
+\begin{proof}
+  Consider $b^0b$. This gives
+  \begin{align*}
+    b^0b&=b^{0+1}\\
+    b^0b&=b
+  \end{align*}
+  Then dividing both sides by $b$ gives $b^0=1$. 
+\end{proof}
+
+By \cref{eq:exp-exp}, all that is left is to find $b^{-1}$. Once again, \cref{eq:exp-mult} forces the choice 
+\begin{theorem}
+  \[
+  b^{-1}=\frac 1 b
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    b^{-1}b &= b^{-1+1} \\
+    b^{-1}b &= b^0 \\
+    b^{-1}b&= 1 \\
+    b^{-1}&=\frac 1 b
+  \end{align*}
+\end{proof}
+\begin{theorem}
+  \begin{equation}
+    \frac{b^n}{b^m}=b^{n-m}\label{eq:exp-div}
+  \end{equation}
+  \label{th:exp-div}
+\end{theorem}
+\begin{theorem}
+  $0^0$ is undefined
+\end{theorem}
+\begin{proof}
+  This is essentially a shorthand for
+  \[
+  \frac{0}{0}
+  \]
+  which is undefined. 
+\end{proof}
+\subsection{roots and rational exponents}
+So far, exponentiation has been repeated multiplication. We haven't had to worry about existence. Until now
+\subsubsection{existence of roots}
+Does $\sqrt{2}$ exist? Is there some number, that when squared, will give us $2$? How about $3$? How about $\pi$? The answer is not so clear now. The technical answer uses continuity and other real-analytic concepts. I will give you the brief version. 
+\begin{lemma}
+  The function $f(x)=x^2$ changes a very small amount when $x$ changes a very small amount. 
+\end{lemma}
+\begin{proof}
+  Consider $(x+h)^2=x^2+2xh+h^2$. Since $h$ is very small, $2xh+h^2$ is very small. 
+\end{proof}
+
+\begin{cor}[intermediate value theorem]
+  Consider $f(x)=x^2$ on the interval $[a,b]$. It must pass through every point between $f(a)$ and $f(b)$ as $x$ varies from $a$ to $b$.
+\end{cor}
+\begin{proof}
+  Since $f(x)$ changes a very small amount when its input changes a very small amount,  it cannot skip any points. \footnote{This requires that the $x$ values themselves do not skip. The real numbers are made so there are no skips. This would not work if $x$ had to be rational, but we're not doing analysis.}
+\end{proof}
+
+\begin{theorem}
+  The square root of two exists!
+\end{theorem}
+\begin{proof}
+  Let $f(x)=x^2$. Then $f(1)=0$, and $f(2)=4$. Hence, the square root of two must exist, and $1<\sqrt 2 < 4$. 
+\end{proof}
+
+\subsubsection{roots are fractional exponents}
+\begin{theorem}
+  \begin{equation}
+    \label{eq:root-frac}
+    \sqrt[n]{b}=b^{1/n}
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  This is forced on us by \cref{eq:exp-exp} of \nameref{th:exp-exp}. Note $\sqrt[n]{b}$ is the number such that $(\sqrt[n]{b})^n=b$. However, \cref{eq:exp-exp} gives us 
+  \[
+  \left(b^{1/n}\right)^n=b^{n/n}=b
+  \]
+  hence \cref{eq:root-frac} holds. 
+\end{proof}
+
+\begin{cor}
+  \begin{equation}
+    \sqrt[m]{b^n}=b^{n/m}=\left(\sqrt[m]{b}\right)^n
+    \label{eq:exp-rat}
+  \end{equation}
+\end{cor}
+\subsubsection{irrational exponents}
+Question: what is $a^\pi$?
+Answer: impossible to write down, very easy to approximate. Since we know small changes in the exponent result in small changes to the answer, we can always improve the approximation by making smaller and smaller corrections. So
+\[
+b^\pi \approx b^{3} \approx b^{3.1} \approx b^{3.14}\approx b^{3.141} \approx b^{3.1415} \dots
+\]
+This might seem a bit alarming, but it's the same way we handle $\pi$ itself. We define it by some property, and then approximate it. Since we only need smaller and smaller changes to improve the approximation, we know it must be some well real number. 
+\section{logs}
+\[
+\log_{10}{x}
+\]
+asks $10$ to what power gives $x$. 
+\[
+\log_{\underbrace{10}_{\textrm{base}}}\left(\overbrace{x}^{\textrm{argument}}\right)
+\]
+And 
+\[
+\log_b n = e\iff  b^e=n 
+\]
+($b$ to what power gives $n$? Well, $b$ to $e$ gives $n$)
+
+They obey the inverse of the rules exponents obey
+\[
+\begin{array}{l|l}
+  \textrm{exponent} & \textrm{log} \\
+  \hline
+  b^{x+y}=b^xb^y & \log_b (xy)=\log_b(x)+\log_b(y) \\
+  b^{nx} = (b^{x})^n & \log_b(x^n)=n\log_b(x) \\
+  b^{-1} = 1/b & \log_b(1/x)=-\log_b (x)
+\end{array}
+\]
+\begin{theorem}
+  \begin{equation}
+    \label{eq:log-mult}
+    \log_b(xy)=\log_b(x)+\log_b(y)
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  We turn \cref{eq:exp-mult} of \nameref{th:exp-mult} inside out. 
+  Note
+  \[
+  b^{\log_b xy} = xy
+  \]
+  Also, note 
+  \begin{align*}
+    b^{\log_b x+\log_b y} &= b^{\log_b x}b^{\log_b y} =xy \\
+    b^{\log_b x + \log_b y}&= b^{\log_b(xy)} \\
+    \log_b x + \log_b y &= \log_b(xy)
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  \begin{equation}
+    \label{eq:log-pow}
+    \log_b(x^n)=n\log_b x
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  Note
+  \[
+  b^{n\log_b x} = (b^{\log_b x})^n = x^n
+  \]
+  and 
+  \[
+  b^{\log_b(x^n)}=x^n
+  \]
+  Hence $b^{n\log_b x}=b^{\log_b(x^n)}$, proving the theorem
+\end{proof}
+\begin{cor}
+  \[
+  log_b(x^{-1})=-\log_b(x)
+  \]
+\end{cor}
+
+\begin{theorem}[base change formula]
+  \begin{equation}
+    \label{eq:exp-base}
+    b^{n\log_b B}=B^n
+  \end{equation}
+
+  \begin{equation}
+    \log_b(x)= \frac{\log_B(x)}{\log_B(b)}
+    \label{eq:log-base}
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  For \cref{eq:exp-base}, consider
+  \[
+  b^{n\log_b B} = \left(b^{\log_b B} \right)^n= B^n
+  \]
+  
+  For \cref{eq:log-base}, consider
+  \[
+  \log_B(x)=\log_B\left(b^{\log_b x}\right)=(\log_b x)(\log_B b)
+  \]
+  Dividing by $\log_B b$ gives 
+  \[
+  \log_bx = \frac{\log_B x}{\log_B b}
+  \]
+\end{proof}
+This is important for putting things in your calculator. 
+
+\section{$\ln,e$}
+\begin{defn}[$e$]
+  The number $e\approx 2.7182\dots$ is important.  We can define it by
+  \[
+  e=\frac{1}{0!}+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}\dots
+  \]
+  We can also define it as the number such that the graph
+  of $f(x)=e^x$ has slope equal to its
+  height. This makes it convenient to work with in calculus. 
+\end{defn}
+
+\begin{defn}[$\ln$]
+  \[\ln\define \log_e\]
+\end{defn}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
