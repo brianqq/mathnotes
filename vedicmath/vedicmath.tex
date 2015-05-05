@@ -1,0 +1,49 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{brian}
+\renewcommand{\ref}{\hyperref}
+\usepackage{nameref}
+\usepackage{mathtools}
+\usepackage{epigraph}
+\begin{document}
+\section{multiplication}
+\epigraph{All from nine and the last from ten}{}
+\begin{theorem}
+  Suppose $a,b$ are positive integers. We will compute $ab$. Let $10^n$ be the power of $10$ closed to $a$ and $b$. 
+  Let $\bar a = a-10^n$ and $\bar b = b-10^n$
+  Then we can multiply 
+  \[
+  \begin{array}{rr|l}
+    &\textrm{number} & \textrm{complement} \\
+    & a & \bar a \\
+    \times & b & \bar b\\
+    \hline
+    &10^{2n}+\bar a+\bar b&\bar a\bar b
+  \end{array}
+  \]
+\end{theorem}
+\begin{proof}
+  \[
+  ab=(10^n+\bar a)(10^n+\bar b)=10^{2n}+10^n(\bar a +\bar b) + \bar a\bar b
+  \]
+\end{proof}
+\begin{example}[$9\times 7$]
+  \[
+  \begin{array}{rr|l}
+    &\textrm{number} & \textrm{complement} \\
+    &9 & -1 \\
+    \times &7 & -3\\
+    \hline
+    &6 & 3
+  \end{array}
+  \]
+\end{example}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+ 
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
