@@ -1,0 +1,39 @@
+\documentclass{scrartcl}
+\usepackage{brian}
+\begin{document}
+\section{Descartes' rule of signs}
+\begin{lemma}[base case]
+  \label{base-case}
+  If the polynomial 
+  \[
+  f(x)=a_nx^n+\dots+a_0
+  \]
+  has a sign change from $a_n$ to $a_0$, then it has a positive real root.  
+\end{lemma}
+\begin{proof}
+  We can rewrite $f(x)=x p(x)-q(x)$ where $p(x)$ and $q(x)$ are polynomials with nonnegative coefficients. Then
+  \[
+  f(0)=-q(0) < 0
+  \]
+  and 
+  \[
+  \lim_{x\to \infty} f(x)= xp(x)-q(x)=\infty >0  
+  \]
+  hence $f(x)$ must have a real root. 
+\end{proof}
+\begin{theorem}[Descartes's rule of signs]
+  Consider
+  \[
+  f(x)=a_nx^n+\dots+a_0
+  \]
+  Let $C$ be the number of sign changes from $a_n$ to $a_0$. There are at most $C$ positive roots of $f$, and if there are fewer, there must be $C-2n$ positive roots. 
+\end{theorem}
+\begin{proof}
+  By \nameref{base-case}, we know a polynomial with no sign changes has no positive roots. 
+  
+\end{proof}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
