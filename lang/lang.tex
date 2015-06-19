@@ -1,0 +1,177 @@
+\documentclass{scrartcl}
+
+\usepackage{brian}
+\usepackage{xspace} 
+\newcommand{\wologen}{wologen\xspace}
+\DeclareMathOperator*{\Span}{span}
+\begin{document}
+\section{measureable space}
+\begin{defn}[algebra of sets]
+  The set $\mathscr A$ is an algebra on $X$ iff 
+  \begin{enumerate}
+  \item $\emptyset\in\Sigma$
+  \item $A$ is closed under finite unions, intersections, and relative complements
+  \end{enumerate}
+\end{defn}
+\begin{defn}[$\sigma$-algebra of sets]
+  The set $\Sigma$ is a $\sigma$-algebra on $X$ iff
+  \begin{enumerate}
+  \item $\emptyset\in \Sigma$
+  \item $\Sigma$ is closed under complements
+  \item $\Sigma$ is closed under countable ($\sigma$) unions 
+  \end{enumerate}
+\end{defn}
+\begin{note}
+  Given a sequence of sets $A_0,A_1,\dots$ in $X$, we may define
+  \begin{align*}
+    B_0&=A_0 \\
+    B_{n+1}&=A_{n+1}-\bigcup_{i=0}^n B_i 
+  \end{align*}
+  Hence, we can assume \wologen that $\{A_n\}$ is pairwise-disjoint. 
+\end{note}
+\begin{defcat}[measureable spaces]
+  \begin{trivlist}
+  \item Spaces are sets with a $\sigma$-algebra denoting measurable sets: $(X,\Sigma)$ 
+  \item Morphisms are measurable maps: $f:(X,\Sigma)\to (X',\Sigma')$ iff $f^{-1}:\Sigma' \to \Sigma$. 
+  \end{trivlist}
+\end{defcat}
+\begin{theorem}
+  The pointwise limit $f$ of a sequence $f_0,f_1,\dots : (X,\Sigma)\to (Y,\mathscr B)$ into measureable space $Y$ is measurable if each $f_i$ is. 
+\end{theorem}
+\begin{proof}
+  Pick an arbitrary open $U\subseteq Y$. Then 
+  \[
+  f^{-1}(U) \subseteq \bigcup_{k=m}^\infty f_k^{-1}(U)
+  \]
+  hence 
+  \begin{equation}
+  f^{-1}(U) \subseteq \bigcap_{m=0}^\infty \bigcup_{k=m}^\infty f_k^{-1}(U)
+  \label{eq:pointwise-mes-lower-closed}
+  \end{equation}
+  Pick an arbitrary closed set $K\subseteq Y$. We can get the reverse inclusion. Note
+  \begin{equation}
+  \bigcap_{m=1}^\infty \bigcup_{k=m}^\infty f_k^{-1}(K)\subseteq f(K)
+  \label{eq:pointwise-mes-upper-closed}
+  \end{equation}
+  as a point $x$ in the lhs must be a limit point of $f^{-1}(K)$; hence closure gives \cref{eq:pointwise-mes-upper-closed}.
+  
+  Let $V$ be some fixed open set. Let $K_n$ be the closed set of $y$ s.t. $d(y,V^C)\geq 1/n$ and $V_n$ be the open set of $y$ s.t. $d(y,V^C)>1/n$. Then $V_n \subseteq K_n$ and 
+  \[
+  V=\bigcup_n K_n=\bigcup_n V_n
+  \]
+  By \cref{eq:pointwise-mes-upper-closed}
+  \[
+  f^{-1}(V)=\bigcup_n f^{-1}(K_n)\supseteq \bigcup_n \bigcap_{m=1}^\infty \bigcup_{k=m}^\infty f^{-1}_k(K_n)=\bigcup_n \bigcap_{m=1}^\infty \bigcup_{k=m}^\infty f^{-1}_k(V_n)
+  \]
+  By \cref{eq:pointwise-mes-lower-closed}
+  \[
+  f^{-1}(V)=\bigcup_n f^{-1}(V_n)\subseteq \bigcup_n \bigcap_{m=1}^\infty \bigcup_{k=m}^\infty f^{-1}_k(V_n)
+  \]
+\end{proof}
+\section{positive measure}
+\begin{defn}[positive measure]
+  A positive measure on $(X,\Sigma)$ is a map $\mu:\Sigma\to [0,\infty]$ that is countably ($\sigma$) additive:
+  \[
+  \mu\left(\bigcup A_n\right)=\sum_{n=0}^\infty \mu(A_n) 
+  \]
+  with $A_i$ disjoint. 
+\end{defn}
+\section{step maps}
+Let $E$ be some Banach space. 
+\newcommand{\step}{\mathtt{step}}
+\begin{defn}[Step maps]
+Define the space of step maps
+  \[
+  \step(\mu:(X,\Sigma)\to[0,\infty],E)\define E\otimes\{\chi_S:S\in\Sigma, \mu(S)<\infty\}
+  \]
+\end{defn}
+
+\begin{defn}[integral of step maps]
+  Define the linear map $\int_X$ on $\step(\mu,E)$ by
+  \[
+  \int_X \chi_S d\mu \define\mu(S)
+  \]
+\end{defn}
+
+\begin{defn}[$L^1(\mu)$]
+  Let $L^1(\mu)$ be the closure of $\step(\mu,E)$ with norm 
+  \[
+  \norm{f}_1\define \int_X |f|d\mu
+  \]
+\end{defn}
+
+\begin{defn}[almost uniformly convergent]
+  Let $\{f_n\}$ be a sequence of maps. They are almost uniformly convergent iff they converge almost everywhere and for any $\varepsilon>0$, they converge absolutely and uniformly outside of a set of measure $\varepsilon$. 
+\end{defn}
+
+\begin{theorem}[fundamental theorem of integration]
+  \label{th:fund-int}
+  Every convergent sequence $\{f_n\}$ in $L^1$ has a subsequence that almost uniformly converges to some map $f$. 
+\end{theorem}
+\begin{proof}
+  By passing to a subsequence, assume without loss of generality that
+  \[
+  \norm{f_n - f_m}_1< \frac 1 {2^{2n}}
+  \]
+  when $m>n$. 
+  
+  Consider the series
+  \begin{equation}
+  f_0 + \sum_{n=0}^\infty (f_{n+1}-f_n)
+  \label{eq:fund-int-sum}
+  \end{equation}
+  Let $Y_n=\left\{x:|f_{n+1}(x)-f_n(x)| \geq \frac 1 {2^n}\right\}$.
+  But
+  \[
+  \frac{1}{2^n} \mu(Y_n)=\int_{Y_n} \frac 1 {2^n} \leq \int_X |f_{n+1}-f_n| \leq \frac 1 {2^{2n}}
+  \]
+  Hence \[\mu(Y_n)\leq \frac 1 {2^n}\]
+  Let $Z_n=Y_n\cup Y_{n+1}\dots$. Then $\mu(Z_n)=2^{-n+1}$ and outside of $Z_n$,
+  \[
+  |f_{n+1}-f_n|<\frac 1 {2^n}
+  \]
+  hence \cref{eq:fund-int-sum} is uniformly and absolutely convergent. It is pointwise convergent outside of $ \bigcap Z_n $, which has measure zero.  
+\end{proof}
+\begin{theorem}
+  If $\{f_n\}$ is an $L^1$-cauchy sequence that converges to $0$ pointwise a.e., then $\lim \norm {f_n}_1=0$. 
+\end{theorem}
+\begin{proof}
+  Fix $N$. Pick an $n>N$ such that $\norm{f_n-f_N}<\varepsilon$. As $f_N$ is in $\step(\mu,E)$, there is some set $A$ of finite measure s.t. $f_N|_{A^C}=0$. By \nameref{th:fund-int}, pick some $Z$ such that
+  \begin{equation}
+    \mu(Z)<\frac{\varepsilon}{1+\norm{f_N}_1}
+    \label{eq:z-def}
+  \end{equation}
+  and $f|_{Z^C}$ converges to $0$ uniformly, passing to a subsequence if necessary. 
+  
+  Then
+  \begin{equation}
+  \norm{f_N}_1= \int_{A^C} |f_n| + \int_{A-Z} |f_n| +\int_Z |f_n|
+  \label{eq:int-split}
+  \end{equation}
+  On $A^C$, $f_N=0$, hence
+  \[
+  \int_{A^C} |f_n|=\int_{A^C} |f_n-F_N| <\varepsilon
+  \]
+
+  On $A-Z$, for $n$ sufficiently large, we have
+  \[
+  |f_n(x)|< \frac \varepsilon {1+\mu(A)}
+  \]
+  so $\norm{f_n(x)}_1 \leq \varepsilon$. 
+
+  On $Z$, we have, by \cref{eq:z-def}
+  \[
+  \int_Z |f_n| \leq \norm{f_n-f_N} +\mu(Z)\norm {f_N}_1 < 2\varepsilon 
+  \]
+  
+  Thus \cref{eq:int-split} becomes
+  \[
+  \norm{f_n}\leq 4\varepsilon \to 0
+  \]
+\end{proof}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
