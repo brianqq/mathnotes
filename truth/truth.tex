@@ -6,6 +6,7 @@
 \bibliography{truth}
 
 \usepackage{graphicx}
+\usepackage{colortbl}
 
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
@@ -41,9 +42,9 @@ We need to move toward logical deductions governed by rules expressed in an appr
 
 We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a mathematical model that can handle mathematics, and then asking our model what it can tell us about truth in mathematics. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs when possible. Such an approach discards much nuance of the philosophical question; we're punting. This punting is necessary, because the question `is mathematics absolutely true' is rife with uncertainty. What is mathematics? What is absolute truth? Does absolute truth exist? How can a human judge truth if `to err is human'? One can object \emph{ad nauseum}.  
 
-There's also a similar problem. Since we cannot get something from nothing, we'll need to use logic in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise. 
+A similar problem: we cannot get something from nothing. We'll need to think logically in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise. 
 \chapter[Boolean Logic]{boolean logic}
-This is the simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
+The simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
 \begin{defn}[and $\wedge$]
   \label{def:bool:and}
   $x \wedge y$ is true exactly when $x$ and $y$ are both true. This is also called conjunction.
@@ -136,9 +137,9 @@ $\implies$ & 0 & 1 \\
 \end{defn}
 We like this definition because $x\implies y$ captures the idea $y$ must follow from $x$ being true, while allowing for the possibility that $y$ may occur even when $x$ is false. For example, if $x$ means `that's a cat', and $y$ means `that's a mammal', $x\implies y$ means `that's a cat, hence it's a mammal', with the unspoken caveat that dogs are not cats ($x=0$), but they are mammals ($y=1$). 
 
-This example is a bit awkward because we have no good way of saying `all cats are mammals, but not all mammals are cats' in boolean logic. We can say this, but not in a particularly useful way. Later we will construct a more sophisticated flavor of logic, predicate logic, that allows such statements. 
+That example is awkward because we have no good way of saying `all cats are mammals, but not all mammals are cats' in boolean logic. We can say this, but not in a particularly useful way. In the next chapter, we will construct a more sophisticated logic that allows such statements. 
 
-We defined the conditional through a truth table; however, our definition of boolean logic makes no reference to truth tables. This would suggest we can give an equivalent definition of $\implies$ using $\wedge$, $\vee$, and $\neg$:
+We defined the conditional through a truth table; however, our definition of boolean logic does not mention truth tables. We ought to give a definition of $\implies$ using $\wedge$, $\vee$, and $\neg$:
 \begin{theorem}
   $x\implies y$ is equivalent to $y \vee (\neg x)$
 \end{theorem}
@@ -153,62 +154,91 @@ Likewise, we can define this in terms of $\wedge$, $\vee$, and $\neg$:
 \begin{theorem}
   $x\iff y$ is equivalent to $(x \wedge y) \vee (\neg x \wedge \neg y)$. 
 \end{theorem}
-\section[Truth Functionality]{truth functionality}
-\begin{defn}[truth function]
-  A map from a string of bits to a single bit is a truth function. 
-\end{defn}
-Each truth function has a corresponding truth table, and each truth table defines a truth function. Every boolean expression has a truth table, so every boolean expression is a truth function. But is the reverse true? Can every truth table be expressed in boolean logic? 
-
+\section[Tables to Expressions]{tables to expressions}
+We have just translated two truth-tables into expressions consisting only of $\wedge$, $\vee$, and $\neg$. You might wonder if we can always do this. We can. 
 \begin{theorem}[completeness]
   Every truth table has a corresponding boolean expression.
 \end{theorem}
 \begin{proof}
-  First consider the function $T_{(\alpha_1,\alpha_2,\dots, \alpha_n)} (x_1,x_2,\dots, x_n)$ that is true only when $x_1 = \alpha_1$, $x_2=\alpha_2$,\dots. Then let
-  \[
-  u_i=
-  \begin{cases}
-    x_i,&\textrm{ if } \alpha_i=1 \\
-    \neg x_i,&\textrm{ if }\alpha_i=0
-  \end{cases}
-  \]
-  Now we can express $T_{(\alpha_1,\dots,\alpha_n)}$ as
-  \[
-  u_1 \wedge u_2 \wedge \dots \wedge u_n
-  \]
-  So, for example, $T_{(1,0,1)}(x_1,x_2,x_3)=x_1\wedge \neg x_2 \wedge x_3$. 
-
-  Now consider the arbitrary truth function $f(x_1,\dots, x_n)$. We can write it by or-ing over all $T_{(\alpha_1,\dots, \alpha_n)}$ where $f(\alpha_1,\dots,\alpha_n)=1$. 
-  So for example, the truth table
-  \begin{center}
+  It's best to start with an example. Consider the truth table:
+\definecolor{LightCyan}{rgb}{0.8,1,1}
+  \begin{table}
+    \centering
+  \caption{some truthtable}\label{tt:complete}
 %BEGIN RECEIVE ORGTBL bool-complete
 \begin{tabular}{rrrr}
 $x_1$ & $x_2$ & $x_3$ & $f$ \\
 \hline
 0 & 0 & 0 & 0 \\
-0 & 0 & 1 & 1 \\
+\rowcolor{LightCyan} 0 & 0 & 1 & 1 \\
 0 & 1 & 0 & 0 \\
 0 & 1 & 1 & 0 \\
-1 & 0 & 0 & 1 \\
+\rowcolor{LightCyan} 1 & 0 & 0 & 1 \\
 1 & 0 & 1 & 0 \\
-1 & 1 & 0 & 1 \\
+\rowcolor{LightCyan} 1 & 1 & 0 & 1 \\
 1 & 1 & 1 & 0 
 \end{tabular}
 %END RECEIVE ORGTBL bool-complete
-  \end{center}
-  has corresponding expression
-  \[
-  (\neg x_1 \wedge \neg x_2 \wedge x_3)\vee (x_1 \wedge \neg x_2 \wedge \neg x_3) \vee (x_1 \wedge x_2 \wedge \neg x_3)
-  \]
-  note, these expressions are uniquely defined by a truth table. 
+\end{table}
+We want an expression that is true exactly when $(x_1,x_2,x_3)$ is $(0,0,1)$ or $(1,0,0)$ or $(1,1,0)$. A straightforward way to do this is to or together a statement that is true only on the input $(0,0,1)$, a statement true only on $(1,0,0)$, and a statement that is true only on $(1,1,0)$. 
+
+Consider $(x_1,x_2,x_3)=(0,0,1)$. To find an expression that is true for this input and false for all others, we can simply assert $x_1=0$ and $x_2=0$ and $x_3=1$, \emph{i.e.}
+\[
+\neg x_1\wedge \neg x_2 \wedge x_3
+\]
+By the same argument, we can find the remaining expressions:
+\[
+\begin{matrix}
+ (x_1,x_2,x_3)=(0,0,1) & \neg x_1 \wedge \neg x_2 \wedge x_3 \\
+ (x_1,x_2,x_3)=(1,0,0) & x_1 \wedge \neg x_2 \wedge \neg x_3 \\
+ (x_1,x_2,x_3)=(1,1,0) & x_1 \wedge x_2 \wedge \neg x_3 
+\end{matrix}
+\]
+Hence \cref{tt:complete} can be written as 
+\[
+(\neg x_1 \wedge \neg x_2 \wedge x_3 ) \vee (\wedge \neg x_2 \wedge \neg x_3) \vee  (x_1 \wedge x_2 \wedge \neg x_3)
+\]
+
+To prove the theorem, we just need to generalize the work we've done. Suppose we are given a truth table for the function $f(x_1,\dots, x_n)$. Mark off the rows in the truth table where $f(x_1,\dots,x_n)=1$. For each such row, we construct the expression that asserts the input matches. If the current row is for the input
+\[
+(x_1,\dots, x_n)=(\alpha_1,\dots, \alpha_n)
+\]
+then the expression is
+\[
+\left (
+  \begin{matrix}
+    x_1 & \textrm{ if } \alpha_1=1 \\
+    \neg x_1 & \textrm { if } \alpha_1=0
+  \end{matrix}
+\right)
+\wedge
+\dots
+\wedge
+\left (
+  \begin{matrix}
+    x_n & \textrm{ if } \alpha_n=1 \\
+    \neg x_n & \textrm { if } \alpha_n=0
+  \end{matrix}
+\right)
+\]
+Abbreviate this as $(x_1=\alpha_1)\wedge \dots \wedge (x_n=\alpha_n)$. This is just a notational convenience; the final answer will not actually contain $=$ or refer to the $\alpha_i$. 
+
+Then we or over each of the above expressions: 
+\[
+f(x_1,\dots,x_n)= \bigvee_{\alpha_1,\dots,\alpha_n: f(\alpha_1,\dots,\alpha_n)=1} (x_1=\alpha_1)\wedge \dots \wedge (x_n=\alpha_n)
+\]
+giving a boolean expression with the desired truth table. 
 \end{proof}
-  The resulting expressions in the above proof are said to be in disjunctive normal form. 
-\begin{cor}[disjunctive normal form]
-  Any two expressions are equivalent if and only if (iff) they have the same disjunctive normal form. 
-\end{cor}
-\begin{proof}
-  Two statements are equivalent iff they have the same truth table. If they have the same truth table, they must have the same disjunctive normal forms. 
-\end{proof}
-This tells us boolean algebra is `big enough' to describe all truth functions. One interesting implication of this result is digital computers can be built. 
+This tells us that boolean logic is big enough to express any truth table. An interesting implication is that general purpose computers can be constructed!
+\section[Absolute Truth?]{absolute truth?}
+We are supposed to shy away from notions of absolute truth, but boolean logic is simple enough that we can talk about it without making a mess. A boolean expression's truth value can be computed directly from the inputs. Since each input can be either true or false, there are only finitely many possible inputs. Hence, everything you need to know is contained in the expression's truth table. These computations can be carried out unambiguously by a machine in finite time, so things are looking pretty good.
+
+We can also show there are no contradictions. In boolean logic, a contradiction would be of the form
+\[
+p \wedge \neg p
+\]
+for some expression $p$. No matter what the expression $p$ is, it must either evaluate to $1$ or $0$. Suppose $p=1$. Then $\neg p=0$. So $p\wedge \neg p = 1 \wedge 0 =0$. Likewise, if $p=0$, we get $0\wedge 1=0$. Thus all contradictions are false.
+\printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
 | $\wedge$ | 0 | 1 |
