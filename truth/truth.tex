@@ -238,6 +238,91 @@ We can also show there are no contradictions. In boolean logic, a contradiction 
 p \wedge \neg p
 \]
 for some expression $p$. No matter what the expression $p$ is, it must either evaluate to $1$ or $0$. Suppose $p=1$. Then $\neg p=0$. So $p\wedge \neg p = 1 \wedge 0 =0$. Likewise, if $p=0$, we get $0\wedge 1=0$. Thus all contradictions are false.
+
+\chapter[Predicate Logic]{predicate logic}
+Boolean logic is beautiful, but it is not expressive enough to make deductions like `Socrates is a man. All men are mortal. Therefore, Socrates is mortal.' Enter Gottlob Frege. 
+
+Nineteenth century mathematics was in crisis. For thousands of years, mathematics had remained essentially unchanged: the gold standard was proof by Euclidean geometry. Algebra, arabic numerals, zero were tools that expedite geometric reasoning. Even new results in number theory were assumed to be, at heart geometric truths. But by the 1800s, it was clear this worldview was no longer sustainable. Mathematics had grown too abstract.
+
+Calculus, the most revolutionary discovery this side of the dark ages, stood with embarrassingly poor theoretical footing. Newton and Leibniz through Euler and Cauchy relied on infinitesimals, but could not justify their use \emph{a priori}, certainly not by Euclidean geometry. To make matters worse, if you were not careful, an argument that seemed kosher could result in nonsense. 
+Fourier's work was downright scandalous. By decomposing functions as an infinite series of $\sin$ and $\cos$ waves, he was able to solve the heat equation, a problem unsolved for all but the most trivial cases. Experiments verified his results, but conservative mathematicians could not come to terms with it. 
+
+Abel, and later Galois, proved that degree $5$ equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux Galois's proof were abstract algebraic systems that were not clearly based in Euclidean geometry. 
+
+Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry, such as is there a method to trisect an angle using a compass and straight edge, went unsolved for a few millennia. But these were quickly solved using Galois's tools. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
+
+In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson, an Oxford mathematician better known as Lewis Carol, wrote \emph{Alice in Wonderland}, a veiled satire ridiculing the absurdity of this new abstract mathematics. \cite{alice}
+
+Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George Boole's logic was viewed more as a useful trick that cleaned up some ambiguities for the pedants, Frege developed a logic capable of housing all of the new mathematical objects. His work went relatively unnoticed by his contemporaries, but it revolutionized mathematics and philosophy. 
+
+\section[What is Predicate Logic?]{what is predicate logic?}
+First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that mathematicians have given up deciding if it is absolutely true. 
+
+Statements in predicate logic are made up of the logical symbols:
+\begin{trivlist}
+\item quantifiers: for every ($\forall$) and there exists ($\exists$)
+\item logical connectives: $\wedge,\vee,\neg,\implies,\iff$
+\item parenthesis 
+\item variables: lowercase letters
+\item equality: $=$
+\end{trivlist}
+
+and additionally 
+\begin{trivlist}
+\item predicate symbols: capital letters $P(x,y,z)$ or typewriter text $\texttt{even?(n)}$.
+\item function symbols 
+\item constant symbols  
+\end{trivlist}
+The new entities are the quantifiers, the predicate symbols, the function symbols, and the constants. Function symbols and constant symbols probably do what you expect: function symbols denote functions, and constant symbols denote constants. 
+
+Predicates denote true-or-false propositions of their arguments. For example $\geq$ is a predicate symbol that is understood to mean `greater than or equal to'. 
+
+Finally, quantifiers allow us to form statements like `every man is mortal'. If $\texttt{man?}$ and $\texttt{mortal?}$ are the predicates for, well, `is the argument a man?' and `is the argument mortal?', this sentence translates to
+\[
+\forall x ( \texttt{man?}(x) \implies \texttt{mortal?}(x) )
+\]
+which says roughly, for all $x$ in the universe, if $x$ is a man, then $x$ is mortal. 
+
+If we refer to Socrates by the constant symbol $s$, we can state the syllogism `Socrates is a man. Men are mortal. Hence, Socrates is mortal' as follows:
+\[
+\texttt{man?}(s) \wedge \forall x \bigl(\texttt{man?}(x)\implies\texttt{mortal?}(x)\bigr) \implies \texttt{mortal?}(s)
+\]
+
+Recall the statement
+\begin{quote}
+  Every mouse fears some cat
+\end{quote}
+We can now state this unambiguously as 
+\[
+\forall m \bigr(\texttt{mouse?}(m) \implies \exists c (\texttt{cat?}(c)\wedge \texttt{fears?}(m,c)) \bigl)
+\]
+\emph{i.e.} `for every mouse there is a corresponding scary cat', or 
+\[
+\exists c \bigl(\texttt{cat?}(c) \forall m (\texttt{mouse?}(m) \texttt{fears?}(m,c)\bigr)
+\]
+\emph{i.e.} `there is one particularly frightening cat all mice fear'.
+
+\section[Peano Arithmetic]{peano arithmetic}
+I promised this would be sufficient to house modern mathematics. I will show you how the natural numbers can be defined using Peano's axioms \cite{wiki:peano}. 
+
+\renewcommand{\succ}{\texttt{succ}}
+First, stipulate there is a constant called $0$ and a function of one argument called $\succ$. 
+The Peano axioms are as follows: 
+\begin{trivlist}
+\item zero is the smallest
+  \[
+  \forall x. 0 \neq \succ(x)
+  \]
+\item two naturals are equal if their successors are equal
+  \[
+  \forall x,y. \succ (x) = \succ(y) \implies x=y
+  \]
+\item induction: if $\Phi$ is a predicate 
+  \[
+  \Phi(0) \wedge \forall x \bigl(\Phi(x)\implies \Phi(\succ(x))\bigr) \implies \forall y.\Phi(y)
+  \]
+  in English, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then $\Phi$ must be true for all natural numbers. 
+\end{trivlist}
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
