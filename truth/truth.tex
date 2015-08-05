@@ -7,7 +7,8 @@
 
 \usepackage{graphicx}
 
-
+\renewcommand{\implies}{\to}
+\renewcommand{\iff}{\leftrightarrow}
 \begin{document}
 Mathematics deals with absolute truth, right? Errr, well, absolute truth is an incredibly loaded term. Properly unpacking it requires a healthy amount of philosophy and mathematics. Wait. Don't go away. It's fun. You'll be grappling with paradoxical statements like `this sentence is false' in a productive and well-defined way. You'll find statements that are neither true nor false, yet are critical to our modern understanding of mathematics. 
 
@@ -29,7 +30,7 @@ We could start with assertions and then work toward a conclusion by requiring ea
 \begin{quote}
   Every mouse fears some cat.
 \end{quote}
-Does this mean there is one terribly frightening cat that every single mouse fears? Or does it mean for each mouse there is a corresponding scary cat? 
+Does this mean there is one terribly frightening cat that every single mouse fears? Or does it mean for each mouse there is a corresponding scary cat? \cite{wiki:cat-gen}
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{images/tom-jerry}
@@ -38,7 +39,7 @@ Does this mean there is one terribly frightening cat that every single mouse fea
 
 We need to move toward logical deductions governed by rules expressed in an appropriate notation (not English). These rules should be straight-forward enough that they can be checked by a computer, but expressive enough that we can work out all mathematics in terms of these logical deductions. 
 
-We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a mathematical model that can handle mathematics, and then asking our model what it can tell us about truth in mathematics. Such an approach discards much nuance of the philosophical question; we're punting. This punting is necessary, because the question `is mathematics absolutely true' is rife with uncertainty. What is mathematics? What is absolute truth? Does absolute truth exist? How can a human judge truth if `to err is human'? One can object \emph{ad nauseum}.  
+We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a mathematical model that can handle mathematics, and then asking our model what it can tell us about truth in mathematics. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs when possible. Such an approach discards much nuance of the philosophical question; we're punting. This punting is necessary, because the question `is mathematics absolutely true' is rife with uncertainty. What is mathematics? What is absolute truth? Does absolute truth exist? How can a human judge truth if `to err is human'? One can object \emph{ad nauseum}.  
 
 There's also a similar problem. Since we cannot get something from nothing, we'll need to use logic in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise to the reader. 
 \chapter[Boolean Logic]{boolean logic}
@@ -91,6 +92,7 @@ $x$ & $\neg x$ \\
     \neg(x\wedge y) &=  (\neg x) \vee (\neg y) \label{eq:dmorg:and} \\
     \neg(x \vee y) &= (\neg x) \wedge (\neg y) \label{eq:dmorg:or}
   \end{align}
+  (see also \cite{wiki:demorgan})
 \end{theorem}
 \begin{proof}
  First show \cref{eq:dmorg:and} by checking truth tables:
@@ -106,8 +108,99 @@ $x$ & $y$ & $x\wedge y$ & $\neg(x\wedge y)$ & $\neg x$ & $\neg y$ & $(\neg x)\ve
 \end{tabular}
 %END RECEIVE ORGTBL nand-dmorg
 \end{center}
+Then negate both sides of $\cref{eq:dmorg:and}$, giving 
+\[
+x\wedge y = \neg(\neg x \vee \neg y)
+\]
+Make the substitution $\bar x = \neg x$ and $\bar y =\neg y$:
+\[
+(\neg \bar x)\wedge (\neg \bar y) = \neg(\bar x \vee \neg \bar y)
+\]
+or, equivalently, \cref{eq:dmorg:or}. 
 \end{proof}
 
+\section[The Conditional]{the conditional}
+We would like to model causality. Causality is vital in logical reasoning. But defining causality is a black hole ready to swallow up even the cleverest of thinkers. So hark the olde adage `the best mathematician is a lazy one', and punt. We will define the operator implies, a.k.a. the conditional, denoted $\implies$ to act as our stripped-down notion of causality. 
+\begin{defn}[implies $\implies$]
+  $x\implies y$ is true for all inputs except $1\implies 0$. 
+\begin{center}  
+%BEGIN RECEIVE ORGTBL if-tt
+\begin{tabular}{r|rr}
+$\implies$ & 0 & 1 \\
+\hline
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+\end{tabular}
+%END RECEIVE ORGTBL if-tt
+\end{center}
+\end{defn}
+We like this definition because $x\implies y$ captures the idea $y$ must follow from $x$ being true, while allowing for the possibility that $y$ may occur even when $x$ is false. For example, if $x$ means `that's a cat', and $y$ means `that's a mammal', $x\implies y$ means `that's a cat, hence it's a mammal', with the unspoken caveat that dogs are not cats ($x=0$), but they are mammals ($y=1$). 
+
+This example is a bit awkward because we have no good way of saying `all cats are mammals, but not all mammals are cats' in boolean logic. We can say this, but not in a particularly useful way. Later we will construct a more sophisticated flavor of logic, predicate logic, that allows such statements. 
+
+We defined the conditional through a truth table; however, our definition of boolean logic makes no reference to truth tables. This would suggest we can give an equivalent definition of $\implies$ using $\wedge$, $\vee$, and $\neg$:
+\begin{theorem}
+  $x\implies y$ is equivalent to $y \vee (\neg x)$
+\end{theorem}
+\begin{proof}
+  Both expressions are false only when $x=1$ and $y=0$. 
+\end{proof}
+
+\begin{defn}[logical equivalence $\iff$]
+  $x\iff y$ exactly when $x = y$. 
+\end{defn}
+Likewise, we can define this in terms of $\wedge$, $\vee$, and $\neg$:
+\begin{theorem}
+  $x\iff y$ is equivalent to $(x \wedge y) \vee (\neg x \wedge \neg y)$. 
+\end{theorem}
+\section[Truth Functionality]{truth functionality}
+\begin{defn}[truth function]
+  A map from a string of bits to a single bit is a truth function. 
+\end{defn}
+Each truth function has a corresponding truth table, and each truth table defines a truth function. Every boolean expression has a truth table, so every boolean expression is a truth function. But is the reverse true? Can every truth table be expressed in boolean logic? 
+
+\begin{theorem}[completeness]
+  Every truth table has a corresponding boolean expression.
+\end{theorem}
+\begin{proof}
+  First consider the function $T_{(\alpha_1,\alpha_2,\dots, \alpha_n)} (x_1,x_2,\dots, x_n)$ that is true only when $x_1 = \alpha_1$, $x_2=\alpha_2$,\dots. Then let
+  \[
+  \phi_i(\alpha)=
+  \begin{cases}
+    x_i,&\textrm{ if } \alpha_i=1 \\
+    \neg x_i,&\textrm{ if }\alpha_i=0
+  \end{cases}
+  \]
+  Now we can express $T_{(\alpha_1,\dots,\alpha_n)}$ as
+  \[
+  \phi_1(\alpha_1)\wedge \phi_2(\alpha_2)\wedge \dots \wedge \phi_n(\alpha_n)
+  \]
+  So, for example, $T_{(1,0,1)}(x_1,x_2,x_3)=x_1\wedge \neg x_2 \wedge x_3$. 
+
+  Now consider the arbitrary truth function $f(x_1,\dots, x_n)$. We can write it by or-ing over all $T_{(\alpha_1,\dots, \alpha_n)}$ when $f(\alpha_1,\dots,\alpha_n)=1$. 
+  So for example, the truth table
+  \begin{center}
+%BEGIN RECEIVE ORGTBL bool-complete
+\begin{tabular}{rrrr}
+$x_1$ & $x_2$ & $x_3$ & $f$ \\
+\hline
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 1 \\
+1 & 1 & 1 & 0 
+\end{tabular}
+%END RECEIVE ORGTBL bool-complete
+  \end{center}
+  has corresponding expression
+  \[
+  (\neg x_1 \wedge \neg x_2 \wedge x_3)\vee (x_1 \wedge \neg x_2 \wedge \neg x_3) \vee (x_1 \wedge x_2 \wedge \neg x_3)
+  \]
+\end{proof}
+This tells us boolean algebra is `big enough' to describe all truth functions. One interesting implication of this result is digital computers are possible to construct. 
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
 | $\wedge$ | 0 | 1 |
@@ -134,6 +227,26 @@ $x$ & $y$ & $x\wedge y$ & $\neg(x\wedge y)$ & $\neg x$ & $\neg y$ & $(\neg x)\ve
 |   1 |   0 |           0 |                 1 |        0 |        1 |                       1 |
 |   1 |   1 |           1 |                 0 |        0 |        0 |                       0 |
 #+TBLFM: $3=$1 && $2::$4=! $3::$5=!$1::$6=!$2::$7=$5 || $6
+
+#+ORGTBL: SEND if-tt orgtbl-to-latex :splice nil :skip 0 
+| $\implies$ | 0 | 1 |
+|------------+---+---|
+|          0 | 1 | 1 |
+|          1 | 0 | 1 |
+
+#+ORGTBL: SEND bool-complete orgtbl-to-latex :splice nil :skip 0
+| $x_1$ | $x_2$ | $x_3$ | f |
+|-------+-------+-------+---|
+|     0 |     0 |     0 | 0 |
+|     0 |     0 |     1 | 1 |
+|     0 |     1 |     0 | 0 |
+|     0 |     1 |     1 | 0 |
+|     1 |     0 |     0 | 1 |
+|     1 |     0 |     1 | 0 |
+|     1 |     1 |     0 | 1 |
+|     1 |     1 |     1 | 0 |
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
