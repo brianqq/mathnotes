@@ -41,7 +41,7 @@ We need to move toward logical deductions governed by rules expressed in an appr
 
 We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a mathematical model that can handle mathematics, and then asking our model what it can tell us about truth in mathematics. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs when possible. Such an approach discards much nuance of the philosophical question; we're punting. This punting is necessary, because the question `is mathematics absolutely true' is rife with uncertainty. What is mathematics? What is absolute truth? Does absolute truth exist? How can a human judge truth if `to err is human'? One can object \emph{ad nauseum}.  
 
-There's also a similar problem. Since we cannot get something from nothing, we'll need to use logic in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise to the reader. 
+There's also a similar problem. Since we cannot get something from nothing, we'll need to use logic in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise. 
 \chapter[Boolean Logic]{boolean logic}
 This is the simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
 \begin{defn}[and $\wedge$]
@@ -165,7 +165,7 @@ Each truth function has a corresponding truth table, and each truth table define
 \begin{proof}
   First consider the function $T_{(\alpha_1,\alpha_2,\dots, \alpha_n)} (x_1,x_2,\dots, x_n)$ that is true only when $x_1 = \alpha_1$, $x_2=\alpha_2$,\dots. Then let
   \[
-  \phi_i(\alpha)=
+  u_i=
   \begin{cases}
     x_i,&\textrm{ if } \alpha_i=1 \\
     \neg x_i,&\textrm{ if }\alpha_i=0
@@ -173,11 +173,11 @@ Each truth function has a corresponding truth table, and each truth table define
   \]
   Now we can express $T_{(\alpha_1,\dots,\alpha_n)}$ as
   \[
-  \phi_1(\alpha_1)\wedge \phi_2(\alpha_2)\wedge \dots \wedge \phi_n(\alpha_n)
+  u_1 \wedge u_2 \wedge \dots \wedge u_n
   \]
   So, for example, $T_{(1,0,1)}(x_1,x_2,x_3)=x_1\wedge \neg x_2 \wedge x_3$. 
 
-  Now consider the arbitrary truth function $f(x_1,\dots, x_n)$. We can write it by or-ing over all $T_{(\alpha_1,\dots, \alpha_n)}$ when $f(\alpha_1,\dots,\alpha_n)=1$. 
+  Now consider the arbitrary truth function $f(x_1,\dots, x_n)$. We can write it by or-ing over all $T_{(\alpha_1,\dots, \alpha_n)}$ where $f(\alpha_1,\dots,\alpha_n)=1$. 
   So for example, the truth table
   \begin{center}
 %BEGIN RECEIVE ORGTBL bool-complete
@@ -199,6 +199,14 @@ $x_1$ & $x_2$ & $x_3$ & $f$ \\
   \[
   (\neg x_1 \wedge \neg x_2 \wedge x_3)\vee (x_1 \wedge \neg x_2 \wedge \neg x_3) \vee (x_1 \wedge x_2 \wedge \neg x_3)
   \]
+  note, these expressions are uniquely defined by a truth table. 
+\end{proof}
+  The resulting expressions in the above proof are said to be in disjunctive normal form. 
+\begin{cor}[disjunctive normal form]
+  Any two expressions are equivalent if and only if (iff) they have the same disjunctive normal form. 
+\end{cor}
+\begin{proof}
+  Two statements are equivalent iff they have the same truth table. If they have the same truth table, they must have the same disjunctive normal forms. 
 \end{proof}
 This tells us boolean algebra is `big enough' to describe all truth functions. One interesting implication of this result is digital computers can be built. 
 \end{document}
