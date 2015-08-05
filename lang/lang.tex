@@ -163,12 +163,20 @@ Define the space of step maps
   \[
   \int_Z |f_n| \leq \norm{f_n-f_N} +\mu(Z)\norm {f_N}_1 < 2\varepsilon 
   \]
-  
   Thus \cref{eq:int-split} becomes
   \[
   \norm{f_n}< 4\varepsilon \to 0
   \]
 \end{proof}
+\begin{cor}
+  If $h_n$ and $g_n$ are $L^1$-cauchy and converge (pointwise) to the same map,
+  \[
+  \lim\int h_n = \lim\int g_n
+  \]
+\end{cor}
+\begin{defn}[$\mathscr L^1$]
+  Let $\mathscr L^1(\mu;E)$ be the set of functions with finite norm that are pointwise limits functions in $\step(\mu;E)$ almost everywhere. The norm is given by approximating by step functions. 
+\end{defn}
 \end{document}
 
 %%% Local Variables:
