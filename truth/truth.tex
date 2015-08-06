@@ -38,11 +38,11 @@ Does this mean there is one terribly frightening cat that every single mouse fea
   \caption{A scary cat }
 \end{figure}
 
-We need to move toward logical deductions governed by rules expressed in an appropriate notation (not English). These rules should be straight-forward enough that they can be checked by a computer, but expressive enough that we can work out all mathematics in terms of these logical deductions. 
+We need to move toward logical deductions governed by rules expressed in an appropriate notation (not English). These rules should be straight-forward enough that they can be checked by a computer, but expressive enough that we can work out all of mathematics.
 
-We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a mathematical model that can handle mathematics, and then asking our model what it can tell us about truth in mathematics. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs when possible. Such an approach discards much nuance of the philosophical question; we're punting. This punting is necessary, because the question `is mathematics absolutely true' is rife with uncertainty. What is mathematics? What is absolute truth? Does absolute truth exist? How can a human judge truth if `to err is human'? One can object \emph{ad nauseum}.  
+We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a model of logic and mathematics, and then asking our model what it can tell us about truth. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs. Such an approach discards much nuance of the philosophical question. This punting is necessary because the question `is mathematics absolutely true' is rife with uncertainty---what is mathematics? what is absolute truth? does absolute truth exist? how can a human judge truth if `to err is human'? Objections \emph{ad nauseum}.  
 
-A similar problem: we cannot get something from nothing. We'll need to think logically in order to set up our mathematical model of logic. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this bit of circular reasoning we're stuck with is innocent. The proof, of course, is left as an exercise. 
+We'll need to think logically to reason about our model. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this circular reasoning is innocent. 
 \chapter[Boolean Logic]{boolean logic}
 The simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
 \begin{defn}[and $\wedge$]
@@ -160,9 +160,9 @@ We have just translated two truth-tables into expressions consisting only of $\w
   Every truth table has a corresponding boolean expression.
 \end{theorem}
 \begin{proof}
-  It's best to start with an example. Consider the truth table:
+  It's best to start with an example. Consider \cref{tt:complete}
 \definecolor{LightCyan}{rgb}{0.8,1,1}
-  \begin{table}
+  \begin{table}[h!]
     \centering
   \caption{some truthtable}\label{tt:complete}
 %BEGIN RECEIVE ORGTBL bool-complete
@@ -196,7 +196,7 @@ By the same argument, we can find the remaining expressions:
 \]
 Hence \cref{tt:complete} can be written as 
 \[
-(\neg x_1 \wedge \neg x_2 \wedge x_3 ) \vee (\wedge \neg x_2 \wedge \neg x_3) \vee  (x_1 \wedge x_2 \wedge \neg x_3)
+(\neg x_1 \wedge \neg x_2 \wedge x_3 ) \vee (x_1 \wedge \neg x_2 \wedge \neg x_3) \vee  (x_1 \wedge x_2 \wedge \neg x_3)
 \]
 
 To prove the theorem, we just need to generalize the work we've done. Suppose we are given a truth table for the function $f(x_1,\dots, x_n)$. Mark off the rows in the truth table where $f(x_1,\dots,x_n)=1$. For each such row, we construct the expression that asserts the input matches. If the current row is for the input
@@ -251,7 +251,7 @@ Abel, and later Galois, proved that degree $5$ equations have no general solutio
 
 Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry, such as is there a method to trisect an angle using a compass and straight edge, went unsolved for a few millennia. But these were quickly solved using Galois's tools. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
 
-In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson, an Oxford mathematician better known as Lewis Carol, wrote \emph{Alice in Wonderland}, a veiled satire ridiculing the absurdity of this new abstract mathematics. \cite{alice}
+In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson, an Oxford mathematician better known as Lewis Carol, wrote \emph{Alice in Wonderland}, a veiled satire ridiculing the absurdity of this new mathematics. \cite{alice}
 
 Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George Boole's logic was viewed more as a useful trick that cleaned up some ambiguities for the pedants, Frege developed a logic capable of housing all of the new mathematical objects. His work went relatively unnoticed by his contemporaries, but it revolutionized mathematics and philosophy. 
 
@@ -309,20 +309,170 @@ I promised this would be sufficient to house modern mathematics. I will show you
 First, stipulate there is a constant called $0$ and a function of one argument called $\succ$. 
 The Peano axioms are as follows: 
 \begin{trivlist}
-\item zero is the smallest
+\item Nothing comes before zero:
   \[
   \forall x. 0 \neq \succ(x)
   \]
-\item two naturals are equal if their successors are equal
+\item Two naturals are equal if their successors are equal:
   \[
   \forall x,y. \succ (x) = \succ(y) \implies x=y
   \]
-\item induction: if $\Phi$ is a predicate 
+\item Induction: if $\Phi$ is a predicate, 
   \[
   \Phi(0) \wedge \forall x \bigl(\Phi(x)\implies \Phi(\succ(x))\bigr) \implies \forall y.\Phi(y)
   \]
-  in English, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then $\Phi$ must be true for all natural numbers. 
+  In English, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then $\Phi$ must be true for all natural numbers. 
 \end{trivlist}
+
+\begin{defn}[plus]
+  \label{defn:peano:+}
+  We can define $+$, a function of two inputs, by recursion:
+  \begin{align*}
+    \forall x (x + 0 &= x) \\
+    \forall x \forall y \bigl(x + \succ(y) = succ(x+y)\bigr)
+  \end{align*}
+\end{defn}
+\section[Deduction]{deduction}
+In boolean algebra, when determining the truth of a statement, the worst case scenario will require writing out a large truth table. Not so for predicate logic. Quantifiers range over everything in some possibly infinite universe. Predicates abstract away calculations to something behind the scenes. Without any way to explicitly enumerate everything in the universe, the logician must indicate its content, as well as the behavior of some predicates, with axioms.  
+
+Some axioms, like $\forall x P(x)$ and $\exists x \neg P(x)$ are contradictory, hence nonsensical. One would hope this is just a case of `ask a bad question; get a bad answer'. We would hope that the laws of deduction, which govern what you can actually do with the axioms you choose, are ok. 
+
+Prior to stating the laws of deduction, we must define the following: 
+\begin{defn}[bound variable]
+  A variable is said to be bound if it is introduced by a quantifier. 
+\end{defn}
+\begin{example}[bound variables]
+  In the expression
+  \[
+  \forall x (\texttt{even?}(x)\implies \exists y . x=2y)
+  \]
+  the variables $x$ and $y$ are bound.  
+\end{example}
+\begin{defn}[free variable]
+  A variable that is not bound is called free. 
+\end{defn}
+\begin{example}[free variable]
+  In 
+  \[
+  \forall y . x\leq 2y
+  \]
+  $y$ is bound but $x$ is free. 
+\end{example}
+\begin{defn}[scope]
+  The scope of a bound variable is the part of the expression where the variable is understood to mean the variable introduced by a quantifier. We can make scope explicit with parenthesis:
+  \[
+  \forall x \bigl(\underbrace{\texttt{cat?}(x)\implies \texttt{mammal?}(x)}_{\textrm{scope}}\bigr)
+  \]
+  When no parenthesis are present, the scope is understood to lie between the quantifier and the first $\implies$ or $\iff$:
+  \[
+  \forall x . \underbrace{x\neq 0\wedge x \leq 3}_{\textrm{scope of $x$}}  \implies \neg \exists y . \underbrace{y > 3}_{\textrm{scope of $y$}}
+  \]
+\end{defn}
+
+For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boolean logic:
+\begin{trivlist}
+\item $x \wedge y$ is true if and only if (iff) $x$ is true and $y$ is true
+\item $x \vee y$ is true iff $x$ is true or $y$ is true 
+\item $\neg x$ is true iff $x$ is false   
+\item $x \implies y$ is true unless $x=1$ and $y=0$  
+\item $x\iff y$ is true iff $x$ has the same truth value as $y$  
+\end{trivlist}
+
+For the additional deduction rules for the quantifiers,  we assume $\phi(x)$ is a predicate, possibly one that can be expressed as a first order statement. If $\phi(x)$ contains a bound instance of $x$, the bound $x$ will `shadow' the parameter. For example, 
+\[
+\phi(x)=\texttt{even?}(x) \wedge \forall x (\texttt{even?}(x)\vee \texttt{odd?}(x))
+\]
+would be more clearly defined as 
+\[
+\phi(y)=\texttt{even?}(x) \wedge \forall y (\texttt{even?}(y)\vee \texttt{odd?}(x))
+\]
+We will try to avoid statements like this to prevent a headache, but for accuracy's sake we note them here. 
+\begin{trivlist}
+\item Universal Introduction:
+  If we know $\phi(\alpha)$, we can conclude $\forall \alpha . \phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
+\item Universal Elimination:
+  If we know $\forall \alpha . \phi(\alpha)$ then we can conclude $\phi(\beta)$. 
+\item Existential Introduction:
+  If we know $\phi(\beta)$ then we can conclude $\exists \alpha \phi(\alpha)$ so long as $\alpha$ is previously unused.
+\item Existential elimination:
+  If we know $\exists \alpha \phi(\alpha)$, we can say $\phi(\beta)$ so long as $\beta$ is previously unused. 
+\end{trivlist}
+Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\emph{i.e.} two things that used to have different names cannot have the same name). 
+
+\section[Some Proofs]{some proofs}
+We are now prepared to prove things about peano arithmetic:
+
+\begin{theorem}[$+$ is associative]
+  The statement 
+  \[
+  \forall x \forall y \forall z . (x+y)+z = x+(y+z)
+  \]
+  is deducible from peano arithmetic and the definition of \nameref{defn:peano:+}.
+\end{theorem}
+\begin{proof}
+  Short version---this is a proof by induction. First, we prove the base case:
+   \begin{equation}
+    \label{eq:peano:+assoc:base}
+    \forall a \forall b .  (a+b) + 0 = a+(b+0)
+  \end{equation}
+  Equivalently, $\phi(0)$ where
+  \[
+  \phi(x) = \forall a \forall b . (a+b)+x = a+(b+x)
+  \]
+  Noting that $y+0=y$, (see the definition of  \nameref{defn:peano:+}), we 
+  see \cref{eq:peano:+assoc:base} is, in fact, true. 
+ 
+  Now we prove the inductive step: 
+  \begin{equation}
+    \label{eq:peano:+assoc:ind}
+    \forall x \bigl(\phi(x)\implies \phi(\succ(x))\bigr)   
+  \end{equation}
+  Pick $a$, $b$, and $c$. 
+  Assume $(a+b)+c = a+(b+c)$, which we abbreviate as $a+b+c$. Now consider $(a+b)+\succ(c)$. By definition of \nameref{defn:peano:+}, we see \[(a+b)+\succ(c)=\succ(a+b+c)\] Similarly, \[a+(b+\succ(c))=a+\succ(b+c)=\succ(a+b+c)\]
+  hence $(a+b)+\succ(c)=a+(b+\succ(c))$. This proves the inductive step, \cref{eq:peano:+assoc:ind}.
+  
+  To finish the proof, use the induction axiom. 
+\end{proof}
+
+The above proof does not justify each step, but gives enough information to show how deduction works. This is the norm for mathematical proofs. Actually, such a proof is boring when you are studying the mathematics of the natural numbers: it is not hard to convince someone addition is commutative. 
+
+But since we want to understand the very fabric of reason itself, it must be possible to write out this proof in such painstaking detail that a computer, or even the most pedantic of logic professors, can follow it. Such a proof may look like the following: 
+
+\begin{proof}
+  Full gory details---First establish the base case, \cref{eq:peano:+assoc:base}
+  Consider the statement $(a+b)+0$. By \cref{defn:peano:+}, we know $\forall x . x+0=x$. By universal elimination, deduce $(a+b)+0=a+b$. Now consider
+  $a+(b+0)$. By universal elimination again, deduce $b+0=b$. By substitution, deduce $a+(b+0)=a+b$. Then, by transitivity, we know $(a+b)+0=a+(b+0)$. As $a$ and $b$ are totally arbitrary free variables, two universal introductions establish \cref{eq:peano:+assoc:base}.
+
+  Now the inductive step, \cref{eq:peano:+assoc:ind}
+  Assume \begin{equation}(a+b)+c=a+(b+c)=a+b+c\label{eq:peano:+assoc:ass}\end{equation}
+  Consider the statement $(a+b)+\succ (c)$. From \cref{defn:peano:+}, we know
+  \[\forall x \forall y . x+\succ(y)=\succ(x+y)\]
+  An analogous quantifier elimination gives $(a+b)+\succ (c) = \succ(a+b+c)$. 
+  Another quantifier elimination gives $a+(b+\succ(c))= a+\succ(b+c)$. A final quantifier elimination gives $a+\succ(b+c)=\succ(a+b+c)$. Transitivity gives $(a+b)+\succ(c)=a+(b+\succ(c))$. We can stop assuming \cref{eq:peano:+assoc:ass}, rephrasing our work so far as
+  \[
+  (a+b)+c=a+(b+c)\implies (a+b)+\succ(c) = a+(b+\succ (c))
+  \]
+  
+  As we have shown \cref{eq:peano:+assoc:base,eq:peano:+assoc:ind} we can deduce 
+  \begin{equation}
+    \label{eq:peano:+assoc:both}
+    \phi(0)\wedge \forall x \bigl(\phi(x)\implies \phi(\succ(x))\bigr)
+  \end{equation}
+  By the induction axiom, 
+  \[
+  \phi(0)\wedge \forall x \bigl(\phi(x)\implies \phi(\succ(x))\bigr) \implies \forall x \phi(x)
+  \]
+  Then using boolean logic (\emph{modus ponens}), conclude $\forall z \phi(z)$. Hence, $+$ is associative. This proves the theorem. 
+\end{proof}
+
+Ironically, justifying each step results in a proof that is harder for a human to understand. 
+\chapter[The Death of Reason]{the death of reason}
+Once mathematicians started actually reading Frege, it was not long until they would dream the impossible dream. Hilbert and his entourage longed for a world in which mathematics had been effectively solved, the right axioms were chosen, and a machine would be built that would write out every true theorem until the end of time. All mathematicians would then be free to sip martinis poolside as an endless tickertape listing all true things would scroll by. \cite{wiki:hilbert-prog}
+
+The mathematicians would have to really read this carefully every now and then to answer a physicist's question. But they discovered by speaking in gratuitous generalities and shouting `the proof is trivial' rather frequently, they could make a pesky physicist disappear, ensuring a veritable utopia (see \url{http://www.smbc-comics.com/index.php?db=comics&id=2675#comic}). Thus French Formalism was born.  
+
+But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal blow to the Hilbertian dream of mathematical rapture. He was merely engaging in the logician's favorite pass-time: making things mercilessly meta\footnote{I'm so cool}. As many a logician and patron of webcomics know, making things meta may make a mess, and a major mess it made moreover. To his merit, this metamethematical misfortune marks the makings of a modern mathematical maturity, one more meaningful than a mere mirage marred by the multitude of mathematical models and their unmarried meandering truths. Any system of mathematics sufficiently sophisticated to serve as semantics for something like peano's arithmetic suffers from a malady said to be incompleteness. See, m'lady, such a malady means more than several true-seeming statements may lay beyond reach of the most surefire machines of Hilbert's dreams.
+
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
