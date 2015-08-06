@@ -194,7 +194,7 @@ By the same argument, we can find the remaining expressions:
  (x_1,x_2,x_3)=(1,1,0) & x_1 \wedge x_2 \wedge \neg x_3 
 \end{matrix}
 \]
-Hence \cref{tt:complete} can be written as 
+Hence \cref{tt:complete} has expression 
 \[
 (\neg x_1 \wedge \neg x_2 \wedge x_3 ) \vee (x_1 \wedge \neg x_2 \wedge \neg x_3) \vee  (x_1 \wedge x_2 \wedge \neg x_3)
 \]
@@ -242,16 +242,16 @@ for some expression $p$. No matter what the expression $p$ is, it must either ev
 \chapter[Predicate Logic]{predicate logic}
 Boolean logic is beautiful, but it is not expressive enough to make deductions like `Socrates is a man. All men are mortal. Therefore, Socrates is mortal.' Enter Gottlob Frege. 
 
-Nineteenth century mathematics was in crisis. For thousands of years, mathematics had remained essentially unchanged: the gold standard was proof by Euclidean geometry. Algebra, arabic numerals, zero were tools that expedite geometric reasoning. Even new results in number theory were assumed to be, at heart geometric truths. But by the 1800s, it was clear this worldview was no longer sustainable. Mathematics had grown too abstract.
+Nineteenth century mathematics was in crisis. For thousands of years, mathematics had remained essentially unchanged: the gold standard was proof by Euclidean geometry. Algebra, arabic numerals, zero were tools that expedite geometric reasoning. Even new results in number theory were assumed to be, at heart, geometric truths. But by the 1800s, it was clear this worldview was no longer sustainable. Mathematics had grown too abstract.
 
 Calculus, the most revolutionary discovery this side of the dark ages, stood with embarrassingly poor theoretical footing. Newton and Leibniz through Euler and Cauchy relied on infinitesimals, but could not justify their use \emph{a priori}, certainly not by Euclidean geometry. To make matters worse, if you were not careful, an argument that seemed kosher could result in nonsense. 
 Fourier's work was downright scandalous. By decomposing functions as an infinite series of $\sin$ and $\cos$ waves, he was able to solve the heat equation, a problem unsolved for all but the most trivial cases. Experiments verified his results, but conservative mathematicians could not come to terms with it. 
 
 Abel, and later Galois, proved that degree $5$ equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux Galois's proof were abstract algebraic systems that were not clearly based in Euclidean geometry. 
 
-Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry, such as is there a method to trisect an angle using a compass and straight edge, went unsolved for a few millennia. But these were quickly solved using Galois's tools. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
+Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry, such as the nonexistence of a method to trisect an angle using a compass and straight edge, went unsolved for a few millennia. But these were quickly solved using Galois's tools. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
 
-In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson, an Oxford mathematician better known as Lewis Carol, wrote \emph{Alice in Wonderland}, a veiled satire ridiculing the absurdity of this new mathematics. \cite{alice}
+In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson wrote a veiled satire ridiculing the absurdity of this new mathematics. Dodgson is better known as Lewis Carol. This satire is called \emph{Alice in Wonderland}.
 
 Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George Boole's logic was viewed more as a useful trick that cleaned up some ambiguities for the pedants, Frege developed a logic capable of housing all of the new mathematical objects. His work went relatively unnoticed by his contemporaries, but it revolutionized mathematics and philosophy. 
 
@@ -298,7 +298,7 @@ We can now state this unambiguously as
 \]
 \emph{i.e.} `for every mouse there is a corresponding scary cat', or 
 \[
-\exists c \bigl(\texttt{cat?}(c) \forall m (\texttt{mouse?}(m) \texttt{fears?}(m,c)\bigr)
+\exists c \bigl(\texttt{cat?}(c) \wedge \forall m (\texttt{mouse?}(m) \texttt{fears?}(m,c)\bigr)
 \]
 \emph{i.e.} `there is one particularly frightening cat all mice fear'.
 
@@ -476,7 +476,7 @@ But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal b
 \section{berry's paradox}
 There are only so many numbers you can name in under eleven words, finitely many in fact. So consider the smallest positive integer not nameable in under eleven words. Surely it exists; every nonempty set of naturals has a least number (exercise for the reader!). When considering how many words it takes to name this number, 10 is right out. Except, of course, I named it in 10 words: `the(1) smallest(2) positive(3) integer(4) not(5) nameable(6) in(7) under(8) eleven(9) words(10)'.  
 
-Okay, so full disclosure, this is not Gödel's proof. This is a proof by George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which is more complicated.\cite{wiki:incomplete-sketch}. In both cases, the genius of the proof lies in stuffing these paradoxes into peano arithmetic.  
+Okay, so full disclosure, this is not Gödel's proof. This is a proof by George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which is more complicated.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in stuffing these paradoxes into peano arithmetic.  
 
 \section{incompleteness} 
 We need to be able to talk about first order statements as if they existed in the universe of peano arithmetic.  
