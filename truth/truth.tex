@@ -386,20 +386,20 @@ For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boo
   If we know $\forall \alpha . \phi(\alpha)$ then we can conclude $\phi(\beta)$. 
 \item Existential Introduction:
   If we know $\phi(\beta)$ then we can conclude $\exists \alpha \phi(\alpha)$ so long as $\alpha$ is previously unused.
-\item Existential elimination:
+\item Existential Elimination:
   If we know $\exists \alpha \phi(\alpha)$, we can say $\phi(\beta)$ so long as $\beta$ is previously unused. 
 \end{trivlist}
 Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\emph{i.e.} two things that used to have different names cannot have the same name). 
 
 \section[Some Proofs]{some proofs}
-We are now prepared to prove things about peano arithmetic:
+We are now prepared to prove things about Peano arithmetic:
 
 \begin{theorem}[$+$ is associative]
   The statement 
   \[
   \forall x \forall y \forall z . (x+y)+z = x+(y+z)
   \]
-  is deducible from peano arithmetic and the definition of \nameref{defn:peano:+}.
+  is deducible from Peano arithmetic and the definition of \nameref{defn:peano:+}.
 \end{theorem}
 \begin{proof}
   Short version---this is a proof by induction. First, we prove the base case:
@@ -464,48 +464,51 @@ Once mathematicians started actually reading Frege, it was not long until they w
 
 The mathematicians would have to really read this carefully every now and then to answer a physicist's question. But they discovered by speaking in gratuitous generalities and shouting `the proof is trivial' rather frequently, they could make a pesky physicist disappear, ensuring a veritable utopia (see \url{http://www.smbc-comics.com/index.php?db=comics&id=2675#comic}). Thus French Formalism was born.  
 
-But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal blow to the Hilbertian dream of mathematical rapture. He was merely engaging in the logician's favorite pass-time: making things mercilessly meta\footnote{I'm so cool}. As many a logician and patron of webcomics know, making things meta may make a mess, and a major mess it made moreover. To his merit, this metamethematical misfortune marks the makings of a modern mathematical maturity, one more meaningful than a mere mirage marred by the multitude of mathematical models and their unmarried meandering truths. Any system of mathematics sufficiently sophisticated to serve as semantics for something like Peano's arithmetic suffers from a malady said to be incompleteness. See, m'lady, such a malady means more than several true-seeming statements may lay beyond reach of the most surefire machines of Hilbert's dreams.
+But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal blow to the Hilbertian dream of mathematical rapture. He was merely engaging in the logician's favorite pass-time: making things mercilessly meta. As many a logician and patron of webcomics know, making things meta may make a mess, and a major mess it made moreover. To his merit, this metamethematical misfortune marks the makings of a modern mathematical maturity, one more meaningful than a mere mirage marred by the multitude of mathematical models and their unmarried meandering truths. Any system of mathematics sufficiently sophisticated to serve as semantics for something like Peano's arithmetic suffers from a malady said to be incompleteness. See, m'lady, such a malady means more than several true-seeming statements may lay beyond reach of the most surefire machines of Hilbert's dreams.
 
 \section{berry's paradox}
 There are only so many numbers you can name in under eleven words, finitely many in fact. So consider the smallest positive integer not nameable in under eleven words. Surely it exists; every nonempty set of naturals has a least number (exercise for the reader!). When considering how many words it takes to name this number, 10 is right out. Except, of course, I named it in 10 words: `the(1) smallest(2) positive(3) integer(4) not(5) nameable(6) in(7) under(8) eleven(9) words(10)'.  
 
-Okay, so full disclosure, this is not Gödel's proof. This is a proof by George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which is more complicated.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in stuffing these paradoxes into peano arithmetic.  
-
 \section{incompleteness} 
-We need to be able to talk about first order statements as if they existed in the universe of peano arithmetic.  
+This is a proof by George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which leads to a longer proof.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in encoding these paradoxes into Peano arithmetic. 
+
 \begin{defn}[Gödel numbering]
   A Gödel numbering is a lossless encoding of first order logical statements in the natural numbers. Many such encodings exist. For our purposes, any one will work. 
 \end{defn}
+Now logical statements can be talked about in Peano arithmetic as if they were natural numbers. 
 
 \begin{defn}[names]
   A formula $\phi$ names the number $n$ iff $\forall x (F(x)\iff x=n)$. 
 \end{defn}
 Now we define some predicates:
-\newcommand{\namelen}{\texttt{len}}
+\newcommand{\namelen}{\texttt{nameln?}}
 \begin{defn}[\namelen]
-  $\namelen(x,y)$ is true iff $x$ can be named by a statement of length $y$. Using a Gödel numbering, we can define this using only arithmetic operations. 
+  $\namelen(x,y)$ is true iff $x$ can be named by a statement of length $y$. Using a Gödel numbering, this can be defined in terms of arithmetic operations. 
 \end{defn}
-\newcommand{\namesmaller}{\texttt{smaller}}
+\newcommand{\namesmaller}{\texttt{smaller?}}
 \begin{defn}[\namesmaller]
   \[
   \namesmaller(x,y)\iff \exists z .z < y \wedge \namelen(x,z)
   \]
+  \emph{i.e.} $\namesmaller(x,y)$ iff $x$ can be named by a statement with length less than $y$. 
 \end{defn}
-\newcommand{\minnodef}{\texttt{nodef}}
+\newcommand{\minnodef}{\texttt{nodef?}}
 \begin{defn}[\minnodef]
   \[
   \minnodef(x,y)\iff \neg \namesmaller(x,y) \wedge \forall a \bigl(a < x \implies \namesmaller(a,y)\bigr)
   \]
+  \emph{i.e.} $\minnodef(x,y)$ iff $x$ is the smallest number that cannot be named in $y$ symbols. 
 \end{defn}
-\newcommand{\berry}{\texttt{berry}}
+\newcommand{\berry}{\texttt{berry?}}
 \begin{defn}[\berry]
   \[
   \berry(x) \iff\exists y. y=\succ^{10}(0)\times \succ^{k}(0)\wedge \minnodef(x,y)
   \]
-  where $\times$ is multiplication, $\succ^n$ means $\succ$ applied $n$ times, and $k$ is the length of $\minnodef(x,y)$. 
+  where $\times$ is multiplication, $\succ^n$ is $n$ applications of $\succ$, and $k$ is the length of $\minnodef(x,y)$.
+  This encodes Berry's paradox in Peano arithmetic. 
 \end{defn}
 \begin{theorem}[Gödel's first incompleteness]
-  There is some statement that cannot be proven true or false in peano arithmetic.
+  There is some statement that cannot be proven true or false in Peano arithmetic.
 \end{theorem}
 \begin{proof}
   We will construct such a statement, called a Gödel sentence. Let $N$ be the smallest number that cannot be named in fewer than $10k$ symbols. The sentence 
@@ -513,7 +516,7 @@ Now we define some predicates:
     \label{eq:godel-sentence}
     \forall x \bigl(\berry (x) \iff x= \succ^N(0)\bigr)
   \end{equation}
-  is a Gödel sentence. A proof of its negation would contradict the fact that $N$ is the smallest number that cannot be named in fewer than $10k$ symbols. If this sentence can be proved true, then $\berry$ would name $N$ in fewer than $10k$ symbols. 
+  is a Gödel sentence. A proof of its negation would contradict the fact that $N$ is the smallest number that cannot be named in fewer than $10k$ symbols. A proof of \cref{eq:godel-sentence} would imply $\berry$ names $N$ in fewer than $10k$ symbols. 
 \end{proof}
 
 \printbibliography
