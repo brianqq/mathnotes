@@ -315,7 +315,7 @@ The Peano axioms are as follows:
   \]
 \item Two naturals are equal if their successors are equal:
   \[
-  \forall x,y. \succ (x) = \succ(y) \implies x=y
+  \forall x\forall y.\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
   \]
 \item Induction: if $\Phi$ is a predicate, 
   \[
@@ -329,7 +329,7 @@ The Peano axioms are as follows:
   We can define $+$, a function of two inputs, by recursion:
   \begin{align*}
     \forall x (x + 0 &= x) \\
-    \forall x \forall y \bigl(x + \succ(y) = succ(x+y)\bigr)
+    \forall x \forall y \bigl(x + \succ(y) &= succ(x+y)\bigr)
   \end{align*}
 \end{defn}
 \section[Deduction]{deduction}
@@ -378,15 +378,7 @@ For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boo
 \item $x\iff y$ is true iff $x$ has the same truth value as $y$  
 \end{trivlist}
 
-For the additional deduction rules for the quantifiers,  we assume $\phi(x)$ is a predicate, possibly one that can be expressed as a first order statement. If $\phi(x)$ contains a bound instance of $x$, the bound $x$ will `shadow' the parameter. For example, 
-\[
-\phi(x)=\texttt{even?}(x) \wedge \forall x (\texttt{even?}(x)\vee \texttt{odd?}(x))
-\]
-would be more clearly defined as 
-\[
-\phi(y)=\texttt{even?}(x) \wedge \forall y (\texttt{even?}(y)\vee \texttt{odd?}(x))
-\]
-We will try to avoid statements like this to prevent a headache, but for accuracy's sake we note them here. 
+ 
 \begin{trivlist}
 \item Universal Introduction:
   If we know $\phi(\alpha)$, we can conclude $\forall \alpha . \phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
@@ -452,7 +444,8 @@ But since we want to understand the very fabric of reason itself, it must be pos
   \[
   (a+b)+c=a+(b+c)\implies (a+b)+\succ(c) = a+(b+\succ (c))
   \]
-  
+  Now $a$, $b$, and $c$ are arbitrary, so we can use a triple quantifier introduction to prove \cref{eq:peano:+assoc:ind}. 
+
   As we have shown \cref{eq:peano:+assoc:base,eq:peano:+assoc:ind} we can deduce 
   \begin{equation}
     \label{eq:peano:+assoc:both}
