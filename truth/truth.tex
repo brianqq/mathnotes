@@ -10,22 +10,30 @@
 
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
+
+\usepackage{xspace}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\eg}{\emph{e.g.}\xspace}
+
+\usepackage{tocstyle}
+\usetocstyle{nopagecolumn}
+\newcommand*{\oldaddchaptertocentry}{}
+\let\oldaddchaptertocentry\addchaptertocentry
+\renewcommand*{\addchaptertocentry}[2]{%
+  \ifstr{#1}{}{%
+    \oldaddchaptertocentry{#1}{#2}%
+  }{% entry with number
+    \oldaddchaptertocentry{\color{gray}\fontsize{72pt}{0pt}\bfseries{{#1}}}{\texorpdfstring{\kern-3em{#2\vspace{10pt}}}{#2}}}%
+  }
+\settocstylefeature[0]{pagenumberhook}{\Huge}
+\settocstylefeature[1]{entryhook}{\kern-3em}
+
+
+
 \begin{document}
-Mathematics deals with absolute truth, right? Errr, well, absolute truth is an incredibly loaded term. Properly unpacking it requires a healthy amount of philosophy and mathematics. Wait. Don't go away. It's fun. You'll be grappling with paradoxical statements like `this sentence is false' in a productive and well-defined way. You'll find statements that are neither true nor false, yet are critical to our modern understanding of mathematics. 
-
-\chapter{Philosophical Underpinnings}
-\section[Won't get Fooled Again]{won't get fooled again}
-\epigraph{I'll tip my hat to the new constitution \\
-Take a bow for the new revolution \\
-Smile and grin at the change all around \\
-Pick up my guitar and play \\
-Just like yesterday \\
-Then I'll get on my knees and pray \\
-We don't get fooled again \\
-Don't get fooled again \\
-No, no!}{The Who}
-
-Rhetoric is an ancient tradition of disguising opinions as sound logic. Through millions of years of evolution, we carbon sack computers have been tuned to take shortcuts. Taking shortcuts in thought is necessary: no one would teach an infant to count by formally proving $2+2=4$. But with these shortcuts come logical fallacies, passing off emotions as fact, perception as reality.
+\tableofcontents{}
+\chapter[Philosophical Underpinnings]{philosophical underpinnings}
+Rhetoric could be described as the art of passing off opinions as objective. Through millions of years of evolution, we carbon sack computers have been tuned to take shortcuts. Even in the study of mathematics, these shortcuts are necessary: no one would teach an infant to count by formally proving $2+2=4$. But with these shortcuts leave us susceptible to logical fallacies, allowing rhetoric to pas off emotions as fact and perceptions as reality.
 
 We could start with assertions and then work toward a conclusion by requiring each new claim we make must logically follow from what we have already established, but English is too ambiguous and irregular. Consider the sentence
 \begin{quote}
@@ -34,15 +42,21 @@ We could start with assertions and then work toward a conclusion by requiring ea
 Does this mean there is one terribly frightening cat that every single mouse fears? Or does it mean for each mouse there is a corresponding scary cat? \cite{wiki:cat-gen}
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{images/tom-jerry}
+  \includegraphics[width=.5\textwidth]{images/tom-jerry}
   \caption{A scary cat }
 \end{figure}
 
-We need to move toward logical deductions governed by rules expressed in an appropriate notation (not English). These rules should be straight-forward enough that they can be checked by a computer, but expressive enough that we can work out all of mathematics.
+The solution? A deductive system. One with a well-defined language for clear expression and well-defined rules for clear argumentation. It should be straight-forward enough that proofs can be checked by a computer, so we can claim absolute, or at least unambiguous, truth. To be useful, a deductive system must be expressive enough that we can work out all of mathematics. There is no right balance of these two concerns; each deductive systems balance them differently. They are not at odds with each other, although they seem to describe distinctive worlds. 
 
-We look to answer a nebulous philosophical question, `is mathematics absolutely true?' by building a model of logic and mathematics, and then asking our model what it can tell us about truth. Instead of saying, yes it is absolutely true, or no it is not, we will look for algorithms that will check our proofs. Such an approach discards much nuance of the philosophical question. This punting is necessary because the question `is mathematics absolutely true' is rife with uncertainty---what is mathematics? what is absolute truth? does absolute truth exist? how can a human judge truth if `to err is human'? Objections \emph{ad nauseum}.  
+I will be dodging the question `is mathematics absolutely true?' In my eyes, a satisfying answer to this question must come from a mathematical analysis. This question is rather resilient to mathematical analysis, thanks to the ambiguity of natural language, the philosophical pitfalls absolutes bring, and even limitations on the mathematical end. Instead, we will pose a series of mathematical questions that approximate `is mathematics absolutely true?', particularly, `can this argument be algorithmically checked?' and `are the valid arguments sensible?'
 
-We'll need to think logically to reason about our model. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this circular reasoning is innocent. 
+If we can algorithmically check arguments, we can approach a system of thought immune to subjectivity. This is not to say it is absolutely correct: if we're wrong, then we'll all be wrong together. We will elaborate on what sensible means as we go, but a `sensible' argument should be free from contradictions, and should either agree with our intuition, or be able to show us the error in our ways. 
+
+How is this done? 
+We will build a model of logical reasoning. With this scaffolding, we will build a model of mathematics. By studying these models, we glean some information about truth in mathematics. Because these models are mathematical, we must ask them mathematical questions.  
+
+
+We'll need logical to reason about our model. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this circular reasoning is innocent. 
 \chapter[Boolean Logic]{boolean logic}
 The simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
 \begin{defn}[and $\wedge$]
@@ -74,7 +88,6 @@ $\vee$ & 0 & 1 \\
 \end{center}
 %END RECEIVE ORGTBL or-tt
 \end{defn}
-And
 \begin{defn}[not $\neg$]
 Negation flips $0$ and $1$:
 %BEGIN RECEIVE ORGTBL not-tt  
@@ -135,9 +148,7 @@ $\implies$ & 0 & 1 \\
 %END RECEIVE ORGTBL if-tt
 \end{center}
 \end{defn}
-We like this definition because $x\implies y$ captures the idea $y$ must follow from $x$ being true, while allowing for the possibility that $y$ may occur even when $x$ is false. For example, if $x$ means `that's a cat', and $y$ means `that's a mammal', $x\implies y$ means `that's a cat, hence it's a mammal', with the unspoken caveat that dogs are not cats ($x=0$), but they are mammals ($y=1$). 
-
-That example is awkward because we have no good way of saying `all cats are mammals, but not all mammals are cats' in boolean logic. We can say this, but not in a particularly useful way. In the next chapter, we will construct a more sophisticated logic that allows such statements. 
+This definition of captures the idea $y$ must follow if $x$ is true. But it allows for the possibility that $y$ may occur even when $x$ is false. For example, if $x$ means `that's a cat', and $y$ means `that's a mammal', $x\implies y$ means `that's a cat, hence it's a mammal', with the unspoken caveat that dogs are not cats ($x=0$), but they are mammals ($y=1$). 
 
 We defined the conditional through a truth table; however, our definition of boolean logic does not mention truth tables. We ought to give a definition of $\implies$ using $\wedge$, $\vee$, and $\neg$:
 \begin{theorem}
@@ -182,7 +193,7 @@ $x_1$ & $x_2$ & $x_3$ & $f$ \\
 \end{table}
 We want an expression that is true exactly when $(x_1,x_2,x_3)$ is $(0,0,1)$ or $(1,0,0)$ or $(1,1,0)$. A straightforward way to do this is to or together a statement that is true only on the input $(0,0,1)$, a statement true only on $(1,0,0)$, and a statement that is true only on $(1,1,0)$. 
 
-Consider $(x_1,x_2,x_3)=(0,0,1)$. To find an expression that is true for this input and false for all others, we can simply assert $x_1=0$ and $x_2=0$ and $x_3=1$, \emph{i.e.}
+Consider $(x_1,x_2,x_3)=(0,0,1)$. To find an expression that is true for this input and false for all others, we can simply assert $x_1=0$ and $x_2=0$ and $x_3=1$, \ie
 \[
 \neg x_1\wedge \neg x_2 \wedge x_3
 \]
@@ -223,71 +234,80 @@ then the expression is
 \]
 Abbreviate this as $(x_1=\alpha_1)\wedge \dots \wedge (x_n=\alpha_n)$. This is just a notational convenience; the final answer will not actually contain $=$ or refer to the $\alpha_i$. 
 
-Then we or over each of the above expressions: 
+Or over each of the above expressions: 
 \[
 f(x_1,\dots,x_n)= \bigvee_{\alpha_1,\dots,\alpha_n: f(\alpha_1,\dots,\alpha_n)=1} (x_1=\alpha_1)\wedge \dots \wedge (x_n=\alpha_n)
 \]
-giving a boolean expression with the desired truth table. 
+giving the desired expression. 
 \end{proof}
 This tells us that boolean logic is big enough to express any truth table. An interesting implication is that general purpose computers can be constructed!
 \section[Absolute Truth?]{absolute truth?}
-We are supposed to shy away from notions of absolute truth, but boolean logic is simple enough that we can talk about it without making a mess. A boolean expression's truth value can be computed directly from the inputs. Since each input can be either true or false, there are only finitely many possible inputs. Hence, everything you need to know is contained in the expression's truth table. These computations can be carried out unambiguously by a machine in finite time, so things are looking pretty good.
+Boolean logic is simple enough that we can talk about absolute truth without making a mess. Trusting boolean algebra is about as reasonable as trusting a calculator for integer arithmetic. 
+A boolean expression's truth value can be computed directly from the inputs. Since each input can be either true or false, there are only finitely many possible inputs. Everything you need to know is contained in the expression's truth table. These computations can be carried out unambiguously by a machine in finite time, so things are looking pretty good.
 
-We can also show there are no contradictions. In boolean logic, a contradiction would be of the form
+A statement and its negation cannot be true simultaneously, \ie
 \[
-p \wedge \neg p
+p \wedge \neg p = 0
 \]
-for some expression $p$. No matter what the expression $p$ is, it must either evaluate to $1$ or $0$. Suppose $p=1$. Then $\neg p=0$. So $p\wedge \neg p = 1 \wedge 0 =0$. Likewise, if $p=0$, we get $0\wedge 1=0$. Thus all contradictions are false.
+for any expression $p$. No matter what $p$ is, it must evaluate to either $1$ or $0$. Suppose $p=1$. Then $\neg p=0$. So $p\wedge \neg p = 1 \wedge 0 =0$. Likewise, if $p=0$, we get $0\wedge 1=0$. 
 
 \chapter[Predicate Logic]{predicate logic}
-Boolean logic is beautiful, but it is not expressive enough to make deductions like `Socrates is a man. All men are mortal. Therefore, Socrates is mortal.' Enter Gottlob Frege. 
+Boolean logic is beautiful, but it is not expressive enough to make deductions like `Socrates is a man. All men are mortal. Therefore, Socrates is mortal.' 
 
-Nineteenth century mathematics was in crisis. For thousands of years, mathematics had remained essentially unchanged: the gold standard was proof by Euclidean geometry. Algebra, arabic numerals, zero were tools that expedite geometric reasoning. Even new results in number theory were assumed to be, at heart, geometric truths. But by the 1800s, it was clear this worldview was no longer sustainable. Mathematics had grown too abstract.
+Nineteenth century mathematics was in crisis. For thousands of years, mathematics had remained essentially unchanged: the gold standard was proof by Euclidean geometry. Algebra, arabic numerals, zero were tools to expedite geometric reasoning. Even new results in number theory were assumed to be, at heart, geometric truths. But by the 1800s, it was clear this worldview was no longer sustainable. Mathematics had grown too abstract.
 
 Calculus, the most revolutionary discovery this side of the dark ages, stood with embarrassingly poor theoretical footing. Newton and Leibniz through Euler and Cauchy relied on infinitesimals, but could not justify their use \emph{a priori}, certainly not by Euclidean geometry. To make matters worse, if you were not careful, an argument that seemed kosher could result in nonsense. 
-Fourier's work was downright scandalous. By decomposing functions as an infinite series of $\sin$ and $\cos$ waves, he was able to solve the heat equation, a problem unsolved for all but the most trivial cases. Experiments verified his results, but conservative mathematicians could not come to terms with it. 
+Fourier's work was downright scandalous. He was able to solve the heat equation, a problem unsolved for all but the most trivial cases. Experiments verified his results, but conservative mathematicians refused to accept his method.
 
-Abel, and later Galois, proved that degree $5$ equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux Galois's proof were abstract algebraic systems that were not clearly based in Euclidean geometry. 
+Abel, and later Galois, proved that degree 5 equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux of Galois's proof were abstract systems with no clear base in Euclidean geometry. 
 
-Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry, such as the nonexistence of a method to trisect an angle using a compass and straight edge, went unsolved for a few millennia. But these were quickly solved using Galois's tools. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
+Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry went unsolved for millenia, like can you trisect an angle with a compass and straightedge went unsolved for a few millennia. But these were quickly solved using Galois's tools.\cite{wiki:trisect} Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
 
-In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson wrote a veiled satire ridiculing the absurdity of this new mathematics. Dodgson is better known as Lewis Carol. This satire is called \emph{Alice in Wonderland}.
+In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson wrote a veiled satire ridiculing the absurdity of this new mathematics. Dodgson is better known as Lewis Carol. This satire is called \emph{Alice in Wonderland}.\cite{alice}
 
 Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George Boole's logic was viewed more as a useful trick that cleaned up some ambiguities for the pedants, Frege developed a logic capable of housing all of the new mathematical objects. His work went relatively unnoticed by his contemporaries, but it revolutionized mathematics and philosophy. 
 
 \section[What is Predicate Logic?]{what is predicate logic?}
-First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that mathematicians have given up deciding if it is absolutely true. 
+First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that we can't declare it absolutely true. 
 
-Statements in predicate logic are made up of the logical symbols:
-\begin{trivlist}
-\item quantifiers: for every ($\forall$) and there exists ($\exists$)
-\item logical connectives: $\wedge,\vee,\neg,\implies,\iff$
-\item parenthesis 
-\item variables: lowercase letters
-\item equality: $=$
-\end{trivlist}
+It makes use of the same operations and conventions of boolean logic ($\wedge, \vee,\neg,\implies,\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, and quantifiers, and a special equality predicate. 
 
-and additionally 
-\begin{trivlist}
-\item predicate symbols: capital letters $P(x,y,z)$ or typewriter text $\texttt{even?(n)}$.
-\item function symbols 
-\item constant symbols  
-\end{trivlist}
-The new entities are the quantifiers, the predicate symbols, the function symbols, and the constants. Function symbols and constant symbols probably do what you expect: function symbols denote functions, and constant symbols denote constants. 
+These additions allow us to talk in generalities about entities that live in some universe, for example the natural numbers. 
 
-Predicates denote true-or-false propositions of their arguments. For example $\geq$ is a predicate symbol that is understood to mean `greater than or equal to'. 
+\begin{defn}[constant symbols]
+  Constant symbols name specific entities in the universe.
+\begin{example}[constant symbols]
+  $0$, $1$, $30$, $10$ are constant symbols referring to natural numbers. 
+\end{example}
+\end{defn}
 
-Finally, quantifiers allow us to form statements like `every man is mortal'. If $\texttt{man?}$ and $\texttt{mortal?}$ are the predicates for, well, `is the argument a man?' and `is the argument mortal?', this sentence translates to
-\[
-\forall x ( \texttt{man?}(x) \implies \texttt{mortal?}(x) )
-\]
-which says roughly, for all $x$ in the universe, if $x$ is a man, then $x$ is mortal. 
+\begin{defn}
+  Function symbols name functions that take in entities and output an
+  entity.
 
-If we refer to Socrates by the constant symbol $s$, we can state the syllogism `Socrates is a man. Men are mortal. Hence, Socrates is mortal' as follows:
+  The arity of a function is the number of arguments it takes, \eg $+$ has arity $2$.
+Functions do not reside in the proverbial universe. If we are working in a universe of natural numbers, we will want to refer to $+$. But $+$ is not a number. It belongs in a separate bin.
+\end{defn}
+\begin{example}
+  $+,\times$ are functions of natural numbers. 
+\end{example}
+\begin{defn}[predicate symbols]
+  Predicate symbols name predicts, which take in entities and output true or false.
+Like functions, predicates have arity and exist outside of the universe. But predicates are distinct from functions. Predicates output truth values, but functions output elements of the universe (\eg natural numbers). If add two numbers, you can multiply the result by $2$: $(1+3)\times 2$. You cannot however, say $(1<3)+5$. We need a separate bin for $<$. 
+\end{defn}
+\begin{example}
+  $<,\geq,=$ are predicates of natural numbers
+\end{example}
+
+\begin{defn}[quantifier]
+  Quantifiers allow us to talk about general elements in the universe. There are two quantifiers: $\forall$, read as `for every', and $\exists$, read as `there exists'.
+
+  Intuitively, $\forall x \phi(x)$ means $\phi(x)$ is true, no matter what $x$ is in the universe, and $\exists x \phi(x)$ means somewhere in the universe, there is an $x$ that satisfies $\phi$. We will make this exact through inference rules later.
+\end{defn}
+If we refer to Socrates by the constant symbol $s$, we can state the syllogism `Socrates is a man. All men are mortal. Hence, Socrates is mortal' as follows:
 \[
 \texttt{man?}(s) \wedge \forall x \bigl(\texttt{man?}(x)\implies\texttt{mortal?}(x)\bigr) \implies \texttt{mortal?}(s)
-\]
-
+\] 
 Recall the statement
 \begin{quote}
   Every mouse fears some cat
@@ -296,33 +316,52 @@ We can now state this unambiguously as
 \[
 \forall m \bigr(\texttt{mouse?}(m) \implies \exists c (\texttt{cat?}(c)\wedge \texttt{fears?}(m,c)) \bigl)
 \]
-\emph{i.e.} `for every mouse there is a corresponding scary cat', or 
+\ie `for every mouse, we can find a cat which that specific mouse fears.'
 \[
 \exists c \bigl(\texttt{cat?}(c) \wedge \forall m (\texttt{mouse?}(m) \texttt{fears?}(m,c)\bigr)
 \]
-\emph{i.e.} `there is one particularly frightening cat all mice fear'.
+\ie `there is one particularly frightening cat all mice fear'.
+
+\begin{defn}[equality]
+  Equality is a predicate that always satisfies the following axioms
+  \begin{enumerate}
+  \item Reflexivity: $\forall x (x=x)$
+  \item Substitution: equal elements are interchangeable 
+    \begin{trivlist}
+    \item for all functions $f$: $\forall x\forall y (x=y\implies f(x)=f(y))$\footnote{Quantifiers range over the universe. But functions don't live in the universe. So we can't write something like $\forall f \forall x \forall y (x=y\implies f(x)=f(y))$. The solution is to treat this condition as a template, or \emph{axiom schema}, and copy it over for each function.}
+    \item for predicates $\phi$: $\forall x \forall y(x=y \implies \phi(x)\iff \phi(y))$
+    \end{trivlist}
+  \end{enumerate}
+\end{defn}
 
 \section[Peano Arithmetic]{peano arithmetic}
 I promised this would be sufficient to house modern mathematics. I will show you how the natural numbers can be defined using Peano's axioms \cite{wiki:peano}. 
 
 \renewcommand{\succ}{\texttt{succ}}
-First, stipulate there is a constant called $0$ and a function of one argument called $\succ$. 
-The Peano axioms are as follows: 
-\begin{trivlist}
-\item Nothing comes before zero:
-  \[
-  \forall x. 0 \neq \succ(x)
-  \]
-\item Two naturals are equal if their successors are equal:
-  \[
-  \forall x\forall y.\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
-  \]
-\item Induction: if $\Phi$ is a predicate, 
-  \[
-  \Phi(0) \wedge \forall x \bigl(\Phi(x)\implies \Phi(\succ(x))\bigr) \implies \forall y.\Phi(y)
-  \]
-  In English, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then $\Phi$ must be true for all natural numbers. 
-\end{trivlist}
+\begin{defn}[Peano arithmetic]
+  There is a constant called $0$ and a function of one argument called
+  $\succ$.  The Peano axioms are as follows:
+  \begin{enumerate}
+  \item Nothing comes before zero:
+    \[
+    \label{peano:0}
+    \forall x. 0 \neq \succ(x)
+    \]
+  \item Two naturals are equal if their successors are equal:
+    \[
+    \label{peano:succ}
+    \forall x\forall y.\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
+    \]
+  \item Induction: if $\Phi$ is a predicate,
+    \[
+    \label{peano:ind}
+    \Phi(0) \wedge \forall x \bigl(\Phi(x)\implies
+    \Phi(\succ(x))\bigr) \implies \forall y.\Phi(y)
+    \]
+    \ie, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then
+    $\Phi$ must be true for all natural numbers.
+  \end{enumerate}
+\end{defn}
 
 \begin{defn}[plus]
   \label{defn:peano:+}
@@ -337,37 +376,37 @@ In boolean algebra, when determining the truth of a statement, the worst case sc
 
 Some axioms, like $\forall x P(x)$ and $\exists x \neg P(x)$ are contradictory, hence nonsensical. One would hope this is just a case of `ask a bad question; get a bad answer'. We would hope that the laws of deduction, which govern what you can actually do with the axioms you choose, are ok. 
 
-Prior to stating the laws of deduction, we must define the following: 
-\begin{defn}[bound variable]
-  A variable is said to be bound if it is introduced by a quantifier. 
-\end{defn}
-\begin{example}[bound variables]
-  In the expression
-  \[
-  \forall x (\texttt{even?}(x)\implies \exists y . x=2y)
-  \]
-  the variables $x$ and $y$ are bound.  
-\end{example}
-\begin{defn}[free variable]
-  A variable that is not bound is called free. 
-\end{defn}
-\begin{example}[free variable]
-  In 
-  \[
-  \forall y . x\leq 2y
-  \]
-  $y$ is bound but $x$ is free. 
-\end{example}
-\begin{defn}[scope]
-  The scope of a bound variable is the part of the expression where the variable is understood to mean the variable introduced by a quantifier. We can make scope explicit with parenthesis:
-  \[
-  \forall x \bigl(\underbrace{\texttt{cat?}(x)\implies \texttt{mammal?}(x)}_{\textrm{scope}}\bigr)
-  \]
-  When no parenthesis are present, the scope is understood to lie between the quantifier and the first $\implies$ or $\iff$:
-  \[
-  \forall x . \underbrace{x\neq 0\wedge x \leq 3}_{\textrm{scope of $x$}}  \implies \neg \exists y . \underbrace{y > 3}_{\textrm{scope of $y$}}
-  \]
-\end{defn}
+% Prior to stating the laws of deduction, we must define the following: 
+% \begin{defn}[bound variable]
+%   A variable is said to be bound if it is introduced by a quantifier. 
+% \end{defn}
+% \begin{example}[bound variables]
+%   In the expression
+%   \[
+%   \forall x (\texttt{even?}(x)\implies \exists y . x=2y)
+%   \]
+%   the variables $x$ and $y$ are bound.  
+% \end{example}
+% \begin{defn}[free variable]
+%   A variable that is not bound is called free. 
+% \end{defn}
+% \begin{example}[free variable]
+%   In 
+%   \[
+%   \forall y . x\leq 2y
+%   \]
+%   $y$ is bound but $x$ is free. 
+% \end{example}
+% \begin{defn}[scope]
+%   The scope of a bound variable is the part of the expression where the variable is understood to mean the variable introduced by a quantifier. We can make scope explicit with parenthesis:
+%   \[
+%   \forall x \bigl(\underbrace{\texttt{cat?}(x)\implies \texttt{mammal?}(x)}_{\textrm{scope}}\bigr)
+%   \]
+%   When no parenthesis are present, the scope is understood to lie between the quantifier and the first $\implies$ or $\iff$:
+%   \[
+%   \forall x . \underbrace{x\neq 0\wedge x \leq 3}_{\textrm{scope of $x$}}  \implies \neg \exists y . \underbrace{y > 3}_{\textrm{scope of $y$}}
+%   \]
+% \end{defn}
 
 For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boolean logic:
 \begin{trivlist}
@@ -389,7 +428,7 @@ For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boo
 \item Existential Elimination:
   If we know $\exists \alpha \phi(\alpha)$, we can say $\phi(\beta)$ so long as $\beta$ is previously unused. 
 \end{trivlist}
-Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\emph{i.e.} two things that used to have different names cannot have the same name). 
+Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\ie two things that used to have different names cannot have the same name). 
 
 \section[Some Proofs]{some proofs}
 We are now prepared to prove things about Peano arithmetic:
@@ -459,23 +498,23 @@ But since we want to understand the very fabric of reason itself, it must be pos
 \end{proof}
 
 Ironically, justifying each step results in a proof that is harder for a human to understand. 
-\chapter[The Death of Reason]{the death of reason}
+\section[The Death of Reason]{the death of reason}
 Once mathematicians started actually reading Frege, it was not long until they would dream the impossible dream. Hilbert and his entourage longed for a world in which mathematics had been effectively solved, the right axioms were chosen, and a machine would be built that would write out every true theorem until the end of time. All mathematicians would then be free to sip martinis poolside as an endless tickertape listing all true things would scroll by. \cite{wiki:hilbert-prog}
 
 The mathematicians would have to really read this carefully every now and then to answer a physicist's question. But they discovered by speaking in gratuitous generalities and shouting `the proof is trivial' rather frequently, they could make a pesky physicist disappear, ensuring a veritable utopia (see \url{http://www.smbc-comics.com/index.php?db=comics&id=2675#comic}). Thus French Formalism was born.  
 
 But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal blow to the Hilbertian dream of mathematical rapture. He was merely engaging in the logician's favorite pass-time: making things mercilessly meta. As many a logician and patron of webcomics know, making things meta may make a mess, and a major mess it made moreover. To his merit, this metamethematical misfortune marks the makings of a modern mathematical maturity, one more meaningful than a mere mirage marred by the multitude of mathematical models and their unmarried meandering truths. Any system of mathematics sufficiently sophisticated to serve as semantics for something like Peano's arithmetic suffers from a malady said to be incompleteness. See, m'lady, such a malady means more than several true-seeming statements may lay beyond reach of the most surefire machines of Hilbert's dreams.
 
-\section{berry's paradox}
+\subsection{berry's paradox}
 There are only so many numbers you can name in under eleven words, finitely many in fact. So consider the smallest positive integer not nameable in under eleven words. Surely it exists; every nonempty set of naturals has a least number (exercise for the reader!). When considering how many words it takes to name this number, 10 is right out. Except, of course, I named it in 10 words: `the(1) smallest(2) positive(3) integer(4) not(5) nameable(6) in(7) under(8) eleven(9) words(10)'.  
 
-\section{incompleteness} 
-This is a proof by George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which leads to a longer proof.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in encoding these paradoxes into Peano arithmetic. 
+\subsection{incompleteness} 
+This proof is due to George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which leads to a longer proof.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in encoding these paradoxes into Peano arithmetic. 
 
 \begin{defn}[Gödel numbering]
   A Gödel numbering is a lossless encoding of first order logical statements in the natural numbers. Many such encodings exist. For our purposes, any one will work. 
 \end{defn}
-Now logical statements can be talked about in Peano arithmetic as if they were natural numbers. 
+Once we've picked a Gödel numbering, Peano arithmetic becomes self-referential.  We can talk about the theory of predicate logic as if it coexisted in the same universe as the natural numbers themselves. 
 
 \begin{defn}[names]
   A formula $\phi$ names the number $n$ iff $\forall x (F(x)\iff x=n)$. 
@@ -483,21 +522,21 @@ Now logical statements can be talked about in Peano arithmetic as if they were n
 Now we define some predicates:
 \newcommand{\namelen}{\texttt{nameln?}}
 \begin{defn}[\namelen]
-  $\namelen(x,y)$ is true iff $x$ can be named by a statement of length $y$. Using a Gödel numbering, this can be defined in terms of arithmetic operations. 
+  $\namelen(x,y)$ is true iff $x$ can be named by a statement containing $y$ symbols. Via the Gödel numbering, this can be defined using only the alphabet of peano arithmetic. 
 \end{defn}
 \newcommand{\namesmaller}{\texttt{smaller?}}
 \begin{defn}[\namesmaller]
   \[
   \namesmaller(x,y)\iff \exists z .z < y \wedge \namelen(x,z)
   \]
-  \emph{i.e.} $\namesmaller(x,y)$ iff $x$ can be named by a statement with length less than $y$. 
+  \ie $\namesmaller(x,y)$ iff $x$ can be named by a statement with length less than $y$. 
 \end{defn}
 \newcommand{\minnodef}{\texttt{nodef?}}
 \begin{defn}[\minnodef]
   \[
   \minnodef(x,y)\iff \neg \namesmaller(x,y) \wedge \forall a \bigl(a < x \implies \namesmaller(a,y)\bigr)
   \]
-  \emph{i.e.} $\minnodef(x,y)$ iff $x$ is the smallest number that cannot be named in $y$ symbols. 
+  \ie $\minnodef(x,y)$ iff $x$ is the smallest number that cannot be named in $y$ symbols. 
 \end{defn}
 \newcommand{\berry}{\texttt{berry?}}
 \begin{defn}[\berry]
