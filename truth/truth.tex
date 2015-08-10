@@ -11,9 +11,12 @@
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
 
+\newcommand{\Q}{\mathbb{Q}}
+
 \usepackage{xspace}
 \newcommand{\ie}{\emph{i.e.}\xspace}
 \newcommand{\eg}{\emph{e.g.}\xspace}
+\newcommand{\ord}{\mathtt{Ord}}
 
 \usepackage{tocstyle}
 \usetocstyle{nopagecolumn}
@@ -53,10 +56,10 @@ I will be dodging the question `is mathematics absolutely true?' In my eyes, a s
 If we can algorithmically check arguments, we can approach a system of thought immune to subjectivity. This is not to say it is absolutely correct: if we're wrong, then we'll all be wrong together. We will elaborate on what sensible means as we go, but a `sensible' argument should be free from contradictions, and should either agree with our intuition, or be able to show us the error in our ways. 
 
 How is this done? 
-We will build a model of logical reasoning. With this scaffolding, we will build a model of mathematics. By studying these models, we glean some information about truth in mathematics. Because these models are mathematical, we must ask them mathematical questions.  
+We will build a model of logical reasoning. With this scaffolding, we will build a model of mathematics. By studying these models, we glean some information about truth in mathematics. 
 
 
-We'll need logical to reason about our model. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this circular reasoning is innocent. 
+We'll need logic to reason about our model. This circular reasoning can't be helped. It does pose a philosophical problem---we may very well be in the matrix, in which case everything we know is a lie, so our mathematical model could be dead wrong. I will assume without proof that we are not in the matrix. I will assume without proof that logic-checking computers do not lie. I will assume without proof that this circular reasoning is innocent. 
 \chapter[Boolean Logic]{boolean logic}
 The simplest interesting model of logic we will discuss. There are two possible values, true and false. When it is not ambiguous, we will abbreviate these as $0$ and $1$. Letters are variables. There are three operators we start with: and ($\wedge$), or ($\vee$), and not ($\neg$). 
 \begin{defn}[and $\wedge$]
@@ -261,7 +264,7 @@ Fourier's work was downright scandalous. He was able to solve the heat equation,
 
 Abel, and later Galois, proved that degree 5 equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux of Galois's proof were abstract systems with no clear base in Euclidean geometry. 
 
-Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry went unsolved for millenia, like can you trisect an angle with a compass and straightedge went unsolved for a few millennia. But these were quickly solved using Galois's tools.\cite{wiki:trisect} Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry, in both of which Euclid's parallel postulate does not hold. 
+Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry went unsolved for millenia, like can you trisect an angle with a compass and straightedge went unsolved for a few millennia. But these were quickly solved using Galois's tools.\cite{wiki:trisect} Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry. In each, Euclid's parallel postulate does not hold. 
 
 In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson wrote a veiled satire ridiculing the absurdity of this new mathematics. Dodgson is better known as Lewis Carol. This satire is called \emph{Alice in Wonderland}.\cite{alice}
 
@@ -270,7 +273,7 @@ Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George
 \section[What is Predicate Logic?]{what is predicate logic?}
 First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that we can't declare it absolutely true. 
 
-It makes use of the same operations and conventions of boolean logic ($\wedge, \vee,\neg,\implies,\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, and quantifiers, and a special equality predicate. 
+Predicate logic makes use of the same operations and conventions of boolean logic ($\wedge$, $\vee$,$\neg$,$\implies$,$\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, and quantifiers, and a special equality predicate. 
 
 These additions allow us to talk in generalities about entities that live in some universe, for example the natural numbers. 
 
@@ -293,7 +296,7 @@ Functions do not reside in the proverbial universe. If we are working in a unive
 \end{example}
 \begin{defn}[predicate symbols]
   Predicate symbols name predicts, which take in entities and output true or false.
-Like functions, predicates have arity and exist outside of the universe. But predicates are distinct from functions. Predicates output truth values, but functions output elements of the universe (\eg natural numbers). If add two numbers, you can multiply the result by $2$: $(1+3)\times 2$. You cannot however, say $(1<3)+5$. We need a separate bin for $<$. 
+Like functions, predicates have arity and exist outside of the universe. But predicates are distinct from functions. Predicates output truth values, but functions output elements of the universe (\eg natural numbers). If add two numbers, you can multiply the result by $2$: $(1+3)\times 2$. You cannot however, say $(1<3)+5$. 
 \end{defn}
 \begin{example}
   $<,\geq,=$ are predicates of natural numbers
@@ -547,17 +550,370 @@ Now we define some predicates:
   This encodes Berry's paradox in Peano arithmetic. 
 \end{defn}
 \begin{theorem}[Gödel's first incompleteness]
-  There is some statement that cannot be proven true or false in Peano arithmetic.
+  There is some statement that cannot be proven true or false in Peano arithmetic.\footnote{Assuming Peano arithmetic is consistent.}
 \end{theorem}
 \begin{proof}
-  We will construct such a statement, called a Gödel sentence. Let $N$ be the smallest number that cannot be named in fewer than $10k$ symbols. The sentence 
+  We will construct such a statement. Let $N$ be the smallest number that cannot be named in fewer than $10k$ symbols. Define 
   \begin{equation}
     \label{eq:godel-sentence}
     \forall x \bigl(\berry (x) \iff x= \succ^N(0)\bigr)
   \end{equation}
-  is a Gödel sentence. A proof of its negation would contradict the fact that $N$ is the smallest number that cannot be named in fewer than $10k$ symbols. A proof of \cref{eq:godel-sentence} would imply $\berry$ names $N$ in fewer than $10k$ symbols. 
+  As $\berry(x)$ places a minimality condition of $x$ via the $\minnodef(x,y)$ term, at most one element can satify $\berry(x)$. Thus, 
+  a proof of \cref{eq:godel-sentence}'s negation amounts to showing $N$ does not satisfy $\berry$. A contradiction, as $N$ cannot be named in fewer than $10k$ symbols. A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, again a contradiction. 
+\end{proof}
+\chapter[Set theory]{set theory}
+While Frege was laying the groundwork for a new ontology of mathematics, Cantor proposed a controversial theory of infinite sets. Today, this theory is used to give us a big enough universe to do almost all of mathematics.
+
+While investigating an unsolved problem in analysis, Cantor found a solution that required numbers beyond infinity. 
+The mathematics of his time had no way to make sense of such large numbers. Captivated, Cantor turned his focus to making the infinite precise. Conventional wisdom said this was not possible. Cantor believed that, not only was this possible, but progress in mathematics required it. 
+
+To lay foundations on which he could build his theory the infinite, Cantor invented set theory. These sets were just collections of objects that were possibly infinite. Next, he looked for a way to compare the size of infinite objects. Once he accomplished this, he was able to show that some infinite sets were smaller than others. This idea was met with both derision and celebration. Gradually, mathematics came to see the necessity of Cantor's insights. Today, you can't get far in mathematics without running into sets. 
+\section[Naïve set theory]{naïve set theory}
+\begin{defn}[naïve set]
+  A set is an unordered collection of mathematical objects. A set may be infinite. Two sets are the same if they have the same elements. 
+\end{defn}
+\begin{defn}[member]
+  We say $y$ is an element of the set $X$ if $y$ contains $X$. This is written $y\in X$. So $\{1,2,3\}=\{2,1,3\}=\{3,2,1\}$ because the elements are the same and order doesn't matter. 
+\end{defn}
+\begin{defn}[subset $\subseteq$]
+  A set $X$ is a subset of $Y$, written $X\subseteq Y$, if and only if (iff) every element of $X$ is also an element of $Y$. 
+\end{defn}
+\begin{example}
+  The collection $\N$ is a set of all natural numbers. It is infinite. The set of even numbers $E$ is a subset of $\N$, \ie $E\subseteq \N$. 
+\end{example}
+One may take unions $(\cup)$ and intersections $(\cap)$ of sets. 
+
+Now we would like to know how to compare the sizes of infinite sets. 
+\begin{defn}
+  Two sets $X$ and $Y$ are in a $1$-to-$1$ correspondence if we can match each element of $X$ with exactly one element of $Y$ and have no elements in $Y$ left over. 
+\end{defn}
+\begin{example}
+  The sets $\{1,2,3\}$ and $\{5,6,7\}$ are in a $1$-to-$1$ correspondence, namely 
+  \begin{align*}
+    1 &\mapsto 5 \\
+    2 &\mapsto 6 \\
+    3&\mapsto 7
+  \end{align*}
+  There are other $1$-to-$1$ correspondences between these sets.  
+\end{example}
+\begin{example}
+  The set $\N$ (natural numbers) is in a $1$-to-$1$ correspondence with $E$ (even numbers). 
+  \begin{align*}
+    0 &\mapsto 0 \\
+    1 &\mapsto 2 \\
+    2 &\mapsto 4 \\
+    &\vdots \\ 
+    n & \mapsto 2n \\
+    &\vdots 
+  \end{align*}
+\end{example}
+\begin{defn}[size]
+  Two sets have the same size iff there is a $1$-to-$1$ correspondence between them. 
+\end{defn}
+So we can see there are as many even numbers as there are natural numbers. Likewise, there are as many even numbers as odd numbers. 
+\begin{theorem}
+  There set of natural numbers ($\N$) and integers ($\Z$) have the same size. 
+\end{theorem}
+\begin{proof}
+  \[
+  \begin{matrix}
+    \N:& 0 & 1 & 2 & 3 & 4 & \dots \\
+       & \updownarrow & \updownarrow& \updownarrow&\updownarrow&\updownarrow& \\
+    \Z:& 0 & 1 & -1 & 2 & -2 & \dots 
+  \end{matrix}
+  \]
 \end{proof}
 
+\begin{theorem}
+  The set $\N$ (natural numbers) has the same size as $\N^2$ (pairs of natural numbers). 
+\end{theorem}
+\begin{proof}
+  Lay out $\N^2$ in the following grid: 
+  \[
+  \begin{matrix}
+    &&&&& (0,0)&  \\
+    &&&&(0,1)& & (1,0) \\
+    &&&(0,2) && (1,1) && (2,0)  \\
+    &&(0,3) && (1,2) && (2,1)&& (3,0) \\
+    &(0,4) && (1,3) && (2,2) && (3,1) && (4,0) \\
+    \dots && \dots && \dots && \dots && \dots  
+  \end{matrix}
+  \]
+  Reading off each row from the top gives the following $1$-to-$1$ correspondence:
+  \[
+  \begin{matrix}
+    \N:& 0 & 1 & 2 & 3 & 4 & \dots \\
+       & \updownarrow & \updownarrow& \updownarrow&\updownarrow&\updownarrow & \\
+    \N^2:& (0,0) & (0,1) & (1,0) & (2,0) & (1,1) & \dots 
+  \end{matrix}
+  \]
+\end{proof}
+
+\begin{theorem}
+  The set $\N$ (natural numbers) is the same size as $\Q$ (rational numbers)
+\end{theorem}
+\begin{proof}
+  Lay out $\Q$ in the following grid, writing only the fractions that are in simplest form: 
+  \begingroup
+  \renewcommand*{\arraystretch}{2.2}
+  \[
+  \begin{matrix}
+    0 \\
+    \dfrac{-1}{1} & \dfrac 11\\
+    \dfrac{-1}{2} & \dfrac{1}{2}\\
+    \dfrac{-2}{3} & \dfrac{-1}3 & \dfrac 1 3 & \dfrac 2 3 \\
+    \dfrac{-3}4 & \dfrac{-1}4 & \dfrac 1 4 & \dfrac 3 4 \\
+    \dfrac{-4}5 & \dfrac {-3}5 & \dfrac {-2}5 & \dfrac {-1}5 & \dfrac 15 &\dfrac 25& \dfrac 35& \dfrac 45 \\
+    \vdots 
+  \end{matrix}
+  \]
+  \endgroup
+  Reading off from the top gives a $1$-to-$1$ correspondence: 
+  \[
+  \begin{matrix}
+    \N:& 0 & 1 & 2 & 3 & 4 & \dots \\
+       & \updownarrow & \updownarrow& \updownarrow&\updownarrow&\updownarrow & \\
+    \Q:& 0 & -1/1 & 1/1 & -1/2& 1/2 & \dots 
+  \end{matrix}
+  \]
+\end{proof}
+
+\begin{defn}[countably infinite]
+  If a set has the same size as the natural numbers, it is countably infinite. 
+\end{defn}
+
+\begin{theorem}[uncountably infinite sets exist]
+  The set $2^\N$ of infinite binary strings\footnote{This notation is chosen because of the convention $2=\{0,1\}$. Then $2^\N$ is the set of infinite sequences of $1$ or $0$.} is uncountable.
+\end{theorem}
+\begin{proof}
+  Suppose $2^\N$ is countably infinite. Then there is some $1$-to-$1$ correspondence between $2^\N$ and $\N$. We can think of this as a numbered list of all the elements of $2^\N$. For argument's sake, lets say this list is 
+  \[
+  \newcommand{\markify}[1]{\color{blue}{#1}}
+  \begin{matrix}
+    0 & \mapsto & \markify 0 & 0 & 0 & 0 & 0 &  \dots \\
+    1 & \mapsto & 1 & \markify 0 & 0 & 0 & 0 &  \dots \\
+    2 & \mapsto & 0 & 1 & \markify 1 & 0 & 0 &  \dots \\
+    3 & \mapsto & 0 & 0 & 1 & \markify 0 & 1 & \dots \\
+    4 & \mapsto & 0 & 1 & 0 & 1 & \markify 1 & \dots  \\
+    \vdots && \vdots & \vdots & \vdots & \vdots& \vdots & \markify \ddots
+  \end{matrix}
+  \]
+  Now consider the diagonal entry, in this case
+  \[
+  0,0,1,0,1\dots
+  \]
+  Negating each term gives
+  \[
+  x=1,1,0,1,0\dots
+  \]
+  As $x$ is an infinite sequence of $0$ and $1$s, we know $x\in2^\N$. We are assuming every element in $2^\N$ will show up eventually in our list; thus $x$ must eventually show up. But $x$ cannot be entry $0$ because their $0$-th terms differ. Likewise, $x$ cannot be the entry $1$ because their $1$-th terms differ. In general, $x$ cannot be element number $M$ because the $M$-th terms will differ. So, in fact, $x$ does not show up anywhere in our list, a contradiction. 
+ 
+  I gave specific examples for clarity. But for any list of elements of $2^\N$, we can find an $x$ by negating the diagonal. Then the argument that $x$ cannot be the first, second, third,\dots$M$-th term still works, regardless of the specific values. There is no $1$-to-$1$ correspondence between $M$ and $2^\N$ because such a correspondence would lead to a contradiction. 
+\end{proof}
+This is the first notable result of the chapter. When Cantor discovered this, it showed the world infinite sets could be understood mathematically, and infinite sets were more complicated than they appeared. You may wonder if there are sets strictly bigger than $2^\N$. There are. In fact, there are infinitely many. 
+
+\section[Russell's paradox]{russell's paradox}
+Cantor's results were initially met with skepticism. Mathematicians found his results so counter-intuitive that some suspected they were meaningless. Today you would be hard-pressed to find a mathematician who did not believe Cantor's results, but Cantor's work was free of error. In fact, philosopher-mathematician-politician Bertrand Russell found a glaring error in Cantor's work, known as Russell's paradox: 
+
+Consider the set
+\[
+R= \{x: x\notin x\}
+\]
+\ie the set of sets that don't contain themselves. Russell then asked, does $R$ contain itself ($R\in R$)? Suppose it does. By definition of $R$, all sets in $R$ must not contain themselves. Then $R\notin R$, a contradiction. Suppose $R\notin R$. Then, as $R$ does not contain itself, by definition of $R$, we can conclude that in fact $R\in R$, a contradiction. 
+
+This shocked Frege, who was trying to construct all of mathematics through a prototype of what is now known as predicate logic and set theory. But mathematicians persevered in their quest to formalize mathematics. Bertrand Russell, along with his mentor Alfred N. Whitehead, spent a decade trying to lay the logical foundations of mathematics in a way that avoided paradoxes like this. In particular, they were looking for a foundation that was \emph{consistent}---free of contradictions---and \emph{complete}---everything can be proved true or false. 
+
+To avoid Russel's paradox, they built their mathematical universe in layers. In each layer, definitions can only refer to things defined in the layers below. In this system, there is no way to define the set of all sets that contain themselves. They could not show this theory, which they laid out in \emph{Principia Mathematica}\footnote{Named after Newton's book.} was either consistent or complete.\footnote{Gödel would later show both goals were impossible.} \emph{Principia} is so complicated it takes over 360 pages to prove $1+1=2$\cite{principia}. 
+
+In practice, the layers in \emph{Principia} are superfluous for most mathematics. In fact, for the purposes of this book, we will only need at most two such layers. Usually we will be able to get away just by providing axioms that limit the definitions of sets enough to prevent the paradoxes Russell \& Whitehead feared. 
+
+\section[Axiomatic Set Theory]{axiomatic set theory}
+\newcommand{\zfc}{\textsc{zfc}\xspace}
+In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set theory with the Axiom of Choice} (\zfc). To prove a theorem, you show that it can be proved by the deduction laws for first order logic starting with the axioms of \zfc. Of course, this is rarely done in practice; such proofs would be incomprehensible to most people. We will not prove things from the axioms of \zfc. In fact, we will only explicitly use some of \zfc's axioms. But, underneath our proofs, will be the implication that this proof can be written out fully in a way a proof-checking computer would agree the conclusions follow from \zfc's axioms. 
+
+We will define \zfc as a first-order theory. There is a constant symbol $\emptyset$, which is the empty set. There is a predicate symbol $\in$ for membership, \ie $x\in y$ iff $x$ is an element of $y$. The axioms are as follows:
+\begin{enumerate}
+\item Extensionality \\
+  Two sets are the same if they have the same elements. In other words, everything you need to know about a set can be determined by looking at its elements.
+  \[
+  \forall x \forall y  \bigl(\forall z(z\in x \iff z \in y)\implies (x=y)\bigr)
+  \]
+  \label{extensionality}
+\item Regularity \\  
+  Every nonempty set is disjoint from at least one of its elements
+  \[
+  \forall x (x\neq \emptyset \implies \exists y . y\in x \wedge y\cap x = 0)
+  \]
+  This prevents sets from containing themselves. \label{zfc:reg} 
+\item Specification \\ 
+  For any set $X$, we can find a subset containing exactly those elements of $X$ that satisfy a predicate of our choosing. If we call this predicate $\Phi$, then
+  \[
+  \forall X \exists Y \forall z  (z\in X \wedge \Phi(z) \iff z\in Y)
+  \]
+  Sets constructed with this axiom will often be written in set builder notation:
+  \[
+  \{x\in \N: \exists k \in \N \textrm{ such that } x=2k\}
+  \]
+  is the set of even natural numbers.
+\item Pairing \\ 
+  For all $x$ and $y$, there is a set which contains both of them. 
+  \[
+  \forall x \forall y \exists Z .x\in Z \wedge y \in Z
+  \]
+  We will not use this axiom explicitly, but we will always assume this can be done. 
+\item Union \\
+  You can take unions, even if they're infinite. 
+  For any set of sets $X$, there is a set that accumulates the contents of every element of $X$. This may be written
+  \[
+  U=\bigcup_{A\in X} A
+  \]
+  or more frequently, by writing $X=\{X_i:i\in I\}$ where $I$ is a set of indexes,
+  \[
+  U=\bigcup_{i\in I} X_i
+  \]
+  The phrasing in terms of a set of sets is awkward, but this allows for infinite unions, which are rather useful. 
+  
+  The first order sentence is
+  \[
+  \forall X \exists U \forall Y \bigl(Y\in U \implies \forall z ( z\in Y \implies z \in U)\bigr)
+  \]
+\item Replacement \\ 
+  Suppose the predicate $\Phi(x,y)$ encodes a function, \ie 
+  \[
+  \forall x \exists! y \Phi(x,y)
+  \]
+  where $\exists!y$ means there is exactly one $y$ with the required property. 
+  
+  Then this axiom states the image of a set $X$ under the function encoded by $\Phi$ is also a set. We can \emph{replace} $X$ with its image $Y$ to get a set.
+  \[
+  \forall X \exists Y \forall x \forall y (x\in X \wedge \Phi(x,y) \implies y\in Y)
+  \]
+  We will not make explicit use of this. 
+\item Infinity \\
+  The natural numbers exist. Specifically, we say $0=\emptyset$. Also, let $\succ(x)=x\cup \{x\}$. Then
+  \[
+  \exists \N (n\in \N\implies \succ(n)\in\N)
+  \]
+  Once we have the natural numbers, we can create all the infinite sets we want, but there is no way to get to this point from the other \zfc axioms. 
+\item Powerset \\
+  The powerset of $X$, denoted $2^X$, is the set of subsets of $X$. This axioms guarantees that the powerset of set $X$ is also a set. 
+  \[
+  \forall X \exists 2^X . \forall z (z\subseteq X \iff z \in 2^X)
+  \]
+\item Choice \\
+This is the most famous and controversial of the \zfc axioms. It says, for any set of nonempty sets, $X$, we can assume there exists a corresponding \emph{choice function}. If we write $X$ in index notation, $X=\{X_i:i\in I\}$, then a choice function is some $f$ such that $f(X_i)\in X_i$. In other words, we can assume there is a way to pick an element from each set in $X$. We defer the first-order sentence stating this axiom until we have talked about functions.  
+ \label{zfc:choice}
+\end{enumerate}
+
+Now we show the work we did before can be formalized in this system:
+\begin{defn}[ordered pair]
+ \[(x,y)=\{\{x\},\{x,y\}\}\]
+ This way, we can distinguish between
+ \[
+ (x,y)=\{\{x\},\{x,y\}\}
+ \]
+ and
+ \[
+ (y,x)=\{\{y\},\{x,y\}\}
+ \]
+\end{defn}
+\begin{defn}[ordered tuple]
+  We define the ordered tuple
+  \[
+  (x_0,\dots,x_n)= \{(0,x_0),(1,x_1),\dots,(n,x_n)\}
+  \]
+\end{defn}
+
+\begin{defn}[cartesian product]
+  Suppose $X$ and $Y$ are sets. Their cartesian product, denoted $X\times Y$, is the set of ordered pairs $(x,y)$ where $x\in X$ and $y\in Y$. 
+\end{defn}
+
+\begin{defn}[function]
+  A function $f$ from $X$ to $Y$, or 
+  \[
+  f: X\to Y
+  \]
+  is a subset of $X\times Y$ where each $x$ in $X$ is paired with one and only one $y$ in $Y$, \ie
+  \[
+  \forall x \bigl(x\in X \implies\exists! y. y\in Y \wedge (x,y)\in f\bigr)
+  \]
+  
+  The set of functions from $X$ to $Y$ is denoted $Y^X$. 
+\end{defn}
+
+\begin{defn}[$1$-to-$1$ correspondence]
+  A $1$-to-$1$ correspondence between $X$ and $Y$ is a function $f:X\to Y$ with the property that each $y\in Y$ is the image of exactly one $x\in X$, \ie 
+  \[
+  \forall y (y\in Y\implies \exists! x . f(x)=y)
+  \]
+\end{defn}
+
+We are ready to formally state the axiom of choice:
+\begin{equation}
+\forall X \left(\emptyset \notin X \implies \exists f : X \to \bigcup_{A\in X} A . \forall A \in X . f(A)\in A\right)
+\label{eq:choice}
+\end{equation}
+where $\forall A \in X$ is a shorthand for $\forall A (A\in X \implies \dots)$, and $\exists f:X\to Y$ is a shorthand for $\exists f . f \in Y^X \wedge \dots$. 
+
+\section[To infinity and beyond]{to infinity and beyond}
+At the opening of this chapter, you were promised we'd count past infinity. But first, a quick detour through order theory--- 
+\begin{defn}[Well-ordered]
+  A set $X$ with an order $\leq$ is well-ordered iff every nonempty subset of $X$ has a least element. 
+\end{defn}
+\begin{example}
+  The set $\N$ with order $\leq$ is well-ordered. To see this, note that a natural number is a set of all the natural numbers before it.
+  \begin{align*}
+    0 &= \{\} \\
+    1 &= \{0\}\\
+    2 &= \{0,1\}\\
+    3 &= \{0,1,2\}\\
+    \vdots 
+  \end{align*}
+  If $X$ is a nonempty subset of $\N$,
+  \[
+  \bigcap_{n\in X} n 
+  \]
+  gives the set of all numbers smaller than everything in $\N$, \ie its least element. 
+\end{example}
+\begin{example}
+  The set $\Z$ (integers) with order $\leq$ is not well-ordered. The easiest way to show this is to consider $\Z$, a subset of $\Z$. There is no smallest integer, so this subset has no least element. 
+\end{example}
+Each natural number is finite. But we can define an infinite number, one that is greater than all natural numbers.
+\begin{defn}[\omega]
+  Define
+  \[
+  \omega=\N
+  \]
+  Define $x<y$ if $x\in y$. Then $\omega$ is greater than every natural number. 
+\end{defn}
+This new number $\omega$ cannot be a successor of a natural number, as it is not a natural number. But we can say
+\[
+\succ(\omega) = \omega \cup \{\omega\} = \N \cup \{\omega\}
+\]
+\begin{defn}[ordinals]
+  We define the Von Neumman ordinals, $\ord$, by saying each ordinal is the well-ordered set of all smaller ordinals. There are two types of ordinals:
+  \begin{itemize}
+  \item $\alpha$ is a \emph{successor ordinal} if there is some $\beta \in \ord$ such that $\alpha=\succ(\beta)$. 
+  \item $\alpha$ is a \emph{limit ordinal} if it is not a successor ordinal. 
+  \end{itemize}
+  Here, too, taking the intersection of all elements in a non-empty set gives their least element. 
+\end{defn}
+\begin{theorem}[$\Ord$ is too big to be a set]
+  $\Ord$ is too big to be a set. We call such an object a \emph{class}.\footnote{There are axioms for class theories analogous to those of \zfc, but we will not need these, as we will not use many classes}
+\end{theorem}
+\begin{proof}
+  Suppose $\ord$ were a set. Then $\ord$ would also be an ordinal. But by the axiom of regularity (\ref{zfc:reg}), $\ord$ cannot contain itself. 
+\end{proof}
+\begin{theorem}[transfinite induction]
+  A predicate $\Phi$ is true for all ordinals if
+  \begin{trivlist}
+  \item Base case: $\Phi(0)$
+  \item inductive step: If, for all $\alpha$ less than some $\beta$, $\phi(\alpha)$, we can conclude $\phi(\beta)$. 
+  \end{trivlist}
+\end{theorem}
+\begin{proof}
+  Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. But by assumption, the inductive step holds; therefore we conclude $\phi(\beta)$, a contradiction. 
+\end{proof}
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
