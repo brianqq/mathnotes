@@ -551,7 +551,7 @@ Now we define some predicates:
   This encodes Berry's paradox in Peano arithmetic. 
 \end{defn}
 \begin{theorem}[Gödel's first incompleteness]
-  There is some statement that cannot be proven true or false in Peano arithmetic.\footnote{Assuming Peano arithmetic is consistent.}
+  There is some statement that cannot be proven true or false in Peano arithmetic.\footnote{Assuming Peano arithmetic is consistent (free of contradictions).}
 \end{theorem}
 \begin{proof}
   We will construct such a statement. Let $N$ be the smallest number that cannot be named in fewer than $10k$ symbols. Define 
@@ -559,7 +559,7 @@ Now we define some predicates:
     \label{eq:godel-sentence}
     \forall x \bigl(\berry (x) \iff x= \succ^N(0)\bigr)
   \end{equation}
-  As $\berry(x)$ places a minimality condition of $x$ via the $\minnodef(x,y)$ term, at most one element can satify $\berry(x)$. Thus, 
+  As $\berry(x)$ places a minimality condition on $x$ via the $\minnodef(x,y)$ term, at most one element can satify $\berry(x)$. Thus, 
   a proof of \cref{eq:godel-sentence}'s negation amounts to showing $N$ does not satisfy $\berry$. A contradiction, as $N$ cannot be named in fewer than $10k$ symbols. A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, again a contradiction. 
 \end{proof}
 \chapter[Set theory]{set theory}
