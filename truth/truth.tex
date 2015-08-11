@@ -138,7 +138,7 @@ or, equivalently, \cref{eq:dmorg:or}.
 \end{proof}
 
 \section[The Conditional]{the conditional}
-We would like to model causality. Causality is vital in logical reasoning. But defining causality is a black hole ready to swallow up even the cleverest of thinkers. So hark the olde adage `the best mathematician is a lazy one', and punt. We will define the operator implies, a.k.a. the conditional, denoted $\implies$ to act as our stripped-down notion of causality. 
+We would like to model causality. Causality is vital in logical reasoning. But defining causality is a black hole ready to swallow up even the cleverest of thinkers.  Instead we'll define the operator implies, a.k.a. the conditional, denoted $\implies$, a stripped-down notion of causality. 
 \begin{defn}[implies $\implies$]
   $x\implies y$ is true for all inputs except $1\implies 0$. 
 \begin{center}  
@@ -265,7 +265,7 @@ Fourier's work was downright scandalous. He was able to solve the heat equation,
 
 Abel, and later Galois, proved that degree 5 equations have no general solution that can be written in terms of the basic arithmetic operations and radicals. In particular, the crux of Galois's proof were abstract systems with no clear base in Euclidean geometry. 
 
-Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry went unsolved for millenia, like can you trisect an angle with a compass and straightedge went unsolved for a few millennia. But these were quickly solved using Galois's tools.\cite{wiki:trisect} Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century, that it was in fact independent, as Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry. In each, Euclid's parallel postulate does not hold. 
+Even Euclidean geometry was proving to be less than the paragon of flawless logic it once seemed. Problems in Euclidean geometry went unsolved for millenia, like can you trisect an angle with a compass and straightedge went unsolved for a few millennia. But these were quickly solved using Galois's tools\cite{wiki:trisect}. Euclid's parallel axiom was thought to be provable from his other axioms for thousands of years, but it was shown in the mid 19th century that was impossible. Euclid's remaining axioms are satisfied by spherical and hyperbolic geometry. In each, Euclid's parallel postulate does not hold. 
 
 In the nineteenth century, mathematics outgrew its ontology. The situation was so disorienting, Dodgson wrote a veiled satire ridiculing the absurdity of this new mathematics. Dodgson is better known as Lewis Carol. This satire is called \emph{Alice in Wonderland}.\cite{alice}
 
@@ -274,7 +274,7 @@ Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George
 \section[What is Predicate Logic?]{what is predicate logic?}
 First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that we can't declare it absolutely true. 
 
-Predicate logic makes use of the same operations and conventions of boolean logic ($\wedge$, $\vee$,$\neg$,$\implies$,$\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, and quantifiers, and a special equality predicate. 
+Predicate logic makes use of the same operations and conventions of boolean logic ($\wedge$, $\vee$,$\neg$,$\implies$,$\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, quantifiers, and a special equality predicate. 
 
 These additions allow us to talk in generalities about entities that live in some universe, for example the natural numbers. 
 
@@ -297,7 +297,7 @@ Functions do not reside in the proverbial universe. If we are working in a unive
 \end{example}
 \begin{defn}[predicate symbols]
   Predicate symbols name predicts, which take in entities and output true or false.
-Like functions, predicates have arity and exist outside of the universe. But predicates are distinct from functions. Predicates output truth values, but functions output elements of the universe (\eg natural numbers). If add two numbers, you can multiply the result by $2$: $(1+3)\times 2$. You cannot however, say $(1<3)+5$. 
+Like functions, predicates have arity and exist outside of the universe. But predicates are distinct from functions. Predicates output truth values, but functions output elements of the universe (\eg natural numbers). If add two numbers, you can multiply the result by $2$: $(1+3)\times 2$. You cannot, however, say $(1<3)+5$. 
 \end{defn}
 \begin{example}
   $<,\geq,=$ are predicates of natural numbers
@@ -333,7 +333,7 @@ We can now state this unambiguously as
   \item Substitution: equal elements are interchangeable 
     \begin{trivlist}
     \item for all functions $f$: $\forall x\forall y (x=y\implies f(x)=f(y))$\footnote{Quantifiers range over the universe. But functions don't live in the universe. So we can't write something like $\forall f \forall x \forall y (x=y\implies f(x)=f(y))$. The solution is to treat this condition as a template, or \emph{axiom schema}, and copy it over for each function.}
-    \item for predicates $\phi$: $\forall x \forall y(x=y \implies \phi(x)\iff \phi(y))$
+    \item for predicates $\phi$: $\forall x \forall y\bigl(x=y \implies (\phi(x)\iff \phi(y))\bigr)$
     \end{trivlist}
   \end{enumerate}
 \end{defn}
@@ -518,7 +518,7 @@ This proof is due to George Boolos. Gödel's proof used the liar's paradox (this
 \begin{defn}[Gödel numbering]
   A Gödel numbering is a lossless encoding of first order logical statements in the natural numbers. Many such encodings exist. For our purposes, any one will work. 
 \end{defn}
-Once we've picked a Gödel numbering, Peano arithmetic becomes self-referential.  We can talk about the theory of predicate logic as if it coexisted in the same universe as the natural numbers themselves. 
+Once we pick a Gödel numbering, Peano arithmetic becomes self-referential.  
 
 \begin{defn}[names]
   A formula $\phi$ names the number $n$ iff $\forall x (F(x)\iff x=n)$. 
@@ -526,7 +526,7 @@ Once we've picked a Gödel numbering, Peano arithmetic becomes self-referential.
 Now we define some predicates:
 \newcommand{\namelen}{\texttt{nameln?}}
 \begin{defn}[\namelen]
-  $\namelen(x,y)$ is true iff $x$ can be named by a statement containing $y$ symbols. Via the Gödel numbering, this can be defined using only the alphabet of peano arithmetic. 
+  $\namelen(x,y)$ is true iff $x$ can be named by a statement containing $y$ symbols. We can define this purely in terms of arithmetic operations via our Gödel numbering. 
 \end{defn}
 \newcommand{\namesmaller}{\texttt{smaller?}}
 \begin{defn}[\namesmaller]
