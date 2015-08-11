@@ -7,6 +7,7 @@
 
 \usepackage{graphicx}
 \usepackage{colortbl}
+\usepackage[inline]{asymptote}
 
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
@@ -125,7 +126,7 @@ $x$ & $y$ & $x\wedge y$ & $\neg(x\wedge y)$ & $\neg x$ & $\neg y$ & $(\neg x)\ve
 \end{tabular}
 %END RECEIVE ORGTBL nand-dmorg
 \end{center}
-Then negate both sides of $\cref{eq:dmorg:and}$, giving 
+Then negate both sides of \cref{eq:dmorg:and}, giving 
 \[
 x\wedge y = \neg(\neg x \vee \neg y)
 \]
@@ -727,7 +728,7 @@ To avoid Russel's paradox, they built their mathematical universe in layers. In 
 
 In practice, the layers in \emph{Principia} are superfluous for most mathematics. In fact, for the purposes of this book, we will only need at most two such layers. Usually we will be able to get away just by providing axioms that limit the definitions of sets enough to prevent the paradoxes Russell \& Whitehead feared. 
 
-\section[Axiomatic Set Theory]{axiomatic set theory}
+\section[Axiomatic set theory]{axiomatic set theory}
 \newcommand{\zfc}{\textsc{zfc}\xspace}
 In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set theory with the Axiom of Choice} (\zfc). To prove a theorem, you show that it can be proved by the deduction laws for first order logic starting with the axioms of \zfc. Of course, this is rarely done in practice; such proofs would be incomprehensible to most people. We will not prove things from the axioms of \zfc. In fact, we will only explicitly use some of \zfc's axioms. But, underneath our proofs, will be the implication that this proof can be written out fully in a way a proof-checking computer would agree the conclusions follow from \zfc's axioms. 
 
@@ -745,7 +746,7 @@ We will define \zfc as a first-order theory. There is a constant symbol $\emptys
   \forall x (x\neq \emptyset \implies \exists y . y\in x \wedge y\cap x = 0)
   \]
   This prevents sets from containing themselves. \label{zfc:reg} 
-\item Specification \\ 
+\item Specification\label{zfc:spec} \\ 
   For any set $X$, we can find a subset containing exactly those elements of $X$ that satisfy a predicate of our choosing. If we call this predicate $\Phi$, then
   \[
   \forall X \exists Y \forall z  (z\in X \wedge \Phi(z) \iff z\in Y)
@@ -764,6 +765,10 @@ We will define \zfc as a first-order theory. There is a constant symbol $\emptys
 \item Union \\
   You can take unions, even if they're infinite. 
   For any set of sets $X$, there is a set that accumulates the contents of every element of $X$. This may be written
+  \[
+  U=\bigcup X
+  \]
+  or
   \[
   U=\bigcup_{A\in X} A
   \]
@@ -804,8 +809,7 @@ We will define \zfc as a first-order theory. There is a constant symbol $\emptys
 This is the most famous and controversial of the \zfc axioms. It says, for any set of nonempty sets, $X$, we can assume there exists a corresponding \emph{choice function}. If we write $X$ in index notation, $X=\{X_i:i\in I\}$, then a choice function is some $f$ such that $f(X_i)\in X_i$. In other words, we can assume there is a way to pick an element from each set in $X$. We defer the first-order sentence stating this axiom until we have talked about functions.  
  \label{zfc:choice}
 \end{enumerate}
-
-Now we show the work we did before can be formalized in this system:
+The work we did before can be formalized in this system:
 \begin{defn}[ordered pair]
  \[(x,y)=\{\{x\},\{x,y\}\}\]
  This way, we can distinguish between
@@ -837,8 +841,7 @@ Now we show the work we did before can be formalized in this system:
   \[
   \forall x \bigl(x\in X \implies\exists! y. y\in Y \wedge (x,y)\in f\bigr)
   \]
-  
-  The set of functions from $X$ to $Y$ is denoted $Y^X$. 
+  The set of functions from $X$ to $Y$ is denoted by  $Y^X$. 
 \end{defn}
 
 \begin{defn}[$1$-to-$1$ correspondence]
@@ -848,16 +851,10 @@ Now we show the work we did before can be formalized in this system:
   \]
 \end{defn}
 
-We are ready to formally state the axiom of choice:
-\begin{equation}
-\forall X \left(\emptyset \notin X \implies \exists f : X \to \bigcup_{A\in X} A . \forall A \in X . f(A)\in A\right)
-\label{eq:choice}
-\end{equation}
-where $\forall A \in X$ is a shorthand for $\forall A (A\in X \implies \dots)$, and $\exists f:X\to Y$ is a shorthand for $\exists f . f \in Y^X \wedge \dots$. 
-
 \section[To infinity and beyond]{to infinity and beyond}
-At the opening of this chapter, you were promised we'd count past infinity. But first, a quick detour through order theory--- 
-\begin{defn}[Well-ordered]
+At the opening of this chapter, you were promised we'd count past infinity. But first, a quick detour through order theory: 
+\begin{defn}[well-ordered]
+  \label{def:well-ordered}
   A set $X$ with an order $\leq$ is well-ordered iff every nonempty subset of $X$ has a least element. 
 \end{defn}
 \begin{example}
@@ -898,22 +895,333 @@ This new number $\omega$ cannot be a successor of a natural number, as it is not
   \end{itemize}
   Here, too, taking the intersection of all elements in a non-empty set gives their least element. 
 \end{defn}
-\begin{theorem}[$\ord$ is too big to be a set]
-  $\ord$ is too big to be a set. We call such an object a \emph{class}.\footnote{There are axioms for class theories analogous to those of \zfc, but we will not need these, as we will not use many classes}
+\begin{theorem}[$\ord$ is too big to be a set]\label{th:ord-proper-class}
+  $\ord$ is too big to be a set. We call such an object a \emph{class}.\footnote{There are axioms for class theories analogous to \zfc, but we will not need these, as we will not use many classes}
 \end{theorem}
 \begin{proof}
   Suppose $\ord$ were a set. Then $\ord$ would also be an ordinal. But by the axiom of regularity (\ref{zfc:reg}), $\ord$ cannot contain itself. 
 \end{proof}
-\begin{theorem}[transfinite induction]
+\begin{theorem}[transfinite induction]\label{def:trans-ind}
   A predicate $\Phi$ is true for all ordinals if
   \begin{trivlist}
   \item Base case: $\Phi(0)$
-  \item inductive step: If, for all $\alpha$ less than some $\beta$, $\phi(\alpha)$, we can conclude $\phi(\beta)$. 
+  \item Inductive step: If, for all $\alpha$ less than some $\beta$, $\phi(\alpha)$, we can conclude $\phi(\beta)$. 
   \end{trivlist}
 \end{theorem}
 \begin{proof}
-  Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. But by assumption, the inductive step holds; therefore we conclude $\phi(\beta)$, a contradiction. 
+  Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. But, by assumption, the inductive step holds; therefore we conclude $\phi(\beta)$, a contradiction. 
 \end{proof}
+\section[The axiom of choice]{the axiom of choice}
+We introduce the shorthands $\forall x \in X \phi(x)$ for $\forall x . x\in X \implies \phi(x)$ and $\exists x \in X \phi(x)$ for $\exists x . x\in X \wedge \phi(x)$. 
+\begin{defn}[axiom of choice] \label{choice}
+  For any set of sets $X$, if $\emptyset \notin X$ there is a choice function $f:X\to \bigcup X$ such that $f(X_i)\in X_i$, or 
+\begin{equation}
+\forall X \left(\emptyset \notin X \implies \exists f \in \left(\bigcup X\right)^X \forall A \in X . f(A)\in A\right)
+\label{eq:choice}
+\end{equation}
+\end{defn}
+The axiom of choice allows you to make an infinite number of arbitrary choices. In the general case, a description of a choice function or the elements it returns are not possible. This means \zfc contains elements whose existence we assert, although we can never find them. This is the heart of the early 20th century controversy over the axiom of choice. 
+
+\begin{defn}[infinite cartesian product]
+  Let $I$ be an index set. If each $X_i$ is a set, we can define their product,
+  \[
+  \prod_{i\in I} X_i=\left\{f\in\left(\bigcup_{i\in I} X_i\right)^I: f(i)\in X_i\right\}
+  \]
+  \ie the set of functions from $I$ to $\bigcup_{i\in I} X_i$ such that $f(i)\in X_i$. 
+\end{defn}
+We can restate the axiom of choice in terms of the above.
+\begin{theorem}
+  Let $I$ be an index set. Suppose each $X_i$ is a nonempty set and $X_i\neq X_j$ whenever $i$ and $j$ are distinct. Then the \nameref{choice} is equivalent to
+  \begin{equation}
+    \prod_{i\in I} X_i\neq \emptyset
+    \label{eq:nonempty-prod}
+  \end{equation}
+\end{theorem}
+\begin{proof}
+The set of choice functions on $\bigcup_{i\in I} X_i$ is 
+  \[
+  C=\left\{f\in \left(\bigcup_{i\in I} X_i\right)^X: f(X_i)\in X_i\right\}
+  \]
+  whereas
+  \[
+  P=\prod_{i\in I} X_i = \left\{f\in\left(\bigcup_{i\in I} X_i\right)^I: f(i) \in X_i\right\}
+  \]
+  There is a $1$-to-$1$ correspondence between $P$ and $C$ given by converting from $f$ such that $f(X_i)\in X_i$ to an $f'$ such that $f'(i)=f(X_i)\in X_i$. Setting $f'(i)=f(X_i)$ gives this conversion
+\end{proof}
+
+\begin{theorem}[well-ordering theorem]\label{th:well-ordering}
+  For every set $X$ there is some order $\leq$ that makes $X$ \nameref{def:well-ordered}. 
+\end{theorem}
+\begin{proof}
+  We will define a $1$-to-$1$ function from a subset of $\ord$ to $X$ by \nameref{def:trans-ind}. Let $f$ be a choice function for $2^X$. We will be using $f$ to pull out successive elements of $X$, from which we will define a well-order. Define
+  \begin{align*}
+    X_0 &= X \\
+    x_0 &= f(X_0)
+  \end{align*}
+  For $\alpha$ an ordinal, define 
+  \begin{align*}
+    X_{\succ(\alpha)} &= X_\alpha-\{x_\alpha\} \\
+    x_{\succ(\alpha)} &= f(X_\alpha)
+  \end{align*}
+  For $\beta$ a (nonzero) limit ordinal, define 
+  \begin{align*}
+    X_\beta &= \bigcap_{\alpha < \beta} X_\alpha \\
+    x_\beta &=f(X_\beta)
+  \end{align*}
+  Let $\Omega$ be the smallest ordinal such that $X_\Omega=\emptyset$. The ordinal $\Omega$ must exist, otherwise we have defined a $1$-to-$1$ function from $\ord$ to $X$, which is impossible by \nameref{th:ord-proper-class}. Now we can say the function $n\mapsto x_n$ is a $1$-to-$1$ function from $\Omega$ to $X$. Finally, we define the order by 
+  \[
+  x_n \leq x_k \iff n \leq k
+  \]
+\end{proof}
+This version of the axiom of choice seems intuitively true. 
+\begin{theorem}[well-ordering theorem \iff\ choice]
+  Suppose instead of assuming the axiom of choice, we use the axioms of Zermelo-Fraenkel set theory and \nameref{th:well-ordering}. Then we can prove the axiom of choice. 
+\end{theorem}
+\begin{proof}
+  Consider the set of sets $X$. Suppose $\emptyset\notin X$. Let $\leq$ be a well-ordering on $\bigcup X$, which exists by hypothesis. Define a choice function for $X$ by sending the set $A\in X$ to its least element under $\leq$. 
+\end{proof}
+\section[Number systems]{number systems}
+We are almost ready to start defining the familiar number systems in terms of set theory. In fact, we can do so right now, but we will have no way of telling our theory that $1/2$ and $2/4$ are identical objects. To do this, we need to split our representations of a number system into \emph{equivalence classes}. 
+\begin{defn}[equivalence relation]
+  The $2$-ary predicate $\sim$ on the set $X$ is an equivalence relation iff it satisfies
+  \begin{enumerate}
+  \item Reflexivity: $\forall x \in X.x\sim x$
+  \item Symmetry: $\forall x,y\in X (x\sim y \implies y\sim x)$
+  \item Transitivity: $\forall x,y,z\in X (x\sim y \wedge y\sim z\implies x\sim z)$
+  \end{enumerate}
+\end{defn}
+\begin{defn}[equivalence classes]
+  Suppose $X$ is a set and $\sim$ is an equivalence relation on $X$. Then $X/\sim$, equivalence classes of $X$ mod $\sim$, is a set of subsets of $X$ such that 
+  \begin{enumerate}
+  \item Every $x\in X$ is in some $A \in X/\sim$. 
+  \item For all $A\in X$, all elements of $A\in X/\sim$ are $\sim$-equivalent.
+  \item For all $A,B\in X$, there are no $a\in A$, $b\in B$ such that $a\sim b$. 
+  \end{enumerate}
+\end{defn}
+\subsection[Integers]{integers}
+We can represent integers as pairs of natural numbers $(a,b)$ which will represent the number we think of as $a-b$. 
+\begin{defn}[\sim]
+  \[
+  (a,b)\sim(x,y) \iff a+x=b+y
+  \]
+\end{defn}
+Then 
+\begin{defn}[$\Z$]
+  Define the integers
+  \[
+  \Z=\N^2/\sim
+  \]
+  Using equivalence classes lets us treat different representations of the same number as equal. If we just looked at pairs in $\N^2$, we could say $(0,3)\equiv (1,4)$, but not $(0,3)=(1,4)$ as they are different pairs. The solution? Define an integer as the set of all pairs that represent it. 
+
+  Define addition by its action on pairs $(a,b)$ and $(x,y)$:
+  \[
+  (a,b)+(x,y)=(a+x,b+y)
+  \]
+  or, in a more suggestive notation, 
+  \[
+  (a-b)+(x-y)=\bigl(a+x-(b+y)\bigr)
+  \]
+  negation by
+  \[
+  -(a-b)=(b-a)
+  \]
+  and multiplication by
+  \[
+  (a - b)\cdot(x-y)=\bigl(ax +by - (ay+bx)\bigr)
+  \]
+  Technically, we defined $+$, $-$ and $\cdot$ for pairs in $\N^2$. To see these define operations on $\Z=\N^2/\sim$, check that equivalent inputs lead to equivalent outputs. 
+\end{defn}
+\subsection[Rationals]{rationals}
+Rationals will be represented by pairs of an integer (numerator) and a positive integer (denominator). Let $\Z^+$ denote strictly positive integers. 
+\begin{defn}[\sim]
+  For pairs in $\Z\times \Z^+$,
+  \[
+  (a,b)\sim(x,y) \iff ay=bx
+  \]
+  or, in a more suggestive notation, 
+  \[
+  \frac a b \sim \frac x y \iff ax = by
+  \]
+\end{defn}
+Then
+\begin{defn}[$\Q$]
+  \[
+  \Q=(\Z\times\Z^+)/\sim
+  \]
+  where we define addition as
+  \[
+  \frac ab + \frac xy = \frac{ay+bx}{by}
+  \]
+  negation as
+  \[
+  -\frac ab = \frac{-a}b
+  \]
+  multiplication as
+  \[
+  \frac ab \frac xy = \frac {ax}{by}
+  \]
+  and the multiplicative inverses as
+  \[
+  \left(\frac ab\right)^{-1} = \frac ba
+  \]
+\end{defn}
+\subsection[Reals]{reals}
+Pythagoras believed all numbers were rational. This was key in his world view. But one day a member of his math-cult stumbled on an irrational number. Pythagoras was so appalled, legend has it he killed the discoverer to suppress this discovery. But mathematics cannot be suppressed.
+\begin{figure}[h]
+  \centering
+  \caption{Irrational numbers in geometry}
+  \begin{asy}
+    size(150);
+    pen squares = gray(.6);
+    draw((0,0)--(1,0)--(1,-1)--(0,-1)--cycle,squares);
+    draw((0,0)--(0,1)--(-1,1)--(-1,0)--cycle,squares);
+    draw((1,0)--(0,1)--(1,2)--(2,1)--cycle,squares);
+
+    draw((0,0)--(1,0)--(0,1)--cycle);
+    fill((0,0)--(1,0)--(0,1)--cycle,gray(.8));
+    label("$1$",(.5,-.2));
+    label("$1$",(-.1,.5));
+    label("$\sqrt 2$",(.6,.7));
+  \end{asy}
+\label{fig:irrational-geom}
+\end{figure}
+As seen in \cref{fig:irrational-geom}, simple geometry confronts us with irrational numbers.
+\begin{theorem}[$\sqrt 2$ is irrational]
+  There is no pair of integers $a,b$ where $a/b$ is in simplest form that satisfy 
+  \begin{equation}
+  \left(\frac a b\right)^2=2
+  \label{eq:sqrt-2}
+\end{equation}
+\end{theorem}
+\begin{proof}
+  Suppose there are integers $a,b$ with $a/b$ in simplest form that satisfy \cref{eq:sqrt-2}. Then
+  \begin{align}
+    \frac {a^2} {b^2}&=2\label{eq:dist-sqrt-2}\\
+    a^2&=2b^2\nonumber
+  \end{align}
+  so $a$ is even. Then there is some $n\in \Z$ such that $a=2n$. Substituting $2n$ for $a$ in \cref{eq:dist-sqrt-2} gives
+  \[
+  \frac {(2n)^2}{b^2}=\frac {4n^2}{b^2}=2
+  \]
+  Solving for $b$ gives
+  \[
+  b^2=2n^2
+  \]
+  so $b^2$ is even. Recall we're assuming $b$ is an integer. The only way for $b^2$ to be even when $b$ is an integer is for $b$ to be even. Then $a$ and $b$ are both even, so $a/b$ is not in simplest form, a contradiction.
+\end{proof}
+This tells us $\Q$ is missing numbers. But so far we only know for sure $\Q$ is missing numbers involving $\sqrt 2$. What about numbers like $\pi$ or $e$ that have no obvious connection to $\sqrt 2$? 
+
+Rational numbers can approximate $\sqrt 2$:
+\begin{theorem}[babylonian method]
+  \label{th:babylon}
+  Let $x$ be an approximation for $\sqrt S$. We can get a slightly better approximation $x'$ by
+  \[
+  x'=\frac{x+S/x}{2}
+  \]
+\end{theorem}
+\begin{proof}
+Let $\varepsilon$ the approximation's error, \ie $\varepsilon = x-\sqrt S$.
+  In other words,
+  \begin{align}
+    S &= (x+\varepsilon)^2 \nonumber\\
+    S &= x^2+2x\varepsilon + \varepsilon^2 \nonumber\\
+    S&= x^2+\varepsilon(2x+\varepsilon) \nonumber\\
+    \varepsilon &= \frac{S-x^2}{2x+\varepsilon}\label{bab-error-exact}
+  \end{align}
+  If $\varepsilon$ is small enough, we can approximate $2x+\varepsilon \approx 2x$. Then \cref{bab-error-exact} is approximately
+  \[
+  \varepsilon \approx \frac {S+x^2}{2x}
+  \]
+  Now we improve our approximation:
+  \begin{align*}
+    x' &= x+\varepsilon \\
+    x' &= x+ \frac{S-x^2}{2x} \\
+    x' &= \frac{2x^2+S-x^2}{2x}=\frac{S+x^2}{2x} \\
+    x' &= \frac{x+S/x}{2}
+  \end{align*}
+\end{proof}
+\begin{cor}
+  We can find a sequence of rational numbers that approximates $\sqrt{2}$.
+\end{cor}
+\begin{proof}
+The \nameref{th:babylon} will give a rational number for $x'$ when $x$ and $S$ are rational. 
+\end{proof}
+\begin{example}
+  If we start with the initial guess $\sqrt 2 \approx 1$, the \nameref{th:babylon} will give 
+  \begin{align*}
+    x_0&=1 \\
+    x_1 &= \frac{1+2/1}2 = 1.5 \\
+    x_2 &= \frac{1.5+2/1.5}2 = 1.41\bar6 \\
+    x_3 &= \frac{1.41\bar6 +2/1.41\bar6}2 = 1.4142156862\dots \\
+    x_4 &= \frac{1.4142156862\dots+2/1.4142156862\dots}2 = 1.414213562\dots \\
+        \vdots
+  \end{align*}
+\end{example}
+Continuing in this fashion, we can construct an infinite sequence $x_0,\dots,x_n\dots$ of rationals that approaches $\sqrt 2$. But we still haven't figured out a definition of irrational numbers in \zfc. We want to find a property that says $x_0,\dots,x_n\dots$ looks like an approximation of some number. The key observation is the larger the $n$, the smaller the adjustments you have to make to get more precision. This is the inspiration for the following definition.
+\begin{defn}[approximation-like]\label{def:cauchy}
+  \begin{sloppypar}
+    A sequence $x_n$ of rational numbers is approximation-like if for
+    any integer $P$ of your choosing there is some $N$ such that all
+    terms after $x_N$ will differ by less than $1/P$, \ie for all
+    $n,m > N$,
+    \[
+    |x_n-x_m| < \frac 1 P
+    \]
+  \end{sloppypar}
+\end{defn}
+\begin{figure}[h]
+  \centering
+  \caption{First six terms of an \nameref{def:cauchy} sequence. Once the sequence enters a circle, it never leaves. The circles give an upper bound on the error in the approximation, analogous to the $1/P$ terms.}
+  \begin{asy}
+    import graph;
+    size(200);
+    fill(Circle(1.6,.38),lightblue);
+    fill(Circle(1.45,.2),lightred);
+    fill(Circle(1.4,.12),lightgreen);
+    fill(Circle(1.43,.08),lightblue);
+    dot((1.1,0));
+    label("$x_0$",(1.1,0),S);
+    dot((1.8,0));
+    label("$x_1$",(1.8,0),S);
+    dot((1.6,0));
+    label("$x_2$",(1.6,0),S);
+    dot((1.3,0));
+    label("$x_3$",(1.3,0),S);
+    dot((1.4,0));
+    label("$x_4$",(1.4,0),S);
+    dot((1.43,0));
+    label("$x_5$",(1.43,0),N);
+    dot((1.44,0));
+    label("$x_6$",(1.44,0),SE);
+    draw((1,0)--(1.9,0),gray(.3));
+\end{asy}
+\label{fig:cauchy}
+\end{figure}
+\begin{defn}[\sim]
+  Two \nameref{def:cauchy} sequences are $\sim$-equivalent iff the difference in corresponding elements shrinks to $0$
+  \[
+  (x_0,x_1,\dots x_n\dots) \sim (y_0,y_1,\dots\ y_n,\dots) \iff \lim_{n\to\infty} |x_n-y_n| = 0
+  \]
+\end{defn}
+\begin{defn}[$\R$]
+  Let $A$ be the set of \nameref{def:cauchy} sequences of rationals, a subset of $\Q^\N$ we can define by specification (\zfc axiom \ref{zfc:spec}). Define the real numbers
+  \[
+  \R=A/\sim
+  \]
+  with addition given by
+  \[
+  (x_0,x_1,\dots) + (y_0,y_1,\dots) = (x_0+y_0,x_1+y_1,\dots)
+  \]
+  negation by
+  \[
+  -(x_0,x_1,\dots)=(-x_0,-x_1,\dots)
+  \]
+  and multiplication by
+  \[
+  (x_0,x_1,\dots)\cdot (y_0,y_1,\dots) = (x_0y_0,x_1y_1,\dots)
+  \]
+  For simplicity, we omit the checks that these operations output elements of $A$, as well as the check that equivalent inputs yield equivalent outputs. 
+\end{defn}
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
