@@ -333,7 +333,7 @@ We can now state this unambiguously as
   \item Substitution: equal elements are interchangeable 
     \begin{trivlist}
     \item for all functions $f$: $\forall x\forall y (x=y\implies f(x)=f(y))$\footnote{Quantifiers range over the universe. But functions don't live in the universe. So we can't write something like $\forall f \forall x \forall y (x=y\implies f(x)=f(y))$. The solution is to treat this condition as a template, or \emph{axiom schema}, and copy it over for each function.}
-    \item for predicates $\phi$: $\forall x \forall y\bigl(x=y \implies (\phi(x)\iff \phi(y))\bigr)$
+    \item for predicates $\phi$: $\forall x \forall y\Bigl(x=y \implies \bigl(\phi(x)\iff \phi(y)\bigr)\Bigr)$
     \end{trivlist}
   \end{enumerate}
 \end{defn}
@@ -344,7 +344,7 @@ I promised this would be sufficient to house modern mathematics. I will show you
 \renewcommand{\succ}{\texttt{succ}}
 \begin{defn}[Peano arithmetic]
   There is a constant called $0$ and a function of one argument called
-  $\succ$.  The Peano axioms are as follows:
+  $\succ$. You can think of it as saying $\_+1$.  The Peano axioms are as follows:
   \begin{enumerate}
   \item Nothing comes before zero:
     \[
@@ -376,9 +376,9 @@ I promised this would be sufficient to house modern mathematics. I will show you
   \end{align*}
 \end{defn}
 \section[Deduction]{deduction}
-In boolean algebra, when determining the truth of a statement, the worst case scenario will require writing out a large truth table. Not so for predicate logic. Quantifiers range over everything in some possibly infinite universe. Predicates abstract away calculations to something behind the scenes. Without any way to explicitly enumerate everything in the universe, the logician must indicate its content, as well as the behavior of some predicates, with axioms.  
+In boolean algebra, when determining the truth of a statement, the worst case scenario will require writing out a large truth table. Not so for predicate logic. Quantifiers range over everything in some possibly infinite universe. Predicates abstract away calculations to something behind the scenes. Without a way to explicitly list everything in the universe, the logician must indicate its content, as well as the behavior of some predicates, with axioms.  
 
-Some axioms, like $\forall x P(x)$ and $\exists x \neg P(x)$ are contradictory, hence nonsensical. One would hope this is just a case of `ask a bad question; get a bad answer'. We would hope that the laws of deduction, which govern what you can actually do with the axioms you choose, are ok. 
+Some axioms, like $\forall x. P(x)$ and $\exists x. \neg P(x)$ are contradictory, hence nonsensical. One would hope this is just a case of `ask a bad question; get a bad answer'. We would hope that the laws of deduction, which govern what you can actually do with the axioms you choose, are ok. 
 
 % Prior to stating the laws of deduction, we must define the following: 
 % \begin{defn}[bound variable]
@@ -423,14 +423,10 @@ For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boo
 
  
 \begin{trivlist}
-\item Universal Introduction:
-  If we know $\phi(\alpha)$, we can conclude $\forall \alpha . \phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
-\item Universal Elimination:
-  If we know $\forall \alpha . \phi(\alpha)$ then we can conclude $\phi(\beta)$. 
-\item Existential Introduction:
-  If we know $\phi(\beta)$ then we can conclude $\exists \alpha \phi(\alpha)$ so long as $\alpha$ is previously unused.
-\item Existential Elimination:
-  If we know $\exists \alpha \phi(\alpha)$, we can say $\phi(\beta)$ so long as $\beta$ is previously unused. 
+\item Universal Introduction---if we know $\Phi(\alpha)$, we can conclude $\forall \alpha . \Phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
+\item Universal Elimination---if we know $\forall \alpha . \Phi(\alpha)$ then we can conclude $\Phi(\beta)$. 
+\item Existential Introduction---if we know $\Phi(\beta)$ then we can conclude $\exists \alpha \Phi(\alpha)$ so long as $\alpha$ is previously unused.
+\item Existential Elimination---if we know $\exists. \alpha \Phi(\alpha)$, we can say $\Phi(\beta)$ so long as $\beta$ is previously unused. 
 \end{trivlist}
 Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\ie two things that used to have different names cannot have the same name). 
 
@@ -476,7 +472,7 @@ But since we want to understand the very fabric of reason itself, it must be pos
 \begin{proof}
   Full gory details---First establish the base case, \cref{eq:peano:+assoc:base}
   Consider the statement $(a+b)+0$. By \cref{defn:peano:+}, we know $\forall x . x+0=x$. By universal elimination, deduce $(a+b)+0=a+b$. Now consider
-  $a+(b+0)$. By universal elimination again, deduce $b+0=b$. By substitution, deduce $a+(b+0)=a+b$. Then, by transitivity, we know $(a+b)+0=a+(b+0)$. As $a$ and $b$ are totally arbitrary free variables, two universal introductions establish \cref{eq:peano:+assoc:base}.
+  $a+(b+0)$. By universal elimination, deduce $b+0=b$. By substitution, deduce $a+(b+0)=a+b$. Then, by transitivity, we know $(a+b)+0=a+(b+0)$. As $a$ and $b$ are totally arbitrary free variables, two universal introductions establish \cref{eq:peano:+assoc:base}.
 
   Now the inductive step, \cref{eq:peano:+assoc:ind}
   Assume \begin{equation}(a+b)+c=a+(b+c)=a+b+c\label{eq:peano:+assoc:ass}\end{equation}
@@ -521,7 +517,7 @@ This proof is due to George Boolos. Gödel's proof used the liar's paradox (this
 Once we pick a Gödel numbering, Peano arithmetic becomes self-referential.  
 
 \begin{defn}[names]
-  A formula $\phi$ names the number $n$ iff $\forall x (F(x)\iff x=n)$. 
+  A formula $F$ names the number $n$ iff $\forall x (F(x)\iff x=n)$. 
 \end{defn}
 Now we define some predicates:
 \newcommand{\namelen}{\texttt{nameln?}}
@@ -547,7 +543,7 @@ Now we define some predicates:
   \[
   \berry(x) \iff\exists y. y=\succ^{10}(0)\cdot \succ^{k}(0)\wedge \minnodef(x,y)
   \]
-  where $\cdot$ is multiplication, $\succ^n$ is $n$ applications of $\succ$, and $k$ is the length of $\minnodef(x,y)$.
+  where $\cdot$ is multiplication, $\succ^n$ abbreviates $n$ applications of $\succ$, and $k$ is the length of $\minnodef(x,y)$.
   This encodes Berry's paradox in Peano arithmetic. 
 \end{defn}
 \begin{theorem}[Gödel's first incompleteness]
@@ -562,7 +558,7 @@ Now we define some predicates:
   As $\berry(x)$ places a minimality condition on $x$ via the $\minnodef(x,y)$ term, at most one element can satify $\berry(x)$. Thus, 
   a proof of \cref{eq:godel-sentence}'s negation amounts to showing $N$ does not satisfy $\berry$. Suppose such a proof exists and $\berry(N)$ is false. But $N$ was chosen specifically to satisfy $\berry$, a contradiction.
 
-  A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, again a contradiction. 
+  A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, a contradiction. 
 \end{proof}
 \chapter[Set theory]{set theory}
 While Frege was laying the groundwork for a new ontology of mathematics, Cantor proposed a controversial theory of infinite sets. Today, this theory is used to give us a big enough universe to do almost all of mathematics.
@@ -634,12 +630,12 @@ So we can see there are as many even numbers as there are natural numbers. Likew
   Lay out $\N^2$ in the following grid: 
   \[
   \begin{matrix}
-    &&&&& (0,0)&  \\
+    &&&&& (0,0)  \\
     &&&&(0,1)& & (1,0) \\
     &&&(0,2) && (1,1) && (2,0)  \\
     &&(0,3) && (1,2) && (2,1)&& (3,0) \\
     &(0,4) && (1,3) && (2,2) && (3,1) && (4,0) \\
-    \dots && \dots && \dots && \dots && \dots  
+    \vdots && \vdots && \vdots && \vdots && \vdots  
   \end{matrix}
   \]
   Reading off each row from the top gives the following $1$-to-$1$ correspondence:
@@ -647,7 +643,7 @@ So we can see there are as many even numbers as there are natural numbers. Likew
   \begin{matrix}
     \N:& 0 & 1 & 2 & 3 & 4 & \dots \\
        & \updownarrow & \updownarrow& \updownarrow&\updownarrow&\updownarrow & \\
-    \N^2:& (0,0) & (0,1) & (1,0) & (2,0) & (1,1) & \dots 
+    \N^2:& (0,0) & (0,1) & (1,0) & (0,2) & (1,1) & \dots 
   \end{matrix}
   \]
 \end{proof}
@@ -724,7 +720,7 @@ R= \{x: x\notin x\}
 \]
 \ie the set of sets that don't contain themselves. Russell asked, `does $R$ contain itself ($R\in R$)?' Suppose it does. By definition of $R$, all sets in $R$ must not contain themselves. Then $R\notin R$, a contradiction. Suppose $R\notin R$. Then, as $R$ does not contain itself, by definition of $R$, in fact $R\in R$, a contradiction. 
 
-This shocked Frege, as it demonstrated his attempt to build mathematics out of logic had contradictions. But mathematicians persevered in their quest to formalize mathematics. Bertrand Russell, along with his mentor Alfred N. Whitehead, spent a decade trying to lay the logical foundations of mathematics in a way that avoided paradoxes like this. In particular, they were looking for a foundation that was \emph{consistent}---free of contradictions---and \emph{complete}---everything can be proved true or false. 
+Cantor was used to hearing grievances aired about his work, but this shocked Frege. It also demonstrated his attempt to build mathematics out of logic led to contradictions. Mathematicians persevered in their quest to formalize mathematics. Bertrand Russell, along with his mentor Alfred N. Whitehead, spent a decade trying to lay the logical foundations of mathematics in a way that avoided paradoxes like this. In particular, they were looking for a foundation that was \emph{consistent}---free of contradictions---and \emph{complete}---everything can be proved true or false. 
 
 To avoid Russel's paradox, they built their mathematical universe in layers. In each layer, definitions can only refer to things defined in the layers below. In this system, there is no way to define the set of all sets that contain themselves. They could not show this theory, which they laid out in \emph{Principia Mathematica}\footnote{Named after Newton's book.} was either consistent or complete.\footnote{Gödel would later show both goals were impossible.} \emph{Principia} is so complicated it takes over 360 pages to prove $1+1=2$\cite{principia}. 
 
@@ -891,7 +887,7 @@ This new number $\omega$ cannot be a successor of a natural number, as it is not
 \succ(\omega) = \omega \cup \{\omega\} = \N \cup \{\omega\}
 \]
 \begin{defn}[ordinals]
-  We define the Von Neumman ordinals, $\ord$, by saying each ordinal is the well-ordered set of all smaller ordinals. There are two types of ordinals:
+  Define the Von Neumman ordinals, $\ord$, by saying each ordinal is the well-ordered set of all smaller ordinals. There are two types of ordinals:
   \begin{itemize}
   \item $\alpha$ is a \emph{successor ordinal} if there is some $\beta \in \ord$ such that $\alpha=\succ(\beta)$. 
   \item $\alpha$ is a \emph{limit ordinal} if it is not a successor ordinal. 
