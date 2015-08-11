@@ -12,7 +12,6 @@
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
 
-\newcommand{\Q}{\mathbb{Q}}
 
 \usepackage{xspace}
 \newcommand{\ie}{\emph{i.e.}\xspace}
@@ -33,7 +32,9 @@
 \settocstylefeature[1]{entryhook}{\kern-3em}
 
 
-
+\renewcommand{\tan}{\texttt{tan}}
+\renewcommand{\sin}{\texttt{sin}}
+\renewcommand{\cos}{\texttt{cos}}
 \begin{document}
 \tableofcontents{}
 \chapter[Philosophical Underpinnings]{philosophical underpinnings}
@@ -271,7 +272,7 @@ In the nineteenth century, mathematics outgrew its ontology. The situation was s
 
 Gottlob Frege laid the foundations for mathematics' new ontology. Whereas George Boole's logic was viewed more as a useful trick that cleaned up some ambiguities for the pedants, Frege developed a logic capable of housing all of the new mathematical objects. His work went relatively unnoticed by his contemporaries, but it revolutionized mathematics and philosophy. 
 
-\section[What is Predicate Logic?]{what is predicate logic?}
+\section[What is Predicate Logic?]{what is predicate logic?}\label{ch:pred}
 First order predicate logic is the modern descendant of Frege's logic. It is more expressive than boolean logic, making it both critical to our modern understanding of mathematics, and complicated enough that we can't declare it absolutely true. 
 
 Predicate logic makes use of the same operations and conventions of boolean logic ($\wedge$, $\vee$,$\neg$,$\implies$,$\iff$ and variables), but adds constant symbols, function symbols,  predicate symbols, quantifiers, and a special equality predicate. 
@@ -306,7 +307,7 @@ Like functions, predicates have arity and exist outside of the universe. But pre
 \begin{defn}[quantifier]
   Quantifiers allow us to talk about general elements in the universe. There are two quantifiers: $\forall$, read as `for every', and $\exists$, read as `there exists'.
 
-  Intuitively, $\forall x \phi(x)$ means $\phi(x)$ is true, no matter what $x$ is in the universe, and $\exists x \phi(x)$ means somewhere in the universe, there is an $x$ that satisfies $\phi$. We will make this exact through inference rules later.
+  Intuitively, $\forall x .\phi(x)$ means $\phi(x)$ is true, no matter what $x$ is in the universe, and $\exists x \phi(x)$ means somewhere in the universe, there is an $x$ that satisfies $\phi$. We will make this exact through inference rules later.
 \end{defn}
 If we refer to Socrates by the constant symbol $s$, we can state the syllogism `Socrates is a man. All men are mortal. Hence, Socrates is mortal' as follows:
 \[
@@ -356,14 +357,14 @@ I promised this would be sufficient to house modern mathematics. I will show you
     \label{peano:succ}
     \forall x\forall y.\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
     \]
-  \item Induction: if $\Phi$ is a predicate,
+  \item Induction: if $\phi$ is a predicate,
     \[
     \label{peano:ind}
-    \Phi(0) \wedge \forall x \bigl(\Phi(x)\implies
-    \Phi(\succ(x))\bigr) \implies \forall y.\Phi(y)
+    \phi(0) \wedge \forall x \bigl(\phi(x)\implies
+    \phi(\succ(x))\bigr) \implies \forall y.\phi(y)
     \]
-    \ie, if $\Phi(0)$ and $\Phi(s)$ implies $\Phi(s+1)$, then
-    $\Phi$ must be true for all natural numbers.
+    \ie, if $\phi(0)$ and $\phi(s)$ implies $\phi(s+1)$, then
+    $\phi$ must be true for all natural numbers.
   \end{enumerate}
 \end{defn}
 
@@ -423,10 +424,10 @@ For $\wedge,\vee,\neg,\implies,\iff$, deduction works the same as it did for boo
 
  
 \begin{trivlist}
-\item Universal Introduction---if we know $\Phi(\alpha)$, we can conclude $\forall \alpha . \Phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
-\item Universal Elimination---if we know $\forall \alpha . \Phi(\alpha)$ then we can conclude $\Phi(\beta)$. 
-\item Existential Introduction---if we know $\Phi(\beta)$ then we can conclude $\exists \alpha \Phi(\alpha)$ so long as $\alpha$ is previously unused.
-\item Existential Elimination---if we know $\exists. \alpha \Phi(\alpha)$, we can say $\Phi(\beta)$ so long as $\beta$ is previously unused. 
+\item Universal Introduction---if we know $\phi(\alpha)$, we can conclude $\forall \alpha . \phi(\alpha)$ so long as $\alpha$ is unused elsewhere.
+\item Universal Elimination---if we know $\forall \alpha . \phi(\alpha)$ then we can conclude $\phi(\beta)$. 
+\item Existential Introduction---if we know $\phi(\beta)$ then we can conclude $\exists \alpha \phi(\alpha)$ so long as $\alpha$ is previously unused.
+\item Existential Elimination---if we know $\exists. \alpha \phi(\alpha)$, we can say $\phi(\beta)$ so long as $\beta$ is previously unused. 
 \end{trivlist}
 Applications of some rules may require renaming variables. This is no problem as long as the meaning of the statement is not changed (\ie two things that used to have different names cannot have the same name). 
 
@@ -465,7 +466,7 @@ We are now prepared to prove things about Peano arithmetic:
   To finish the proof, use the induction axiom. 
 \end{proof}
 
-The above proof does not justify each step, but gives enough information to show how deduction works. This is the norm for mathematical proofs. Actually, such a proof is boring when you are studying the mathematics of the natural numbers: it is not hard to convince someone addition is commutative. 
+The above proof does not justify each step, but gives enough information to show how deduction works. This is the norm for mathematical proofs. Actually, this proof is boring when you are studying the mathematics of the natural numbers: it is not hard to convince someone addition is associative. 
 
 But since we want to understand the very fabric of reason itself, it must be possible to write out this proof in such painstaking detail that a computer, or even the most pedantic of logic professors, can follow it. Such a proof may look like the following: 
 
@@ -649,7 +650,7 @@ So we can see there are as many even numbers as there are natural numbers. Likew
 \end{proof}
 
 \begin{theorem}
-  The set $\N$ (natural numbers) is the same size as $\Q$ (rational numbers)
+  The set $\N$ (natural numbers) is the same size as $\Q$ (rational numbers)\label{th:q-countable}
 \end{theorem}
 \begin{proof}
   Lay out $\Q$ in the following grid, writing only the fractions that are in simplest form: 
@@ -681,7 +682,7 @@ So we can see there are as many even numbers as there are natural numbers. Likew
   If a set has the same size as the natural numbers, it is countably infinite. 
 \end{defn}
 
-\begin{theorem}[uncountably infinite sets exist]
+\begin{theorem}[uncountably infinite sets exist]\label{th:uncount}
   The set $2^\N$ of infinite binary strings\footnote{This notation is chosen because of the convention $2=\{0,1\}$. Then $2^\N$ is the set of infinite sequences of $1$ or $0$.} is uncountable.
 \end{theorem}
 \begin{proof}
@@ -728,7 +729,7 @@ In practice, the layers in \emph{Principia} are superfluous for normal mathemati
 
 \section[Axiomatic set theory]{axiomatic set theory}
 \newcommand{\zfc}{\textsc{zfc}\xspace}
-In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set theory with the Axiom of Choice} (\zfc). To prove a theorem, you show that it can be proved by the deduction laws for first order logic starting with the axioms of \zfc. Of course, this is rarely done in practice; such proofs would be incomprehensible to most people. We will not prove things from the axioms of \zfc. In fact, we will only explicitly use some of \zfc's axioms. But, underneath our proofs, will be the implication that this proof can be written out fully in a way a proof-checking computer would agree the conclusions follow from \zfc's axioms. 
+In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set theory with the Axiom of Choice} (\zfc). To prove a theorem, you show that it can be proved by the deduction laws for first order logic starting with the axioms of \zfc. Of course, this is rarely done in practice; such proofs would be incomprehensible to most people. We will not prove things from the axioms of \zfc. In fact, we will only explicitly use some of \zfc's axioms. But underneath our proofs is the assumption that the proof can be written out fully, starting with the axioms of \zfc, so that a proof-checking computer would accept it. 
 
 Define \zfc as a first-order theory with the constant symbol $\emptyset$, which is the empty set. There is a predicate symbol $\in$ for membership, \ie $x\in y$ iff $x$ is an element of $y$. The axioms are as follows:
 \begin{enumerate}
@@ -741,13 +742,13 @@ Define \zfc as a first-order theory with the constant symbol $\emptyset$, which 
 \item Regularity \\  
   Every nonempty set is disjoint from at least one of its elements
   \[
-  \forall x (x\neq \emptyset \implies \exists y . y\in x \wedge y\cap x = 0)
+  \forall x (x\neq \emptyset \implies \exists y . y\in x \wedge y\cap x = \emptyset)
   \]
   This prevents sets from containing themselves. \label{zfc:reg} 
 \item Specification\label{zfc:spec} \\ 
-  For any set $X$, we can find a subset containing exactly those elements of $X$ that satisfy a predicate of our choosing. If we call this predicate $\Phi$, then
+  For any set $X$, we can find a subset containing exactly those elements of $X$ that satisfy a predicate of our choosing. If we call this predicate $\phi$, then
   \[
-  \forall X \exists Y \forall z  (z\in X \wedge \Phi(z) \iff z\in Y)
+  \forall X \exists Y \forall z  (z\in X \wedge \phi(z) \iff z\in Y)
   \]
   Sets constructed with this axiom will often be written in set builder notation:
   \[
@@ -778,19 +779,19 @@ Define \zfc as a first-order theory with the constant symbol $\emptyset$, which 
   \forall X\exists U \forall Y \bigl(Y\in X \implies \forall z (z\in Y \implies z\in U)\bigr)
   \]
 \item Replacement \\ 
-  Suppose the predicate $\Phi(x,y)$ encodes a function, \ie 
+  Suppose the predicate $\phi(x,y)$ encodes a function, \ie 
   \[
-  \forall x \exists! y \Phi(x,y)
+  \forall x \exists! y \phi(x,y)
   \]
   where $\exists!y$ means there is exactly one $y$ with the required property. You can think of this as a shorthand for
   \[
-  \forall x \exists y \forall z (\Phi(x,z)\implies z=y)
+  \forall x \exists y \forall z (\phi(x,z)\implies z=y)
   \]
   
   
-  The axiom of replacement states the image of a set $X$ under the function encoded by $\Phi$ is also a set. We can \emph{replace} $X$ with its image $Y$ to get a set.
+  The axiom of replacement states the image of a set $X$ under the function encoded by $\phi$ is also a set. We can \emph{replace} $X$ with its image $Y$ to get a set.
   \[
-  \forall X \exists Y \forall x \forall y (x\in X \wedge \Phi(x,y) \implies y\in Y)
+  \forall X \exists Y \forall x \forall y (x\in X \wedge \phi(x,y) \implies y\in Y)
   \]
   We will use this axiom explicitly. 
 \item Infinity \\
@@ -802,10 +803,10 @@ Define \zfc as a first-order theory with the constant symbol $\emptyset$, which 
 \item Powerset \\
   The powerset of $X$, denoted $2^X$, is the set of subsets of $X$. This axioms guarantees that the powerset of set $X$ is also a set. 
   \[
-  \forall X \exists 2^X . \forall z (z\subseteq X \iff z \in 2^X)
+  \forall X \exists 2^X \forall z (z\subseteq X \iff z \in 2^X)
   \]
 \item Choice \\
-This is the most famous and controversial of the \zfc axioms. It says, for any set of nonempty sets, $X$, we can assume there exists a corresponding \emph{choice function}. If we write $X$ in index notation, $X=\{X_i:i\in I\}$, then a choice function is some $f$ such that $f(X_i)\in X_i$. In other words, we can assume there is a way to pick an element from each set in $X$. We defer the first-order sentence stating this axiom until we have talked about functions.  
+This is the most famous and controversial of the \zfc axioms. It says, for any set of nonempty sets, $X$, we can assume there exists a corresponding \emph{choice function}. If we write $X$ in index notation, $X=\{X_i:i\in I\}$, then a choice function is a function $f$ such that $f(X_i)\in X_i$. In other words, we can assume there is a way to pick an element from each set in $X$. We defer the first-order sentence stating this axiom until we have talked about functions.  
  \label{zfc:choice}
 \end{enumerate}
 The work we did before can be formalized in this system:
@@ -901,9 +902,9 @@ This new number $\omega$ cannot be a successor of a natural number, as it is not
   Suppose $\ord$ were a set. Then $\ord$ would also be an ordinal. But by the axiom of regularity (\ref{zfc:reg}), $\ord$ cannot contain itself. 
 \end{proof}
 \begin{theorem}[transfinite induction]\label{def:trans-ind}
-  A predicate $\Phi$ is true for all ordinals if
+  A predicate $\phi$ is true for all ordinals if
   \begin{trivlist}
-  \item Base case: $\Phi(0)$
+  \item Base case: $\phi(0)$
   \item Inductive step: If, for all $\alpha$ less than some $\beta$, $\phi(\alpha)$, we can conclude $\phi(\beta)$. 
   \end{trivlist}
 \end{theorem}
@@ -911,7 +912,7 @@ This new number $\omega$ cannot be a successor of a natural number, as it is not
   Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. But, by assumption, the inductive step holds; therefore we conclude $\phi(\beta)$, a contradiction. 
 \end{proof}
 \section[The axiom of choice]{the axiom of choice}
-We introduce the shorthands $\forall x \in X \phi(x)$ for $\forall x . x\in X \implies \phi(x)$ and $\exists x \in X \phi(x)$ for $\exists x . x\in X \wedge \phi(x)$. 
+We introduce the shorthands $\forall x \in X . \phi(x)$ for $\forall x . x\in X \implies \phi(x)$ and $\exists x \in X.\phi(x)$ for $\exists x . x\in X \wedge \phi(x)$. 
 \begin{defn}[axiom of choice] \label{choice}
   For any set of sets $X$, if $\emptyset \notin X$ there is a choice function $f:X\to \bigcup X$ such that $f(X_i)\in X_i$, or 
 \begin{equation}
@@ -945,7 +946,7 @@ The set of choice functions on $\bigcup_{i\in I} X_i$ is
   \[
   P=\prod_{i\in I} X_i = \left\{f\in\left(\bigcup_{i\in I} X_i\right)^I: f(i) \in X_i\right\}
   \]
-  There is a $1$-to-$1$ correspondence between $P$ and $C$ given by converting from $f$ such that $f(X_i)\in X_i$ to an $f'$ such that $f'(i)=f(X_i)\in X_i$. Setting $f'(i)=f(X_i)$ gives this conversion
+  There is a $1$-to-$1$ correspondence between $P$ and $C$ given by converting from $f$ such that $f(X_i)\in X_i$ to an $f'$ such that $f'(i)=f(X_i)\in X_i$. Setting $f'(i)=f(X_i)$ gives this conversion.
 \end{proof}
 
 \begin{theorem}[well-ordering theorem]\label{th:well-ordering}
@@ -967,12 +968,12 @@ The set of choice functions on $\bigcup_{i\in I} X_i$ is
     X_\beta &= \bigcap_{\alpha < \beta} X_\alpha \\
     x_\beta &=f(X_\beta)
   \end{align*}
-  Let $\Omega$ be the smallest ordinal such that $X_\Omega=\emptyset$. The ordinal $\Omega$ must exist, otherwise we have defined a $1$-to-$1$ function from $\ord$ to $X$, which is impossible by \nameref{th:ord-proper-class}. Now we can say the function $n\mapsto x_n$ is a $1$-to-$1$ function from $\Omega$ to $X$. Finally, we define the order by 
+  Let $\Omega$ be the smallest ordinal such that $X_\Omega=\emptyset$. The ordinal $\Omega$ must exist, otherwise $n\mapsto x_n$ would be a $1$-to-$1$ function from $\ord$ to $X$, which is impossible by \nameref{th:ord-proper-class}. Thus, the function $n\mapsto x_n$ is a $1$-to-$1$ function from $\Omega$ to $X$. Finally, we define the order by 
   \[
   x_n \leq x_k \iff n \leq k
   \]
 \end{proof}
-This version of the axiom of choice seems intuitively true. 
+
 \begin{theorem}[well-ordering theorem \iff\ choice]
   Suppose instead of assuming the axiom of choice, we use the axioms of Zermelo-Fraenkel set theory and \nameref{th:well-ordering}. Then we can prove the axiom of choice. 
 \end{theorem}
@@ -1199,7 +1200,7 @@ Continuing in this fashion, we can construct an infinite sequence $x_0,\dots,x_n
 \begin{defn}[\sim]
   Two \nameref{def:cauchy} sequences are $\sim$-equivalent iff the difference in corresponding elements shrinks to $0$
   \[
-  (x_0,x_1,\dots x_n\dots) \sim (y_0,y_1,\dots\ y_n,\dots) \iff \lim_{n\to\infty} |x_n-y_n| = 0
+  (x_0,x_1,\dots x_n\dots) \sim (y_0,y_1,\dots y_n,\dots) \iff \lim_{n\to\infty} |x_n-y_n| = 0
   \]
 \end{defn}
 \begin{defn}[$\R$]
@@ -1221,6 +1222,49 @@ Continuing in this fashion, we can construct an infinite sequence $x_0,\dots,x_n
   \]
   For simplicity, we omit the checks that these operations output elements of $A$, as well as the check that equivalent inputs yield equivalent outputs. 
 \end{defn}
+
+We will show the real numbers are uncountably infinite. This will follow from \cref{th:uncount}'s proof that $2^\N$ is uncountably infinite. Real numbers between $0$ and $1$ written in binary are infinite binary strings, $2^\N$. But there is a problem: rational numbers have two representations. We get around this with the following lemma:
+
+\begin{lemma}\label{th:uncount-minus-count}
+  Removing a countable number of elements from an uncountable set does not change its size. 
+\end{lemma}
+\begin{proof}
+  Let $X$ be an uncountable set. Let $C$ be a countable subset. Suppose for the sake of contradiction $X-C$ is countable. Since $C$ is countable, there is a sequence $c_0,c_1,\dots$ that lists all the elements of $C$. Likewise, there is a sequence $x_0,x_1,\dots$ that lists all of $X-C$. Interleaving the two sequences gives a $1$-to-$1$ correspondence between $X$ and $\N$:
+  \[
+  \begin{matrix}
+    X:  & x_0 & c_0 & x_1 & c_1 & x_3 & c_3 & \dots \\
+    {}  & \updownarrow &\updownarrow &\updownarrow &\updownarrow &\updownarrow &\updownarrow & \\
+    \N: & 0 & 1 & 2 & 3 & 4 & 5 &\dots
+  \end{matrix}
+  \]
+  But $X$ is uncountable, a contradiction. 
+\end{proof}
+
+\begin{theorem}
+  Let
+  \[
+  [0,1]=\{x\in\R:0<x<1\}
+  \]
+  There is a $1$-to-$1$ correspondence between $[0,1]$ and $2^\N$.
+\end{theorem}
+\begin{proof}
+  There is a $1$-to-$1$ correspondence between $2^\N$ and binary representations of $[0,1]$. To see this, note that a binary representation is an infinite binary string. But this counts every rational number twice. Fortunately, \nameref{th:q-countable}. Then by \cref{th:uncount-minus-count}, we can take out an extra representation of each rational number. This does not change the size, so $[0,1]$ is the same size as $2^\N$. 
+\end{proof}
+\begin{cor}
+  $(0,1)$ has the same size as $2^\N$. 
+\end{cor}
+\begin{cor}
+  $\R$ has the same size as $2^\N$. 
+\end{cor}
+\begin{proof}
+  The function
+  \[
+  \tan\left(\frac x\pi +\frac 12\right)
+  \]
+  is $1$-to-$1$. 
+\end{proof}
+\chapter[Model theory]{model theory}
+Armed with \zfc, we can take a new approach to investigate predicate logic. In \cref{ch:pred}, we only studied the symbols and the rules of deduction. The only tool we had to govern the universe was axioms. Now we can crack it open, look inside and change things. These tools will be incredibly powerful and are the key to understanding the theory of first order predicate logic. 
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
