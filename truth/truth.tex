@@ -545,13 +545,13 @@ Now we define some predicates:
 \newcommand{\berry}{\texttt{berry?}}
 \begin{defn}[\berry]
   \[
-  \berry(x) \iff\exists y. y=\succ^{10}(0)\times \succ^{k}(0)\wedge \minnodef(x,y)
+  \berry(x) \iff\exists y. y=\succ^{10}(0)\cdot \succ^{k}(0)\wedge \minnodef(x,y)
   \]
-  where $\times$ is multiplication, $\succ^n$ is $n$ applications of $\succ$, and $k$ is the length of $\minnodef(x,y)$.
+  where $\cdot$ is multiplication, $\succ^n$ is $n$ applications of $\succ$, and $k$ is the length of $\minnodef(x,y)$.
   This encodes Berry's paradox in Peano arithmetic. 
 \end{defn}
 \begin{theorem}[Gödel's first incompleteness]
-  There is some statement that cannot be proven true or false in Peano arithmetic.\footnote{Assuming Peano arithmetic is consistent (free of contradictions).}
+  There is some statement that cannot be proved true or false in Peano arithmetic.\footnote{Assuming Peano arithmetic is consistent (free of contradictions).}
 \end{theorem}
 \begin{proof}
   We will construct such a statement. Let $N$ be the smallest number that cannot be named in fewer than $10k$ symbols. Define 
@@ -716,25 +716,25 @@ So we can see there are as many even numbers as there are natural numbers. Likew
 This is the first notable result of the chapter. When Cantor discovered this, it showed the world infinite sets could be understood mathematically, and infinite sets were more complicated than they appeared. You may wonder if there are sets strictly bigger than $2^\N$. There are. In fact, there are infinitely many. 
 
 \section[Russell's paradox]{russell's paradox}
-Cantor's results were initially met with skepticism. Mathematicians found his results so counter-intuitive that some suspected they were meaningless. Today you would be hard-pressed to find a mathematician who did not believe Cantor's results, but Cantor's work was free of error. In fact, philosopher-mathematician-politician Bertrand Russell found a glaring error in Cantor's work, known as Russell's paradox: 
+Cantor's results were initially met with skepticism. Mathematicians found his results so counter-intuitive that some suspected they were nonsense. Today you would be hard-pressed to find a mathematician who did not believe Cantor's results, but Cantor's work was free of error. In fact, philosopher-mathematician-politician Bertrand Russell found a glaring error in Cantor's work, known as Russell's paradox: 
 
 Consider the set
 \[
 R= \{x: x\notin x\}
 \]
-\ie the set of sets that don't contain themselves. Russell then asked, does $R$ contain itself ($R\in R$)? Suppose it does. By definition of $R$, all sets in $R$ must not contain themselves. Then $R\notin R$, a contradiction. Suppose $R\notin R$. Then, as $R$ does not contain itself, by definition of $R$, we can conclude that in fact $R\in R$, a contradiction. 
+\ie the set of sets that don't contain themselves. Russell asked, `does $R$ contain itself ($R\in R$)?' Suppose it does. By definition of $R$, all sets in $R$ must not contain themselves. Then $R\notin R$, a contradiction. Suppose $R\notin R$. Then, as $R$ does not contain itself, by definition of $R$, in fact $R\in R$, a contradiction. 
 
-This shocked Frege, who was trying to construct all of mathematics through a prototype of what is now known as predicate logic and set theory. But mathematicians persevered in their quest to formalize mathematics. Bertrand Russell, along with his mentor Alfred N. Whitehead, spent a decade trying to lay the logical foundations of mathematics in a way that avoided paradoxes like this. In particular, they were looking for a foundation that was \emph{consistent}---free of contradictions---and \emph{complete}---everything can be proved true or false. 
+This shocked Frege, as it demonstrated his attempt to build mathematics out of logic had contradictions. But mathematicians persevered in their quest to formalize mathematics. Bertrand Russell, along with his mentor Alfred N. Whitehead, spent a decade trying to lay the logical foundations of mathematics in a way that avoided paradoxes like this. In particular, they were looking for a foundation that was \emph{consistent}---free of contradictions---and \emph{complete}---everything can be proved true or false. 
 
 To avoid Russel's paradox, they built their mathematical universe in layers. In each layer, definitions can only refer to things defined in the layers below. In this system, there is no way to define the set of all sets that contain themselves. They could not show this theory, which they laid out in \emph{Principia Mathematica}\footnote{Named after Newton's book.} was either consistent or complete.\footnote{Gödel would later show both goals were impossible.} \emph{Principia} is so complicated it takes over 360 pages to prove $1+1=2$\cite{principia}. 
 
-In practice, the layers in \emph{Principia} are superfluous for most mathematics. In fact, for the purposes of this book, we will only need at most two such layers. Usually we will be able to get away just by providing axioms that limit the definitions of sets enough to prevent the paradoxes Russell \& Whitehead feared. 
+In practice, the layers in \emph{Principia} are superfluous for normal mathematics. Usually we can get away with just providing axioms governing the definitions of sets. The right axioms will prevent the paradoxes Russell \& Whitehead feared. 
 
 \section[Axiomatic set theory]{axiomatic set theory}
 \newcommand{\zfc}{\textsc{zfc}\xspace}
 In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set theory with the Axiom of Choice} (\zfc). To prove a theorem, you show that it can be proved by the deduction laws for first order logic starting with the axioms of \zfc. Of course, this is rarely done in practice; such proofs would be incomprehensible to most people. We will not prove things from the axioms of \zfc. In fact, we will only explicitly use some of \zfc's axioms. But, underneath our proofs, will be the implication that this proof can be written out fully in a way a proof-checking computer would agree the conclusions follow from \zfc's axioms. 
 
-We will define \zfc as a first-order theory. There is a constant symbol $\emptyset$, which is the empty set. There is a predicate symbol $\in$ for membership, \ie $x\in y$ iff $x$ is an element of $y$. The axioms are as follows:
+Define \zfc as a first-order theory with the constant symbol $\emptyset$, which is the empty set. There is a predicate symbol $\in$ for membership, \ie $x\in y$ iff $x$ is an element of $y$. The axioms are as follows:
 \begin{enumerate}
 \item Extensionality \\
   Two sets are the same if they have the same elements. In other words, everything you need to know about a set can be determined by looking at its elements.
@@ -758,11 +758,12 @@ We will define \zfc as a first-order theory. There is a constant symbol $\emptys
   \{x\in \N: \exists k \in \N \textrm{ such that } x=2k\}
   \]
   is the set of even natural numbers.
-\item Pairing \\ 
-  For all $x$ and $y$, there is a set which contains both of them. 
+\item Singletons \\ 
+  For any $x$, there is a set which contains $x$. 
   \[
-  \forall x \forall y \exists Z .x\in Z \wedge y \in Z
+  \forall x \exists Y . x\in Y
   \]
+  This axiom is usually used with specification to get the set $\{x\}$. Such one-element sets are called singletons. 
   We will not use this axiom explicitly, but we will always assume this can be done. 
 \item Union \\
   You can take unions, even if they're infinite. 
@@ -770,38 +771,38 @@ We will define \zfc as a first-order theory. There is a constant symbol $\emptys
   \[
   U=\bigcup X
   \]
-  or
-  \[
-  U=\bigcup_{A\in X} A
-  \]
-  or more frequently, by writing $X=\{X_i:i\in I\}$ where $I$ is a set of indexes,
+  or, more frequently, by writing $X=\{X_i:i\in I\}$ where $I$ is a set of indexes,
   \[
   U=\bigcup_{i\in I} X_i
   \]
-  The phrasing in terms of a set of sets is awkward, but this allows for infinite unions, which are rather useful. 
+  This definition allows for infinite unions, which are rather useful. 
   
   The first order sentence is
   \[
-  \forall X \exists U \forall Y \bigl(Y\in U \implies \forall z ( z\in Y \implies z \in U)\bigr)
+  \forall X\exists U \forall Y \bigl(Y\in X \implies \forall z (z\in Y \implies z\in U)\bigr)
   \]
 \item Replacement \\ 
   Suppose the predicate $\Phi(x,y)$ encodes a function, \ie 
   \[
   \forall x \exists! y \Phi(x,y)
   \]
-  where $\exists!y$ means there is exactly one $y$ with the required property. 
+  where $\exists!y$ means there is exactly one $y$ with the required property. You can think of this as a shorthand for
+  \[
+  \forall x \exists y \forall z (\Phi(x,z)\implies z=y)
+  \]
   
-  Then this axiom states the image of a set $X$ under the function encoded by $\Phi$ is also a set. We can \emph{replace} $X$ with its image $Y$ to get a set.
+  
+  The axiom of replacement states the image of a set $X$ under the function encoded by $\Phi$ is also a set. We can \emph{replace} $X$ with its image $Y$ to get a set.
   \[
   \forall X \exists Y \forall x \forall y (x\in X \wedge \Phi(x,y) \implies y\in Y)
   \]
-  We will not make explicit use of this. 
+  We will use this axiom explicitly. 
 \item Infinity \\
   The natural numbers exist. Specifically, we say $0=\emptyset$. Also, let $\succ(x)=x\cup \{x\}$. Then
   \[
-  \exists \N (n\in \N\implies \succ(n)\in\N)
+  \exists \N . \emptyset\in\N \wedge \forall n ( n\in \N\implies \succ(n)\in\N)
   \]
-  Once we have the natural numbers, we can create all the infinite sets we want, but there is no way to get to this point from the other \zfc axioms. 
+  Once we have the natural numbers, we can create all the infinite sets we want, but without it we can only construct finite sets. 
 \item Powerset \\
   The powerset of $X$, denoted $2^X$, is the set of subsets of $X$. This axioms guarantees that the powerset of set $X$ is also a set. 
   \[
