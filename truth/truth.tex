@@ -560,7 +560,9 @@ Now we define some predicates:
     \forall x \bigl(\berry (x) \iff x= \succ^N(0)\bigr)
   \end{equation}
   As $\berry(x)$ places a minimality condition on $x$ via the $\minnodef(x,y)$ term, at most one element can satify $\berry(x)$. Thus, 
-  a proof of \cref{eq:godel-sentence}'s negation amounts to showing $N$ does not satisfy $\berry$. A contradiction, as $N$ cannot be named in fewer than $10k$ symbols. A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, again a contradiction. 
+  a proof of \cref{eq:godel-sentence}'s negation amounts to showing $N$ does not satisfy $\berry$. Suppose such a proof exists and $\berry(N)$ is false. But $N$ was chosen specifically to satisfy $\berry$, a contradiction.
+
+  A proof of \cref{eq:godel-sentence} would prove $\berry$ names $N$ in fewer than $10k$ symbols, again a contradiction. 
 \end{proof}
 \chapter[Set theory]{set theory}
 While Frege was laying the groundwork for a new ontology of mathematics, Cantor proposed a controversial theory of infinite sets. Today, this theory is used to give us a big enough universe to do almost all of mathematics.
