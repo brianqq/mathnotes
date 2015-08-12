@@ -2,6 +2,7 @@
 \ProvidesPackage{brian}
 
 \RequirePackage{amsmath, amssymb, url, microtype,xcolor}
+\usepackage{palatino}
 \usepackage[euler-digits,euler-hat-accent]{eulervm}
 
 \usepackage{mathdots}
@@ -33,7 +34,7 @@
 \newcounter{proof}\newcounter{currproofctr}\newcounter{endproofctr}%
 \newenvironment{proof}[1][\proofname]{
   \th@nonumberplain
-  \def\theorem@headerfont{\ttfamily}%
+  \def\theorem@headerfont{\sffamily}%
   \normalfont
   \theoremsymbol{\ensuremath{_\blacksquare}}
   \@thm{proof}{proof}{#1}}%
@@ -46,11 +47,10 @@
 \setsansfont[Numbers=OldStyle]{Linux Biolinum O} 
 \setmonofont{Inconsolatazi4}
 
-
 % theorem stuff 
 \newcounter{thms}
 \numberwithin{thms}{section}
-\theoremheaderfont{\ttfamily}
+\theoremheaderfont{\sffamily}
 \theorembodyfont{\normalfont}
 \newtheorem{defn}[thms]{Definition}
 \newtheorem{defcat}[thms]{Category definition}

@@ -18,6 +18,7 @@
 \newcommand{\eg}{\emph{e.g.}\xspace}
 \newcommand{\ord}{\mathtt{Ord}}
 
+
 \usepackage{tocstyle}
 \usetocstyle{nopagecolumn}
 \newcommand*{\oldaddchaptertocentry}{}
@@ -31,13 +32,13 @@
 \settocstylefeature[0]{pagenumberhook}{\Huge}
 \settocstylefeature[1]{entryhook}{\kern-3em}
 
-
-\renewcommand{\tan}{\texttt{tan}}
-\renewcommand{\sin}{\texttt{sin}}
-\renewcommand{\cos}{\texttt{cos}}
-\DeclareMathOperator*{\newlim}{\texttt{lim}}
-\renewcommand{\lim}{\newlim}
-\renewcommand{\min}{\texttt{min}}
+\renewcommand{\emptyset}{\varnothing}
+% \renewcommand{\tan}{\texttt{tan}}
+% \renewcommand{\sin}{\texttt{sin}}
+% \renewcommand{\cos}{\texttt{cos}}
+% \DeclareMathOperator*{\newlim}{\texttt{lim}}
+% \renewcommand{\lim}{\newlim}
+% \renewcommand{\min}{\texttt{min}}
 \begin{document}
 \tableofcontents{}
 \chapter[Philosophical Underpinnings]{philosophical underpinnings}
@@ -180,7 +181,7 @@ We have just translated two truth-tables into expressions consisting only of $\w
 \end{theorem}
 \begin{proof}
   It's best to start with an example. Consider \cref{tt:complete}
-\definecolor{LightCyan}{rgb}{0.8,1,1}
+\definecolor{LightCyan}{rgb}{0.8,.9,.9}
   \begin{table}[h!]
     \centering
   \caption{some truthtable}\label{tt:complete}
@@ -348,7 +349,7 @@ I promised this would be sufficient to house modern mathematics. I will show you
 \renewcommand{\succ}{\texttt{succ}}
 \begin{defn}[Peano arithmetic]
   There is a constant called $0$ and a function of one argument called
-  $\succ$. You can think of it as saying $\_+1$.  The Peano axioms are as follows:
+  $\succ$, essentially $\_+1$.  The Peano axioms are as follows:
   \begin{enumerate}
   \item Nothing comes before zero:
     \[
@@ -358,7 +359,7 @@ I promised this would be sufficient to house modern mathematics. I will show you
   \item Two naturals are equal if their successors are equal:
     \[
     \label{peano:succ}
-    \forall x\forall y.\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
+    \forall x\forall y\bigl( \succ (x) = \succ(y) \implies x=y\bigr)
     \]
   \item Induction: if $\phi$ is a predicate,
     \[
@@ -509,10 +510,10 @@ The mathematicians would have to really read this carefully every now and then t
 
 But, one fateful night in 1931, dear reader, a young Kurt Gödel dealt a fatal blow to the Hilbertian dream of mathematical rapture. He was merely engaging in the logician's favorite pass-time: making things mercilessly meta. As many a logician and patron of webcomics know, making things meta may make a mess, and a major mess it made moreover. To his merit, this metamethematical misfortune marks the makings of a modern mathematical maturity, one more meaningful than a mere mirage marred by the multitude of mathematical models and their unmarried meandering truths. Any system of mathematics sufficiently sophisticated to serve as semantics for something like Peano's arithmetic suffers from a malady said to be incompleteness. See, m'lady, such a malady means more than several true-seeming statements may lay beyond reach of the most surefire machines of Hilbert's dreams.
 
-\subsection{berry's paradox}
+\subsection[Berry's paradox]{berry's paradox}
 There are only so many numbers you can name in under eleven words, finitely many in fact. So consider the smallest positive integer not nameable in under eleven words. Surely it exists; every nonempty set of naturals has a least number (exercise for the reader!). When considering how many words it takes to name this number, 10 is right out. Except, of course, I named it in 10 words: `the(1) smallest(2) positive(3) integer(4) not(5) nameable(6) in(7) under(8) eleven(9) words(10)'.  
 
-\subsection{incompleteness} 
+\subsection[Incompleteness]{incompleteness} 
 This proof is due to George Boolos. Gödel's proof used the liar's paradox (this sentence is false), which leads to a longer proof.\cite{wiki:incomplete-sketch} In both cases, the genius of the proof lies in encoding these paradoxes into Peano arithmetic. 
 
 \begin{defn}[Gödel numbering]
@@ -814,14 +815,14 @@ This is the most famous and controversial of the \zfc axioms. It says, for any s
 \end{enumerate}
 The work we did before can be formalized in this system:
 \begin{defn}[ordered pair]
- \[(x,y)=\{\{x\},\{x,y\}\}\]
+ \[(x,y)=\bigl\{\{x\},\{x,y\}\bigr\}\]
  This way, we can distinguish between
  \[
- (x,y)=\{\{x\},\{x,y\}\}
+ (x,y)=\bigl\{\{x\},\{x,y\}\bigr\}
  \]
  and
  \[
- (y,x)=\{\{y\},\{x,y\}\}
+ (y,x)=\bigl\{\{y\},\{x,y\}\bigr\}
  \]
 \end{defn}
 \begin{defn}[ordered tuple]
@@ -1200,7 +1201,7 @@ Continuing in this fashion, we can construct an infinite sequence $x_0,\dots,x_n
 \end{asy}
 \label{fig:cauchy}
 \end{figure}
-\begin{defn}[\sim]
+\begin{defn}[$\sim$]
   Two \nameref{def:cauchy} sequences are $\sim$-equivalent iff the difference in corresponding elements shrinks to $0$
   \[
   (x_0,x_1,\dots x_n\dots) \sim (y_0,y_1,\dots y_n,\dots) \iff \lim_{n\to\infty} |x_n-y_n| = 0
@@ -1251,7 +1252,7 @@ We will show the real numbers are uncountably infinite. This will follow from \c
   There is a $1$-to-$1$ correspondence between $[0,1]$ and $2^\N$.
 \end{theorem}
 \begin{proof}
-  There is a $1$-to-$1$ correspondence between $2^\N$ and binary representations of $[0,1]$. To see this, note that a binary representation is an infinite binary string. But this counts every rational number twice. Fortunately, \nameref{th:q-countable}. Then by \cref{th:uncount-minus-count}, we can take out an extra representation of each rational number. This does not change the size, so $[0,1]$ is the same size as $2^\N$. 
+  There is a $1$-to-$1$ correspondence between $2^\N$ and binary representations of $[0,1]$. To see this, note that a binary representation is an infinite binary string. But this counts every rational number twice. Fortunately, \cref{th:q-countable}. Then by \cref{th:uncount-minus-count}, we can take out an extra representation of each rational number. This does not change the size, so $[0,1]$ is the same size as $2^\N$. 
 \end{proof}
 \begin{cor}
   $(0,1)$ has the same size as $2^\N$. 
@@ -1291,13 +1292,13 @@ A model is an example set that satisfies the axioms of a theory. The natural num
   \item an interpretation $I$ that translates
     $L$-statements to statements about $U$. 
   \end{itemize}
-  We require that $I$ takes axioms in $\Phi$ to true statements. Also, we require
+  We require that $I$ takes axioms in $\Phi$ to true statements. Also, we require\footnote{I'm not actually sure of this, but it seems appropriate.}
   \begin{align*}
   I(p\wedge q)&=I(p)\wedge I(q) \\
   I(p\vee q) &= I(p)\vee I(q) \\
   I(\neg p) &= \neg I(p) \\
-  I(\forall x . p(x)) &= \forall x \in U. [I(p)](x) \\
-    I(\exists x. p(x))&= \exists x \in U . [I(p)](y)
+  I(\forall x . p(x)) &= \forall x \in U. (I(p))(x) \\
+    I(\exists x. p(x))&= \exists x \in U . (I(p))(y)
   \end{align*}
 \end{defn}
 \begin{defn}[$\Phi \vdash p$]
@@ -1377,10 +1378,10 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
     \phi(u,z)\iff \forall y ( y\in u \iff \exists x \in z . y\in x)
     \]
   \item Replacement---replacement is a recipe for constructing a new set with a predicate. 
-  \item Infinity---$L_1$ contains $\emptyset$. If $n$ in $L_{\succ (n)}$, then $\succ{n}$ is in $L_{n+2}$. Hence, $L_\omega$ contains $\N$. 
+  \item Infinity---$L_1$ contains $\emptyset$. If $n$ in $L_{\succ (n)}$, then $\succ(n)$ is in $L_{n+2}$. Hence, $L_\omega$ contains $\N$. 
   \item Powerset---the formula
     \[
-    \phi(x,z)\iff\forall y . y\in x \iff y\subseteq z
+    \phi(x,z)\iff\forall y ( y\in x \iff y\subseteq z)
     \]
     defines the powerset, $x$, of $z$. 
   \end{enumerate}
@@ -1485,10 +1486,10 @@ An implication of this is Skolem's paradox: there is a countable model of \zfc t
 \begin{proof}
   Suppose $\Phi$ is a theory over language $\mathcal L$ with infinite model $M$. By \nameref{th:ls-down}, we can assume $M$ is countable. Pick the ordinal $\alpha$. We will construct a model $M'$ with a subset the same size as $\alpha$. Suppose $x_n$ is a symbol not in the language $\mathcal L$ for each $n<\alpha$. Define
   \begin{align*}
-    \mathcal L' &= L \cup \{x_n:n< \alpha\} \\
-    \Phi' &= \Phi \cup \{x_i \neq x_j : i,j < \alpha\}
+    \mathcal L' &= \mathcal L \cup \{x_n:n< \alpha\} \\
+    \Phi' &= \Phi \cup \{x_i \neq x_j : i<j < \alpha\}
   \end{align*}
-  Every finite subset of $\Phi'$ has a model, so by \nameref{th:compactness} $\Phi'$ has a model. Call it $M'$. Then $M'$ contains a distinct element for each $n \in\alpha$. 
+  Every finite subset of $\Phi'$ has a model, so by \nameref{th:compactness} $\Phi'$ has a model. Call it $M'$. Then $M'$ contains $d(x_n)$ for each $n\in\alpha$.
 \end{proof}
 \printbibliography
 \end{document}
