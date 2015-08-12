@@ -1415,14 +1415,14 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
 \begin{defn}[witnesses]
   A theory $\Phi$ over language $\mathcal L$ has witnesses if every statement of the form $\exists x. \phi (x)$ has a corresponding term, a witness if you will, $w$ such that
   \[
-  \bigl(\exists. x \phi(x) \implies \phi(w)\bigr) \in  \Phi
+  \bigl(\exists x.\phi(x) \implies \phi(w)\bigr) \in  \Phi
   \]
 \end{defn}
 \begin{theorem}[model existence theorem]
   Every maximally consistent theory $\Phi$ with witnesses has a model in \zfc.\footnote{Every maximally consistent $\Phi$ can be given witnesses as so long as we add a constant symbol to act as a witness for each existential statement.}
 \end{theorem}
 \begin{proof}
-  We can turn $\Phi$ into a model of $\Phi$. Define the equivalence relation $\sim$ by 
+  We can turn $\Phi$ into a model of $\Phi$. We're essentially repackaging first order logic's deductive system as a model. Define the equivalence relation $\sim$ by 
   \[
   x\sim y \textrm{ iff }(x\iff y) \in \Phi
   \]
@@ -1433,7 +1433,7 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
   For each constant symbol $c$ in $\mathcal L$, define $d(c)$ to be the equivalence class of $c$ in $U$. 
   For each function symbol $f$ in $\mathcal L$, define $d(f)$ as the function sending the equivalence class of $x\in U$ to the equivalence class of $f(x)\in U$. For each relation symbol $R$ in $\mathcal L$, define
   \[
-  (d(R))(x,y) \iff \bigl(R(x,y)\in \Phi\bigr)
+  (d(R))(x) \iff \bigl(R(x)\in \Phi\bigr)
   \]
   Define the interpretation $I(\phi)$ iff $\phi\in \Phi$. 
   Then $(U,d,I)$ is a model of $\Phi$. 
@@ -1451,6 +1451,44 @@ Hence we can understand a theory if we understand its models.
 \end{theorem}
 \begin{proof}
   By \nameref{th:compactness}, $\Phi$ has a model iff it is consistent. Suppose $\Phi$ is not consistent. Then we can prove a contradiction starting from $\Phi$. A proof has finitely many steps, so it can only use finitely many axioms. Thus, there is some finite subtheory $F\subseteq \Phi$ such that the axioms $F$ leads to a contradiction. Hence, $F$ has no model. 
+\end{proof}
+\section[Löwenheim–Skolem theorem]{löwenheim–skolem theorem}
+\begin{defn}[Skolem function]
+  Consider a model $M=(U,d,I)$. Suppose $M$ models the statement
+  \[
+  \forall x_0,\dots, x_n \exists y . \phi(x_0,\dots,x_n,y)
+  \]
+  Then there is some function $f_y:U^n\to U$ that gives us such a $y$:
+  \[
+  \phi\bigl(f_y(x_0,\dots, x_n),x_0,\dots, x_n\bigr)
+  \]
+  Such a $f_y$ is a Skolem function. 
+\end{defn}
+\begin{theorem}[Downward Löwenheim-Skolem]\label{th:ls-down}
+  Every theory with an infinite model has a countable model. 
+\end{theorem}
+\begin{proof}
+  Let $\Phi$ be a theory. Suppose $\Phi$ has infinite model $M$. Let $S$ be the collection of Skolem functions for $\Phi$. Let $M_0$ be a countable subset of $M$. Then define
+  \[
+  M_{\succ(n)} = \bigcup_{f\in S} f(M_n) \cup M_m
+  \]
+  Let
+  \[
+  M_\omega = \bigcup_{n\in \N} M_n
+  \]
+  Then for each $f\in S$, conclude $f(M_\omega)\subseteq M_\omega$. Hence $M_\omega$ models $\Phi$. But $M_\omega$ is a countable union of countable sets; thus $M_\omega$ is countable. 
+\end{proof}
+An implication of this is Skolem's paradox: there is a countable model of \zfc that models the statement $2^\N$ is uncountable. 
+\begin{theorem}[Upward Löwenheim-Skolem]
+  Every theorem with an infinite model has a model that is arbitrarily large.
+\end{theorem}
+\begin{proof}
+  Suppose $\Phi$ is a theory over language $\mathcal L$ with infinite model $M$. By \nameref{th:ls-down}, we can assume $M$ is countable. Pick the ordinal $\alpha$. We will construct a model $M'$ with a subset the same size as $\alpha$. Suppose $x_n$ is a symbol not in the language $\mathcal L$ for each $n<\alpha$. Define
+  \begin{align*}
+    \mathcal L' &= L \cup \{x_n:n< \alpha\} \\
+    \Phi' &= \Phi \cup \{x_i \neq x_j : i,j < \alpha\}
+  \end{align*}
+  Every finite subset of $\Phi'$ has a model, so by \nameref{th:compactness} $\Phi'$ has a model. Call it $M'$. Then $M'$ contains a distinct element for each $n \in\alpha$. 
 \end{proof}
 \printbibliography
 \end{document}
