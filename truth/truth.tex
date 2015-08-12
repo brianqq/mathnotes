@@ -956,7 +956,7 @@ The set of choice functions on $\bigcup_{i\in I} X_i$ is
   For every set $X$ there is some order $\leq$ that makes $X$ \nameref{def:well-ordered}. 
 \end{theorem}
 \begin{proof}
-  We will define a $1$-to-$1$ function from a subset of $\ord$ to $X$ by \nameref{def:trans-ind}. Let $f$ be a choice function for $2^X$. We will be using $f$ to pull out successive elements of $X$, from which we will define a well-order. Define
+  We will define a $1$-to-$1$ function from a subset of $\ord$ to $X$ by \nameref{def:trans-ind}. Let $f$ be a choice function for $2^X$. This $f$ will pull out successive elements of $X$,  defining a well-order. Define
   \begin{align*}
     X_0 &= X \\
     x_0 &= f(X_0)
@@ -971,20 +971,20 @@ The set of choice functions on $\bigcup_{i\in I} X_i$ is
     X_\beta &= \bigcap_{\alpha < \beta} X_\alpha \\
     x_\beta &=f(X_\beta)
   \end{align*}
-  Let $\Omega$ be the smallest ordinal such that $X_\Omega=\emptyset$. The ordinal $\Omega$ must exist, otherwise $n\mapsto x_n$ would be a $1$-to-$1$ function from $\ord$ to $X$, which is impossible by \nameref{th:ord-proper-class}. Thus, the function $n\mapsto x_n$ is a $1$-to-$1$ function from $\Omega$ to $X$. Finally, we define the order by 
+  Let $\Omega$ be the smallest ordinal such that $X_\Omega=\emptyset$. The ordinal $\Omega$ must exist, otherwise $n\mapsto x_n$ would be a $1$-to-$1$ function from $\ord$ to $X$, which is impossible by \nameref{th:ord-proper-class}. Thus, the function $n\mapsto x_n$ is a $1$-to-$1$ function from $\Omega$ to $X$. Finally, define the order by 
   \[
   x_n \leq x_k \iff n \leq k
   \]
 \end{proof}
 
 \begin{theorem}[well-ordering theorem \iff\ choice]
-  Suppose instead of assuming the axiom of choice, we use the axioms of Zermelo-Fraenkel set theory and \nameref{th:well-ordering}. Then we can prove the axiom of choice. 
+  Instead of assuming the axiom of choice, suppose we use the axioms of Zermelo-Fraenkel set theory and \nameref{th:well-ordering}. Then we can prove the axiom of choice. 
 \end{theorem}
 \begin{proof}
   Consider the set of sets $X$. Suppose $\emptyset\notin X$. Let $\leq$ be a well-ordering on $\bigcup X$, which exists by hypothesis. Define a choice function for $X$ by sending the set $A\in X$ to its least element under $\leq$. 
 \end{proof}
 \section[Number systems]{number systems}
-We are almost ready to start defining the familiar number systems in terms of set theory. In fact, we can do so right now, but we will have no way of telling our theory that $1/2$ and $2/4$ are identical objects. To do this, we need to split our representations of a number system into \emph{equivalence classes}. 
+We are almost ready to define the familiar number systems in \zfc. In fact, we can as of now but have no way of telling the theory that $1/2$ and $2/4$ are identical objects. Hence we group equivalent representations of a number system into an \emph{equivalence class}. 
 \begin{defn}[equivalence relation]
   The $2$-ary predicate $\sim$ on the set $X$ is an equivalence relation iff it satisfies
   \begin{enumerate}
@@ -1464,7 +1464,7 @@ Hence we can understand a theory if we understand its models.
   \]
   Such a $f_y$ is a Skolem function. 
 \end{defn}
-\begin{theorem}[Downward Löwenheim-Skolem]\label{th:ls-down}
+\begin{theorem}[downward Löwenheim-Skolem]\label{th:ls-down}
   Every theory with an infinite model has a countable model. 
 \end{theorem}
 \begin{proof}
@@ -1479,7 +1479,7 @@ Hence we can understand a theory if we understand its models.
   Then for each $f\in S$, conclude $f(M_\omega)\subseteq M_\omega$. Hence $M_\omega$ models $\Phi$. But $M_\omega$ is a countable union of countable sets; thus $M_\omega$ is countable. 
 \end{proof}
 An implication of this is Skolem's paradox: there is a countable model of \zfc that models the statement $2^\N$ is uncountable. 
-\begin{theorem}[Upward Löwenheim-Skolem]
+\begin{theorem}[upward Löwenheim-Skolem]
   Every theorem with an infinite model has a model that is arbitrarily large.
 \end{theorem}
 \begin{proof}
