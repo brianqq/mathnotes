@@ -35,6 +35,9 @@
 \renewcommand{\tan}{\texttt{tan}}
 \renewcommand{\sin}{\texttt{sin}}
 \renewcommand{\cos}{\texttt{cos}}
+\DeclareMathOperator*{\newlim}{\texttt{lim}}
+\renewcommand{\lim}{\newlim}
+\renewcommand{\min}{\texttt{min}}
 \begin{document}
 \tableofcontents{}
 \chapter[Philosophical Underpinnings]{philosophical underpinnings}
@@ -1264,7 +1267,185 @@ We will show the real numbers are uncountably infinite. This will follow from \c
   is $1$-to-$1$. 
 \end{proof}
 \chapter[Model theory]{model theory}
-Armed with \zfc, we can take a new approach to investigate predicate logic. In \cref{ch:pred}, we only studied the symbols and the rules of deduction. The only tool we had to govern the universe was axioms. Now we can crack it open, look inside and change things. These tools will be incredibly powerful and are the key to understanding the theory of first order predicate logic. 
+Armed with \zfc, we can take a new approach to investigate predicate logic. In \cref{ch:pred}, we only studied the symbols and the rules of deduction. The only tool we had to govern the universe was axioms. Now we can crack it open, look inside and change things. Such techniques will be incredibly powerful and provide the key to understanding the theory of first order predicate logic. 
+
+To make sense of logic with \zfc, we need to make some sets
+\begin{defn}[language]
+  A language is a set of names of constants, functions, and predicates. 
+\end{defn}
+\begin{example}
+  The language of \zfc consists of the constant $\emptyset$, the predicate $\in$ and the functions $\bigcup,\bigcap,-$. 
+\end{example}
+
+\begin{defn}[theory]
+  A theory in a given language is a set of axioms about the constants, predicates, and functions in that language.   
+\end{defn}
+A model is an example set that satisfies the axioms of a theory. The natural numbers $\N$ as defined in \zfc models Peano's axioms.
+\begin{defn}[model]
+  Consider the language $\mathcal L$. A model for the $\mathcal L$-theory $\Phi$  consists of
+  \begin{itemize}
+  \item a set $U$, the universe
+  \item a dictionary function $d$ that
+    translates function and predicate symbols to functions and
+    predicates on $U$
+  \item an interpretation $I$ that translates
+    $L$-statements to statements about $U$. 
+  \end{itemize}
+  We require that $I$ takes axioms in $\Phi$ to true statements. Also, we require
+  \begin{align*}
+  I(p\wedge q)&=I(p)\wedge I(q) \\
+  I(p\vee q) &= I(p)\vee I(q) \\
+  I(\neg p) &= \neg I(p) \\
+  I(\forall x . p(x)) &= \forall x \in U. [I(p)](x) \\
+    I(\exists x. p(x))&= \exists x \in U . [I(p)](y)
+  \end{align*}
+\end{defn}
+\begin{defn}[$\Phi \vdash p$]
+  Define \[\Phi\vdash p\] or $p$ is a theorem of $\Phi$ iff $p$ can be proved from $\Phi$ (set of axioms) using the laws of deduction.
+\end{defn}
+We have referred to consistency a lot. It's time to officially define it
+\begin{defn}[consistency]
+  A theory $\Phi$ is consistent if for no $p$
+  \[
+  \Phi\vdash p\wedge\neg p 
+  \]
+\end{defn}
+\begin{theorem}[model \implies\ consistent]
+  If \zfc is consistent, then any theory $\Phi$ with a model in \zfc must be consistent. 
+\end{theorem}
+\begin{proof}
+  Interpretations let us translate proofs from a theory to the model of the theory. 
+  Suppose $\Phi$ is a theory with model $M=(U,d,I)$. Suppose
+  \[
+  \Phi\vdash p
+  \]
+  Then $I$ translates the proof of $p$ to a proof of $I(p)$ from the axioms of \zfc. Hence if $\Phi \vdash p\wedge \neg p$, then \[\zfc \vdash I(p)\wedge \neg I(p)\]
+\end{proof}
+\section[Gödel's constructible universe]{gödel's constructible universe}
+This is a model of \zfc with rather interesting properties. Particularly, it can be defined in \emph{Zermelo-Fraenkel set theory without the axiom of choice} (\textsc{zf}). 
+\begin{defn}[Gödel's constructible universe]
+  We will build up a universe in layers, starting with $\emptyset$. Each new layer contains all sets defined by a specifying over the sets from the previous layer.
+  First define
+  \[
+  D(Y) = \bigl\{ \{x : x \in Y \wedge \phi(x,z_1,\dots,z_n)\} : \phi \textrm{ is a first order formula, } z_1,\dots,z_n\in Y\bigr\} 
+  \]
+  this builds the next layer. 
+  Define
+  \begin{align*}
+    L_0 &= \emptyset \\
+    L_{\succ \alpha} &= D(L_\alpha) \\
+    L_\beta &= \bigcup_{\alpha <\beta} L_\alpha \\
+    L &= \bigcup_{\alpha\in \ord} L_\alpha
+  \end{align*}
+  where $\beta$ is a limit ordinal.
+
+  Every element in $L$ is defined by a first order formula. 
+\end{defn}
+\begin{defn}[birthday]
+  An element $x\in L$ has birthday $\alpha$ if $\alpha$ is the smallest ordinal such that $x\in L_\alpha$. 
+\end{defn}
+\begin{lemma}
+  All nonzero birthdays are successor ordinals.
+\end{lemma}
+\begin{proof}
+  If $x\in L_\beta$ has nonzero birthday $\beta$ where $\beta$ is a limit ordinal, then 
+  \[
+  x\in \bigcup_{\alpha <\beta} L_\alpha
+  \]
+  in other words, there is some $\alpha<\beta$ such that
+  \[
+  x\in L_\alpha
+  \]
+  hence $x$ does not have birthday $\beta$, a contradiction.
+\end{proof}
+\begin{theorem}[$L$ models \textsc{zf}]
+  The set $L$ models \textsc{zf}.
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+  \item Extensionality---$L$ inherits this axiom from \textsc{zf}.
+  \item Regularity---$L$ inherits this from \textsc{zf}. 
+  \item Specification---this follows from the definition of $L_{\succ(\alpha)}$. 
+  \item Singletons \\
+    Consider the element $x\in L_\alpha$. The formula 
+    \[
+    \phi(y,z) \iff \forall s\in y (s=z)
+    \]
+    defines $\{x\}$ when $z=x$. Hence $\{x\}\in L_{\alpha+1}$. 
+  \item Union---$\bigcup z$ is defined by the forumla
+    \[
+    \phi(u,z)\iff \forall y ( y\in u \iff \exists x \in z . y\in x)
+    \]
+  \item Replacement---replacement is a recipe for constructing a new set with a predicate. 
+  \item Infinity---$L_1$ contains $\emptyset$. If $n$ in $L_{\succ (n)}$, then $\succ{n}$ is in $L_{n+2}$. Hence, $L_\omega$ contains $\N$. 
+  \item Powerset---the formula
+    \[
+    \phi(x,z)\iff\forall y . y\in x \iff y\subseteq z
+    \]
+    defines the powerset, $x$, of $z$. 
+  \end{enumerate}
+\end{proof}
+\begin{theorem}[well-ordering in $L$]
+  The \nameref{th:well-ordering} holds in $L$. 
+\end{theorem}
+\begin{proof}
+  We can actually well-order $L$ by transfinite induction. An element in $L_{\succ(\alpha)}$ is uniquely determined by its defining formula $\phi(x,z_1,\dots,z_n)$ and the choice of $z_1,\dots,z_n\in L_\alpha$.
+  \begin{enumerate}
+  \item Base case: $L_0$ is vacuously well-ordered. 
+  \item Successor ordinals: \label{it:succ-ord}\\
+    Suppose $L_\alpha$ is well-ordered. Then we can well-order the set of finite sequences of elements in $L_\alpha$ with the dictionary order, \ie $x_1,x_2,\dots x_n < y_1,y_2, \dots y_m$ if $x_1 < y_1$, or $x_1 = y_1$ and $x_2 < y_2$, or $(x_1,x_2)=(y_1,y_2)$ and $x_3 < x_4$\dots and if there is a tie, \ie $x_1=y_1\dots x_{\min (m,n)}=y_{\min(m,n)}$ the shorter sequence is smaller. Let $\texttt{finseq}(L_\alpha)$ denote the finite sequences of $L_\alpha$ 
+
+    Every element of $L_{\succ(\alpha)}$ is uniquely determined by its defining formula and the sequence of $z_1\dots z_n\in L_\alpha$. Using a godel numbering, we can say the elements of $L_{\succ(\alpha)}$ are in $1$-to-$1$ correspondence with $\N\times \texttt{finseq}(L_\alpha)$, which the dictionary order well-orders. 
+  \item Limit ordinals: \\
+    Suppose $\beta$ is a limit ordinal and for all $\alpha < \beta$, the set $L_\alpha$ is well-ordered. We define a well-order $\leq$ on $L_\beta$ as follows. Consider $x,y\in L_\beta$. Suppose $x\in L_n$ and $y\in L_k$ where $n$ and $k$ are successor ordinals. If $n=k$, define $x \leq y$ iff the order defined in (\ref{it:succ-ord}) says so. Otherwise, when $n < k$, define $x \leq y$. 
+  \end{enumerate}
+\end{proof}
+\begin{cor}
+  \zfc is consistent if \textsc{zf} is consistent.
+\end{cor}
+\section[Gödel's completeness theorem]{gödel's completeness theorem}
+\begin{defn}[maximally consistent]
+  A theory $\Phi$ over language $\mathcal L$ is maximally consistent iff
+  \begin{trivlist}
+  \item $\Phi$ is consistent
+  \item for every $\mathcal L$-sentence $p$, either $p\in \Phi$ or
+    $\neg p \in \Phi$.
+  \end{trivlist}
+\end{defn}
+\begin{defn}[witnesses]
+  A theory $\Phi$ over language $\mathcal L$ has witnesses if every statement of the form $\exists x. \phi (x)$ has a corresponding term, a witness if you will, $w$ such that
+  \[
+  \bigl(\exists. x \phi(x) \implies \phi(w)\bigr) \in  \Phi
+  \]
+\end{defn}
+\begin{theorem}[model existence theorem]
+  Every maximally consistent theory $\Phi$ with witnesses has a model in \zfc.\footnote{Every maximally consistent $\Phi$ can be given witnesses as so long as we add a constant symbol to act as a witness for each existential statement.}
+\end{theorem}
+\begin{proof}
+  We can turn $\Phi$ into a model of $\Phi$. Define the equivalence relation $\sim$ by 
+  \[
+  x\sim y \textrm{ iff }(x\iff y) \in \Phi
+  \]
+  Define the universe
+  \[
+  U=\Phi/\sim
+  \]
+  For each constant symbol $c$ in $\mathcal L$, define $d(c)$ to be the equivalence class of $c$ in $U$. 
+  For each function symbol $f$ in $\mathcal L$, define $d(f)$ as the function sending the equivalence class of $x\in U$ to the equivalence class of $f(x)\in U$. For each relation symbol $R$ in $\mathcal L$, define
+  \[
+  (d(R))(x,y) \iff \bigl(R(x,y)\in \Phi\bigr)
+  \]
+  Define the interpretation $I(\phi)$ iff $\phi\in \Phi$. 
+  Then $(U,d,I)$ is a model of $\Phi$. 
+\end{proof}
+\begin{cor}[Gödel's completeness theorem]
+  Assume \zfc is consistent. Then a theory $\Phi$ is consistent iff it has a model in \zfc. In particular,
+  \[
+  \Phi \vdash \phi
+  \]
+  iff $\phi$ is true in every model of $\Phi$.  
+\end{cor}
+Hence we can understand the theory $\Phi$ if we understand all of its models. 
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
