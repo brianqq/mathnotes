@@ -1438,14 +1438,20 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
   Define the interpretation $I(\phi)$ iff $\phi\in \Phi$. 
   Then $(U,d,I)$ is a model of $\Phi$. 
 \end{proof}
-\begin{cor}[Gödel's completeness theorem]
+\begin{cor}[Gödel's completeness theorem]\label{th:compactness}
   Assume \zfc is consistent. Then a theory $\Phi$ is consistent iff it has a model in \zfc. In particular,
   \[
   \Phi \vdash \phi
   \]
   iff $\phi$ is true in every model of $\Phi$.  
 \end{cor}
-Hence we can understand the theory $\Phi$ if we understand all of its models. 
+Hence we can understand a theory if we understand its models. 
+\begin{theorem}[compactness theorem]
+  A theory $\Phi$ has a model iff every finite subtheory $F\subseteq \Phi$ has a model.
+\end{theorem}
+\begin{proof}
+  By \nameref{th:compactness}, $\Phi$ has a model iff it is consistent. Suppose $\Phi$ is not consistent. Then we can prove a contradiction starting from $\Phi$. A proof has finitely many steps, so it can only use finitely many axioms. Thus, there is some finite subtheory $F\subseteq \Phi$ such that the axioms $F$ leads to a contradiction. Hence, $F$ has no model. 
+\end{proof}
 \printbibliography
 \end{document}
 #+ORGTBL: SEND and-tt orgtbl-to-latex :splice nil :skip 0 
