@@ -16,7 +16,7 @@
 \usepackage{xspace}
 \newcommand{\ie}{\emph{i.e.}\xspace}
 \newcommand{\eg}{\emph{e.g.}\xspace}
-\newcommand{\ord}{\mathtt{Ord}}
+\newcommand{\ord}{\texttt{Ord}}
 
 
 \usepackage{tocstyle}
@@ -42,9 +42,9 @@
 \begin{document}
 \tableofcontents{}
 \chapter[Philosophical Underpinnings]{philosophical underpinnings}
-Rhetoric could be described as the art of passing off opinions as objective. Through millions of years of evolution, we carbon sack computers have been tuned to take shortcuts. Even in the study of mathematics, these shortcuts are necessary: no one would teach an infant to count by formally proving $2+2=4$. But with these shortcuts leave us susceptible to logical fallacies, allowing rhetoric to pas off emotions as fact and perceptions as reality.
+Through millions of years of evolution, we carbon sack computers have been tuned to take shortcuts. Even in the study of mathematics, these shortcuts are necessary: no one would teach an infant to count by formally proving $2+2=4$. But with these shortcuts leave us susceptible to logical fallacies. 
 
-We could start with assertions and then work toward a conclusion by requiring each new claim we make must logically follow from what we have already established, but English is too ambiguous and irregular. Consider the sentence
+To avoid these, we could start with assertions and then work toward a conclusion by requiring each new claim we make must logically follow from what we have already established, but English is too ambiguous and irregular. Consider the sentence
 \begin{quote}
   Every mouse fears some cat.
 \end{quote}
@@ -738,7 +738,7 @@ In mathematics today, the conventional foundation is \emph{Zermelo-Fraenkel Set 
 Define \zfc as a first-order theory with the constant symbol $\emptyset$, which is the empty set. There is a predicate symbol $\in$ for membership, \ie $x\in y$ iff $x$ is an element of $y$. The axioms are as follows:
 \begin{enumerate}
 \item Extensionality \\
-  Two sets are the same if they have the same elements. In other words, everything you need to know about a set can be determined by looking at its elements.
+  Two sets are the same if they have the same elements. In other words, everything you need to know about a set is determined by its elements.
   \[
   \forall x \forall y  \bigl(\forall z(z\in x \iff z \in y)\implies (x=y)\bigr)
   \]
@@ -797,7 +797,7 @@ Define \zfc as a first-order theory with the constant symbol $\emptyset$, which 
   \[
   \forall X \exists Y \forall x \forall y (x\in X \wedge \phi(x,y) \implies y\in Y)
   \]
-  We will use this axiom explicitly. 
+  We not will use this axiom explicitly. 
 \item Infinity \\
   The natural numbers exist. Specifically, we say $0=\emptyset$. Also, let $\succ(x)=x\cup \{x\}$. Then
   \[
@@ -872,9 +872,9 @@ At the opening of this chapter, you were promised we'd count past infinity. But 
   \end{align*}
   If $X$ is a nonempty subset of $\N$,
   \[
-  \bigcap_{n\in X} n 
+  n=\bigcap X
   \]
-  gives the set of all numbers smaller than everything in $\N$, \ie its least element. 
+  gives the set of all numbers smaller than everything in $X$, \ie $n$ is the least element of $X$. 
 \end{example}
 \begin{example}
   The set $\Z$ (integers) with order $\leq$ is not well-ordered. The easiest way to show this is to consider $\Z$, a subset of $\Z$. There is no smallest integer, so this subset has no least element. 
@@ -913,7 +913,7 @@ This new number $\omega$ cannot be a successor of a natural number, as it is not
   \end{trivlist}
 \end{theorem}
 \begin{proof}
-  Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. But, by assumption, the inductive step holds; therefore we conclude $\phi(\beta)$, a contradiction. 
+  Suppose not. Then there is some ordinal $\beta>0$ that is the smallest ordinal for which $\phi$ is false. Then, for all $\alpha < \beta$, we know $\phi(\alpha)$. By assumption, the inductive step holds; therefore conclude $\phi(\beta)$, a contradiction. 
 \end{proof}
 \section[The axiom of choice]{the axiom of choice}
 We introduce the shorthands $\forall x \in X . \phi(x)$ for $\forall x . x\in X \implies \phi(x)$ and $\exists x \in X.\phi(x)$ for $\exists x . x\in X \wedge \phi(x)$. 
@@ -1070,7 +1070,7 @@ Then
   \]
 \end{defn}
 \subsection[Reals]{reals}
-Pythagoras believed all numbers were rational. This was key in his world view. But one day a member of his math-cult stumbled on an irrational number. Pythagoras was so appalled, legend has it he killed the discoverer to suppress this discovery. But mathematics cannot be suppressed.
+Pythagoras believed all numbers were rational. But one day a member of his math-cult stumbled on an irrational number. Pythagoras was so appalled, legend has it he killed the discoverer to suppress this discovery. But mathematics cannot be suppressed.
 \begin{figure}[h]
   \centering
   \caption{Irrational numbers in geometry}
@@ -1157,7 +1157,7 @@ The \nameref{th:babylon} will give a rational number for $x'$ when $x$ and $S$ a
     x_1 &= \frac{1+2/1}2 = 1.5 \\
     x_2 &= \frac{1.5+2/1.5}2 = 1.41\bar6 \\
     x_3 &= \frac{1.41\bar6 +2/1.41\bar6}2 = 1.4142156862\dots \\
-    x_4 &= \frac{1.4142156862\dots+2/1.4142156862\dots}2 = 1.414213562\dots \\
+    x_4 &= \frac{1.4142156862\ldots+2/1.4142156862\dots}2 = 1.414213562\dots \\
         \vdots
   \end{align*}
 \end{example}
@@ -1283,15 +1283,15 @@ To make sense of logic with \zfc, we need to make some sets
 \end{defn}
 A model is an example set that satisfies the axioms of a theory. The natural numbers $\N$ as defined in \zfc models Peano's axioms.
 \begin{defn}[model]
-  Consider the language $\mathcal L$. A model for the $\mathcal L$-theory $\Phi$  consists of
-  \begin{itemize}
+  Consider the language $\mathcal L$. A model for the $\mathcal L$-theory $\Phi$ is the triple $(U,d,I)$. 
+  \begin{trivlist}
   \item a set $U$, the universe
   \item a dictionary function $d$ that
     translates function and predicate symbols to functions and
     predicates on $U$
   \item an interpretation $I$ that translates
     $L$-statements to statements about $U$. 
-  \end{itemize}
+  \end{trivlist}
   We require that $I$ takes axioms in $\Phi$ to true statements. Also, we require\footnote{I'm not actually sure of this, but it seems appropriate.}
   \begin{align*}
   I(p\wedge q)&=I(p)\wedge I(q) \\
@@ -1316,7 +1316,7 @@ We have referred to consistency a lot. It's time to officially define it
 \end{theorem}
 \begin{proof}
   Interpretations let us translate proofs from a theory to the model of the theory. 
-  Suppose $\Phi$ is a theory with model $M=(U,d,I)$. Suppose
+  Suppose $\Phi$ is a theory with model $(U,d,I)$. Suppose
   \[
   \Phi\vdash p
   \]
@@ -1377,7 +1377,7 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
     \[
     \phi(u,z)\iff \forall y ( y\in u \iff \exists x \in z . y\in x)
     \]
-  \item Replacement---replacement is a recipe for constructing a new set with a predicate. 
+  \item Replacement---replacement is a recipe for constructing a new set with a predicate. Hence $L$ is closed under replacement.
   \item Infinity---$L_1$ contains $\emptyset$. If $n$ in $L_{\succ (n)}$, then $\succ(n)$ is in $L_{n+2}$. Hence, $L_\omega$ contains $\N$. 
   \item Powerset---the formula
     \[
@@ -1439,19 +1439,19 @@ This is a model of \zfc with rather interesting properties. Particularly, it can
   Define the interpretation $I(\phi)$ iff $\phi\in \Phi$. 
   Then $(U,d,I)$ is a model of $\Phi$. 
 \end{proof}
-\begin{cor}[Gödel's completeness theorem]\label{th:compactness}
+\begin{cor}[Gödel's completeness theorem]\label{th:completeness}
   Assume \zfc is consistent. Then a theory $\Phi$ is consistent iff it has a model in \zfc. In particular,
   \[
   \Phi \vdash \phi
   \]
   iff $\phi$ is true in every model of $\Phi$.  
 \end{cor}
-Hence we can understand a theory if we understand its models. 
-\begin{theorem}[compactness theorem]
+This gives us a new approach to understanding logical deduction. 
+\begin{theorem}[compactness theorem] \label{th:compactness}
   A theory $\Phi$ has a model iff every finite subtheory $F\subseteq \Phi$ has a model.
 \end{theorem}
 \begin{proof}
-  By \nameref{th:compactness}, $\Phi$ has a model iff it is consistent. Suppose $\Phi$ is not consistent. Then we can prove a contradiction starting from $\Phi$. A proof has finitely many steps, so it can only use finitely many axioms. Thus, there is some finite subtheory $F\subseteq \Phi$ such that the axioms $F$ leads to a contradiction. Hence, $F$ has no model. 
+  By \nameref{th:completeness}, $\Phi$ has a model iff it is consistent. Suppose $\Phi$ is not consistent. Then we can prove a contradiction starting from $\Phi$. A proof has finitely many steps, so it can only use finitely many axioms. Thus, there is some finite subtheory $F\subseteq \Phi$ such that the axioms $F$ leads to a contradiction. Hence, $F$ has no model. 
 \end{proof}
 \section[Löwenheim–Skolem theorem]{löwenheim–skolem theorem}
 \begin{defn}[Skolem function]
@@ -1489,7 +1489,7 @@ An implication of this is Skolem's paradox: there is a countable model of \zfc t
     \mathcal L' &= \mathcal L \cup \{x_n:n< \alpha\} \\
     \Phi' &= \Phi \cup \{x_i \neq x_j : i<j < \alpha\}
   \end{align*}
-  Every finite subset of $\Phi'$ has a model, so by \nameref{th:compactness} $\Phi'$ has a model. Call it $M'$. Then $M'$ contains $d(x_n)$ for each $n\in\alpha$.
+  Every finite subset of $\Phi'$ has a model. By the \nameref{th:compactness}, $\Phi'$ has a model. Call it $M'$. Then $M'$ contains $d(x_n)$ for each $n\in\alpha$.
 \end{proof}
 \printbibliography
 \end{document}
