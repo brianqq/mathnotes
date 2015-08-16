@@ -1,0 +1,74 @@
+\documentclass{scrbook}
+\usepackage{brian}
+\usepackage[inline]{asymptote}
+
+\renewcommand{\proofSymbol}{\textrm{\fontspec{NotoEmoji-Regular}👍}}
+
+\usepackage[style=alphabetic,backend=bibtex]{biblatex}
+\bibliography{geometry}
+
+
+
+\begin{document}
+\chapter[Axioms]{axioms}
+\section[Euclid's axioms]{euclid's axioms}
+\begin{enumerate}
+\item There is one line through any two distinct points.
+\item There is one line containing any nondegenerate line segment.
+\item For any point $p\in\R^2$ and any radius $r\in\R$, there is exactly one circle with center $p$ and radius $r$. 
+\item All right angles are equal.   
+\item Suppose two lines cross an axis. If, on one side of the axis, the interior angles sum to under $\pi/2$, then the lines cross on that side.
+  \begin{figure}[h!]
+    \centering
+    \caption{$\alpha+\beta <\pi/2$}
+    \begin{asy}
+      size(200);
+      path axis = (0,0)--(0,80);
+      path top =(-20,10)--(110,45);
+      path btm = (-20,70)--(110,35);
+      draw(axis);
+      draw(top);
+      draw(btm);
+      label("$\alpha$",point(axis,intersectionpoint(axis,top)),NE);
+      label("$\beta$",point(axis,intersectionpoint(axis,btm)[0]),SE);
+    \end{asy}
+  \end{figure}
+\end{enumerate}
+\begin{defn}[parallel postulate]
+  For a line $L$ and point $p\notin L$, there is one line through $p$ parallel to $L$. 
+\end{defn}
+This ensures we are studying the Euclidean plane, \ie $\R^2$. 
+\section[Constructions]{constructions}
+\begin{theorem}
+  Every line segment is the leg of some equilateral triangle. 
+\end{theorem}
+\begin{proof}
+  Start with the line segment:
+  \begin{center}
+    \begin{asy}
+      dot((0,0));
+      dot((30,0));
+      draw((0,0)--(30,0));
+    \end{asy}
+  \end{center}
+  \begin{center}
+    \begin{asy}
+      import graph; 
+      path c1=Circle((0,0),30);
+      path c2=Circle((30,0),30);
+      draw(c1,blue);
+      draw(c2,blue);
+      dot((0,0));
+      dot((30,0));
+      pair p = intersectionpoint(c1,c2);
+      dot(p);
+      draw((0,0)--p--(30,0)--cycle);
+    \end{asy}
+  \end{center}
+\end{proof}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

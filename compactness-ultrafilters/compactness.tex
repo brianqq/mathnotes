@@ -66,7 +66,7 @@ For appropriate choice of utlrafilter $U$ on $\finof(\Phi)$, I claim
 \]
 models $\Phi$. To see this, pick an arbitrary $\phi \in \Phi$. Define
 \[
-H_\phi = \{F\subseteq \finof(\Phi): M_F \models \phi\} 
+H_\phi = \{f\subseteq \finof(\Phi): M_f \models \phi\} 
 \]
 to be the set of models where $\phi$ holds.
 Consider
@@ -84,30 +84,35 @@ we have chosen a $U$ such that, for each $\phi \in \Phi$, the set $\{f\in \finof
 \end{cor}
 The converse is also true: 
 \begin{theorem}
-  The \nameref{th:compactness} implies \nameref{lem:ultra}. 
+  The \nameref{th:compactness} implies the \nameref{lem:ultra}. 
 \end{theorem}
 \begin{proof}
   \newcommand{\setth}{\texttt{set}}
-  Suppose $F$ is a filter on $S$. We can encode this assertion in a theory. Let $\mathcal L$ be the language of set theory with constant symbols $S$ and $F$. Let $\setth$ be the axioms of set theory. To encode the statement $F$ is a filter on $S$, define the theory 
+  Let $S$ be a set. Suppose $F$ is a filter on $S$. Then the theory
   \begin{align*}
-  \Phi = \setth \cup &\bigl\{  \\
-    & S \in F, \\
-    & \forall A,B ( A\in F \wedge B \in S \implies A \cap B \in F ), \\
-    &\varnothing \notin F, \\ 
-    &\forall A,B(A\in F \wedge A \subseteq B \implies B \in F) \\
-    &\bigr\}
+    \Phi = \setth \cup &\bigl\{ \\
+                          &S\in F \\
+                          &\forall A,B (A\in F \wedge B \in S \implies A \cup B \in F ) \\
+                          &\varnothing \notin F \\
+                          &\forall A,B (A\in F \wedge A \subseteq B \implies B \in F ) \\
+                     &\bigr\}
+                          &\cup \{x_f\in F: f\in F\}
   \end{align*}
-  Then $\Phi$ has a model iff we can find a filter $F$ on $S$. Define the language $\mathcal L'$ by adding a constant symbol
-  $x_s$ for each $s\subseteq S$. Now define the theory $\Phi'$ over $\mathcal L'$ by
+  where $x_f$ is a constant symbol naming $f$ for each $f\in F$,
+  has a model $M$. And $F\subseteq F|_M$. 
+  
+  I claim there is a model of $\Phi$ such that $F|_M$ is an ultrafilter.  Consider the theory
   \begin{align*}
-    \Phi' = \Phi&\cup \{x_s \subseteq S : s\subseteq S \} \\
-    &\cup \{x_s \in F \vee S-x_s \in F : s \subseteq S\}
+    \Phi' = \Phi &\cup \{y_s \subseteq S: s\subseteq S\}\\
+                 &\cup \{y_s\in F \vee S-x_s \in F : s \subseteq S\}
   \end{align*}
-  By \nameref{th:compactness}, $\Phi'$ has a model $M$. This $M$ has a copy of $S$ and $U$. They may contain extra elements, but 
+  where $y_s$ is a constant symbol naming $s$ for each $s\subseteq S$. 
+  
+  By the \nameref{th:compactness}, $\Phi'$ has a model. Call it $M'$.  Then
   \[
-  \{X\cap S : X\subseteq U\} - \varnothing
+  \{f\cap S:f\in F|_{M'}\} -\varnothing
   \]
-  gives an ultrafilter on $S$ containing $F$. 
+  is an ultrafilter containing $F$. 
 \end{proof}
 \end{document}
 
