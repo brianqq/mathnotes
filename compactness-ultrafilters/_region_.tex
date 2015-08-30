@@ -1,0 +1,24 @@
+\message{ !name(compactness.tex)}\documentclass{scrartcl}
+
+\usepackage{brian}
+
+\begin{document}
+
+\message{ !name(compactness.tex) !offset(84) }
+\begin{align*}
+    \Phi = \setth \cup &\bigl\{ \\
+                          &S\in F \\
+                          &\forall A,B (A\in F \wedge B \in S \implies A \cup B \in F ) \\
+                          &\varnothing \notin F \\
+                          &\forall A,B (A\in F \wedge A \subseteq B \implies B \in F ) \\
+                     &\bigr\}\\
+    \cup& \{x_f\in F: f\in F\}
+  \end{align*}
+\message{ !name(compactness.tex) !offset(98) }
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

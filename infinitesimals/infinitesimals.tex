@@ -1,0 +1,90 @@
+\documentclass{scrartcl}
+\usepackage{brian}
+\renewcommand{\proofSymbol}{\ensuremath{\text{\fontspec{NotoEmoji-Regular}👍}}}
+
+\title{Real infinitesimals}
+\begin{document}
+\section{Why?}
+When first learning calculus, I thought in terms of infinitesimal rates of change. I found this intuitive, thought provoking, and effective. There were many holes in my understanding. In particular, I viewed infinitesimals as like zero but not really. Not quite mathematical precision. 
+
+Newton and Leibniz conceived calculus aided by the notion of the infinitesimal. Leibniz assumed there were infinitesimal quantities that obeyed the same rules as the real numbers. To take a derivative, say of $y=x^2$, you would calculate the infinitesimal rate of change $dy/dx$ where $dy$ and $dx$ are infinitesimals: 
+\begin{align*}
+  \frac{dy}{dx} &= \frac{(x+dx)^2-x^2}{dx} \\
+                &= \frac{x^2+2xdx+dx^2-x^2}{dx} \\
+                &= \frac{2xdx+dx^2}{dx} \\
+                &= 2x+dx
+\end{align*}
+and then you discard the infinitesimal, giving the correct answer. 
+
+This argument only works if $dx\neq 0$. But then how can you discard the $dx$? Calculus stood on embarrassingly shaky ground for nearly 300 years. Critics derided infinitesimals as `the ghosts of departed quantities'. Cauchy and Weierstrass eventually settled the matter by introducing the modern notion of limit, and infinitesimals were relegated to the back of a napkin. 
+
+Infinitesimals in calculus are not merely a historical curiosity or a useful heuristic. They are a fully rigorous mathematical technique. They have been used to prove novel theorems. Infinitesimals have fewer moving parts than $\varepsilon$-$\delta$ limits, so they simplify many arguments. 
+
+\section{What?}
+We will enlarge $\R$ to the hyperreals, $*\R$. This contains all real numbers, as well as an infinite number $\omega$ that is larger than all standard reals. Likewise, it contains the infinitesimal $1/\omega$. We want it to obey the same laws as $*\R$. 
+
+We will accomplish this by showing that the axioms defining such a $*\R$ are not contradictory.
+\section{How?}
+Start with the axioms for $\R$. It contains the constants $0$ and $1$. We can take addition $+$, and multiplication $\bullet$. There is an order $\leq$ on $\R$.  
+
+They are governed by the axioms, where we suppose $x,y,z$ can be any real number.
+\begin{enumerate}
+\item Additive identity:  $x+0=x$
+\item Additive inverses exist
+\item $+$ is associative
+\item Multiplicative identity: $1x=x$.
+\item Multiplication is associative: $xy =yx$. 
+\item Multiplication distributes: $x(y+z)=xy+yz$. 
+\item If $x < y$ then $x+z < y+ z$
+\item If $x > 0$ and $y > 0$ then $xy > 0$. 
+\item Completeness: any subset $S$ of $R$ with an upper bound has a least upper bound. 
+\end{enumerate}
+
+\begin{theorem}
+  We extend $\R$ to $*\R$ by adding some infinite number $\omega$ and augmenting the list of axioms with
+  \begin{align*}
+    &\omega \geq 1\\
+    &\omega \geq 2\\
+    &\omega \geq 3\\
+    &\vdots
+  \end{align*}
+  This axiomatic system is free from contradictions
+\end{theorem}
+\begin{proof}
+  Suppose we can prove a contradiction starting from these axioms. A proof has finitely many steps, so it can only use finitely many axioms, hence only finitely many of our new axioms. But the standard real numbers $\R$ with $\omega=n$ satisfies the first $n$ of our new axioms. This means we can prove a contradiction from the axioms of $\R$, which is impossible. 
+\end{proof}
+\section{Comparison}
+A standard proof that $f(x)=x^2$ is continuous:
+\begin{proof}
+  Let
+  \[
+    h < \min\left(\frac{\sqrt\varepsilon}{2(1+2x)},1\right)
+  \]
+  Then 
+  \begin{align*}
+    |f(x+h)-f(x)| &= \left| (x+h)^2 - x^2\right| \\
+                  &= \left| x^2+2xh+h^2-x^2\right| \\
+                  &= \left| 2xh+h^2\right| \\
+                  &< \left| 2x\frac{\sqrt\varepsilon}{2(1+2x)} + \frac{\varepsilon}{(2(1+2x))^2} \right|\\
+                  &\leq \varepsilon
+  \end{align*}
+\end{proof}
+A nonstandard proof:
+\begin{proof}
+  Let $x\approx y$ iff $x-y$ is infinitesimal. 
+  \begin{align*}
+    f(x+dx)&=x^2+2xdx+dx^2\\
+           &=f(x)+2xdx+dx^2
+  \end{align*}
+  any finite number times an infinitesimal is infinitesimal. Hence $2xdx+dx^2\approx 0$. 
+  Then 
+  \[
+    f(x+dx)\approx f(x)
+  \]
+\end{proof}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

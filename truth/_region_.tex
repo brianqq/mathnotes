@@ -1,4 +1,4 @@
-\documentclass{scrbook}
+\message{ !name(truth.tex)}\documentclass{scrbook}
 \usepackage{brian}
 \usepackage{epigraph}
 
@@ -12,7 +12,7 @@
 \renewcommand{\implies}{\to}
 \renewcommand{\iff}{\leftrightarrow}
 
-\renewcommand{\proofSymbol}{\ensuremath{\text{\fontspec{NotoEmoji-Regular}👍}}}
+\renewcommand{\proofSymbol}{\fontspec{NotoEmoji-Regular}👍}
 \newcommand{\ord}{\texttt{Ord}}
 
 
@@ -37,6 +37,9 @@
 % \renewcommand{\lim}{\newlim}
 % \renewcommand{\min}{\texttt{min}}
 \begin{document}
+
+\message{ !name(truth.tex) !offset(-3) }
+
 \tableofcontents{}
 \chapter[Philosophical Underpinnings]{philosophical underpinnings}
 Through millions of years of evolution, we carbon sack computers have been tuned to take shortcuts. Even in the study of mathematics, these shortcuts are necessary: no one would teach an infant to count by formally proving $2+2=4$. But with these shortcuts leave us susceptible to logical fallacies. 
@@ -1540,3 +1543,5 @@ An implication of this is Skolem's paradox: there is a countable model of \zfc t
 %%% TeX-master: t
 %%% Tex-engine: luatex
 %%% End:
+
+\message{ !name(truth.tex) !offset(-1547) }
