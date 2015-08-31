@@ -1,0 +1,79 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{brian}
+
+\RequirePackage{amsmath, amssymb, url, microtype,xcolor}
+\usepackage{palatino}
+\usepackage[euler-digits,euler-hat-accent]{eulervm}
+
+\usepackage{mathdots}
+\usepackage[amsmath,thmmarks]{ntheorem}
+\usepackage{thmtools}%for nameref to work right
+\usepackage{nameref}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{cleveref}
+\renewcommand{\ref}{\hyperref}
+
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\E}{\mathbb{E}}
+
+\DeclareMathOperator*{\Span}{span}
+\DeclareMathOperator{\End}{End}
+
+\providecommand{\define}{:\equiv}
+
+% proof environment
+\makeatletter
+\newcommand{\openbox}{\leavevmode
+  \hbox to.77778em{%
+  \hfil\vrule
+  \vbox to.675em{\hrule width.6em\vfil\hrule}%
+  \vrule\hfil}}
+\gdef\proofSymbol{\openbox}
+\newcommand{\proofname}{Proof.}
+\newcounter{proof}\newcounter{currproofctr}\newcounter{endproofctr}%
+\newenvironment{proof}[1][\proofname]{
+  \th@nonumberplain
+  \def\theorem@headerfont{\sffamily}%
+  \normalfont
+  \theoremsymbol{\ensuremath{_\blacksquare}}
+  \@thm{proof}{proof}{#1}}%
+  {\@endtheorem}
+\makeatother
+
+%fontspec 
+\usepackage{fontspec}
+\setmainfont[Ligatures={Common,Required,TeX},Numbers=OldStyle]{Linux Libertine O}
+\setsansfont[Numbers=OldStyle]{Linux Biolinum O} 
+\setmonofont{Inconsolatazi4}
+
+% theorem stuff 
+\newcounter{thms}
+\numberwithin{thms}{section}
+\theoremheaderfont{\sffamily}
+\theorembodyfont{\normalfont}
+\newtheorem{defn}[thms]{Definition}
+\newtheorem{defcat}[thms]{Category definition}
+\newtheorem{example}[thms]{Example}
+
+\newtheorem{counterex}[thms]{Counter example}
+
+\newtheorem{theorem}[thms]{Theorem}
+\newtheorem{lemma}[thms]{Lemma}
+\newtheorem{cor}[thms]{Corollary}
+\newtheorem{note}[thms]{Note}
+
+\newcommand{\norm}[1]{\left\|#1 \right\|}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+% koma
+
+\setkomafont{disposition}{\normalfont\sffamily\color{gray}}
+\usepackage{xspace}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\eg}{\emph{e.g.}\xspace}
+
+%Emoji proof sym
+\renewcommand{\proofSymbol}{\ensuremath{\text{\fontspec{NotoEmoji-Regular}👍}}}

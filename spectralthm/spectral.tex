@@ -1,0 +1,128 @@
+\documentclass{scrartcl}
+
+\usepackage{brian}
+\usepackage{mathtools}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\hyper}[1]{\prescript{*}{}{#1}}
+\newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
+\renewcommand{\define}{:=}
+\DeclareMathOperator{\st}{st}
+
+\begin{document}
+  Let $E$ be a vector space over $\C$. 
+\begin{defn}[Hermitian]
+  A map $A\in \End{E}$ is Hermitian iff $A^*$, \ie
+  \[
+    \inner{Ax}{y}=\inner{x}{Ay}
+  \]
+\end{defn}
+\begin{theorem}[finite spectral theorem]
+  \label{finite-spectral-theorem}
+  Suppose $E\cong \C^n$ is hermitian. Then
+  \begin{itemize}
+  \item $E$ has eigenvectors that are an orthonormal basis of $E$.
+  \item All eigenvalues of $E$ are real. 
+  \end{itemize}
+
+\end{theorem}
+\begin{proof}
+  \renewcommand{\vec}{}
+  By the fundamental theorem of algebra, the characterestic polynomial
+  \[
+    |A-xI|
+  \]
+  has a root. Hence $A$ has an eigenvalue-eigenvector pair $\lambda, \vec e$. Hence
+  \[
+    \lambda \inner{\vec e}{\vec e}=\inner{\vec e}{A \vec e}=\inner{A\vec e}{\vec e}=\conj\lambda \inner{\vec e}{\vec e}
+  \]
+  thus $\lambda = \conj\lambda$. Ergo, $\lambda\in \R$. 
+
+  Now consider $A|e^\perp$. Suppose $\inner{x}{e}=0$. Then 
+  \[
+    0=\lambda\inner{x}{e}=\inner{x}{Ae}=\inner{Ax}{e}
+  \]
+  Hence $A|e^\perp\in\End(e^\perp)$. Induction on dimension proves the theorem. 
+\end{proof}
+
+Let $\bullet$ denote pointwise multiplication. 
+\begin{cor}[diagonalization]
+  \label{thm:diag}
+  If $A\in\End E$, then 
+  \begin{align*}
+    A&=P^{-1}DP\\
+    \norm{A}&=\norm{P^{-1}}\norm D \norm P =\norm D
+  \end{align*}
+  where $P$ is orthogonal and $D = v\bullet\_$ for some real $v\in P(E)$. 
+\end{cor}
+
+\begin{lemma}[hermitian extension]
+  \label{th:herm-ext}
+  Suppose $E$  is a subspace of $E'$ with $A\in\End E$ is hermitian. There is some hermitian $A'\in\End E'$ such that $A'|E=A$ and $\norm{A'}=\norm{A}$.
+\end{lemma}
+\begin{proof}
+  Let $\{e_i\}$ be an orthonormal basis of $E$. 
+  Suppose $\Span{e_j}=E^\perp$. Then set
+  \begin{align*}
+    A'e_i&\define Ae_i \\
+    A'e_j&\define\norm A e_j
+  \end{align*}
+\end{proof}
+
+\begin{defn}[standard part of operator]
+  \[
+  \begin{matrix}
+   \st: &\End E &\to &E \\
+    &(\st T)(x) &\define& \st( T(\hyper x))
+  \end{matrix}
+  \]
+\end{defn}
+
+\begin{theorem}[infinite spectral theorem]
+  If $A\in\End E$, then
+  \[
+    (E,A)\cong (\tilde E,v\bullet \_)
+  \]
+  with
+  \[
+    \norm A = \norm {v\bullet \_}
+  \]
+  where $v\in \tilde E$ 
+  and $\bullet$ is pointwise multiplication. 
+\end{theorem}
+\begin{proof}
+  Consider the nonstandard enlargement of functional analysis.
+   Consider the hyperfinite-dimensional subspace $F$ such that
+  \[
+    \Span_{\hyper \C}\standard E \subseteq F \subseteq \hyper E
+  \]
+  By \nameref{th:herm-ext}, there is some $B\in\End F$ such $B|\standard E = \hyper A|\standard E$. 
+  By \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
+  \begin{equation}
+    B = P^{-1}(v\bullet\_)P
+    \label{eq:spec-diag}
+  \end{equation}
+  By construction, $B(\standard E) \subseteq \standard E$. Permuting rows of the matrices $v\bullet\_$ and $P$ if necessary, assume (without loss of generality) that $P(\standard E)\subseteq \standard E$. 
+  
+  Then
+  \[
+    (\st P)^{-1}=\st(P^{-1})
+  \]
+  similarly,
+  \[
+    \bigl(\st(v\bullet\_)\bigr)(x)=\st(v\bullet\hyper x) = \st v\bullet x = (\st v\bullet\_)x
+  \]
+  By construction, $\st B=A$, hence \cref{eq:spec-diag} becomes
+  \[
+    A=\st(P)^{-1} (\st v\bullet\_) \st(P)
+  \]
+  consequently
+  \[
+    \st P : (E,A) \xrightarrow{\sim} \Bigl( (\st P)(E), \st v\bullet\_\Bigr)
+  \]
+\end{proof}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
