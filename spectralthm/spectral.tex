@@ -12,8 +12,7 @@
 \newcommand{\infeq}{\simeq}
 
 \begin{document}
-
-  Let $E$ be a vector space over $\C$. 
+Let $E$ be a vector space over $\C$. 
 \begin{defn}[Hermitian]
   A map $A\in \End{E}$ is Hermitian iff
   \[
@@ -22,10 +21,10 @@
 \end{defn}
 \begin{theorem}[finite spectral theorem]
   \label{finite-spectral-theorem}
-  Suppose $E\cong \C^n$ is hermitian. Then
+  Suppose $A\in  \C^n$ is hermitian. Then
   \begin{itemize}
-  \item $E$ has eigenvectors that are an orthonormal basis of $E$.
-  \item All eigenvalues of $E$ are real. 
+  \item $A$ has eigenvectors that are an orthonormal basis of $A$.
+  \item All eigenvalues of $A$ are real. 
   \end{itemize}
 
 \end{theorem}
@@ -77,7 +76,7 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
 \end{theorem}
 \begin{proof}
   \renewcommand{\tilde}{\widetilde}
-  Consider a nonstandard model of functional analysis. 
+  This will be proved via hyperfinite approximation. Consider a nonstandard model of functional analysis. 
   Fix a hyperfinite-dimensional subspace $F$ such that
   \[
     \standard E \subseteq F \subseteq \hyper E
@@ -114,6 +113,7 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
      &= \st \left(P^{-1} v\_\right) \tst P\\
     A&=\left(\tst P\right)^{-1} \left(\tst v\_\right) \tst P
   \end{align*}
+  Continuity of $P^{-1}$ and $v$ proves the final equation.
 \end{proof}
 
 \end{document}
