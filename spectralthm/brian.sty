@@ -12,6 +12,7 @@
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{cleveref}
 \renewcommand{\ref}{\hyperref}
+\newcommand{\nameclevref}[1]{\nameref{#1} (\cref{#1})}
 
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
@@ -54,6 +55,24 @@
 
 % theorem stuff 
 \newcounter{thms}
+
+\usepackage{lettrine}
+
+
+\definecolor{numbercolor}{gray}{.8}
+\newcommand{\numfont}[1]{{\normalfont\bfseries\color{numbercolor}{\lettrine[lhang=1,lines=3,lraise=.5]{\smash{#1}}{}}}}
+
+\makeatletter
+\newtheoremstyle{dropmargin}%
+{\item[\theorem@headerfont \numfont{##2} ##1\theorem@separator]}%
+{\item[\theorem@headerfont \numfont{##2} ##1\ (##3)\theorem@separator]}
+\makeatother
+
+\DeclareOption{dropmargin}{
+\theoremstyle{dropmargin}
+}
+\ProcessOptions\relax
+
 \theoremheaderfont{\sffamily}
 \theorembodyfont{\normalfont}
 \newtheorem{defn}[thms]{Definition}
@@ -71,6 +90,7 @@
 \newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
 % koma
 
+
 \setkomafont{disposition}{\normalfont\sffamily\color{gray}}
 \usepackage{xspace}
 \newcommand{\ie}{\emph{i.e.}\xspace}
@@ -78,3 +98,4 @@
 
 %Emoji proof sym
 \renewcommand{\proofSymbol}{\ensuremath{\text{\fontspec{NotoEmoji-Regular}👍}}}
+

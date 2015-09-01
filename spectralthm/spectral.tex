@@ -1,6 +1,6 @@
 \documentclass{scrartcl}
 
-\usepackage{brian}
+\usepackage[dropmargin]{brian}
 \usepackage{mathtools}
 %\usepackage{chngcntr}
 \newcommand{\conj}[1]{\overline{#1}}
@@ -60,10 +60,10 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
 
 \begin{defn}[standard part of map]
   \[
-  \begin{matrix}
+  \begin{array}{lrll}
    \st_X: &(*X \to *Y) &\to& (X \to Y) \\
     &(\st f)(x) &\define& \st\bigl( f(\hyper x)\bigr)
-  \end{matrix}
+  \end{array}
   \]
 \end{defn}
 
@@ -83,7 +83,7 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
   \]
   There is some hermitian $B\in\End F$ such that $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=\hyper(Ae)$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
 
-  By $*$--transferring \nameref{thm:diag}, there is some unitary $P\in\End F$ and real $v\in F$ such that
+  By $*$--transferring \nameclevref{thm:diag}, there is some unitary $P\in\End F$ and real $v\in F$ such that
   \begin{equation}
     B = P^{-1}(v\_)P
     \label{eq:spec-diag}
@@ -112,6 +112,7 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
     A=\left(\tst P\right)^{-1} \left(\tst v\_\right) \tst(P)
   \]
 \end{proof}
+
 \end{document}
 
 %%% Local Variables:
