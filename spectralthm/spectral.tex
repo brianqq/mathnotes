@@ -34,7 +34,7 @@
   \[
     |A-xI|
   \]
-  has a root. Hence $A$ has an eigenvalue-eigenvector pair $\lambda, \vec e$. Hence
+  has a root. Hence $A$ has an eigenvalue-eigenvector pair $\lambda, \vec e$. But
   \[
     \lambda \inner{\vec e}{\vec e}=\inner{\vec e}{A \vec e}=\inner{A\vec e}{\vec e}=\conj\lambda \inner{\vec e}{\vec e}
   \]
@@ -75,14 +75,14 @@ Let $\bullet$ denote pointwise multiplication.
   and $\bullet$ is pointwise multiplication. 
 \end{theorem}
 \begin{proof}
-  Consider a nonstandard model of functional analysis with large enough saturation. 
+  Consider a nonstandard model of functional analysis. 
   Consider the hyperfinite-dimensional subspace $F$ such that
   \[
     \Span_{\hyper \C}\standard E \subseteq F \subseteq \hyper E
   \]
   There is some hermetian $B\in\End F$ such that $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=\hyper(Ae)$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
 
-  By transferring \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
+  By $*$--transferring \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
   \begin{equation}
     B = P^{-1}(v\bullet\_)P
     \label{eq:spec-diag}
@@ -100,10 +100,6 @@ Let $\bullet$ denote pointwise multiplication.
   By construction, $\st B=A$, hence \cref{eq:spec-diag} becomes
   \[
     A=\st(P)^{-1} (\st v\bullet\_) \st(P)
-  \]
-  consequently
-  \[
-    \st P : (E,A) \xrightarrow{\sim} \bigl( (\st P)(E), \st v\bullet\_\bigr)
   \]
 \end{proof}
 \end{document}
