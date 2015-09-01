@@ -95,22 +95,24 @@ For vectors $v$, $u$, let $vu$ denote pointwise multiplication.
   \]
   be a standard Hilbert space. 
   Define $\tst(x)=y$ when $y\in \tilde E$ and $x\infeq y$.
-  Then
+  By construction of $\tilde E$,
   \[
   \begin{array}{rllllll}
     \tst P &=& P|_E &:& E&\to&\tilde E \\ 
-    \tst \left(P^{-1}\right) &=& P^{-1}|_{\tilde E}&:& \tilde E &\to& E
+    \st \left(P^{-1}\right) &=& P^{-1}|_{\tilde E}&:& \tilde E &\to& E
   \end{array}
   \]
-  hence $\tst \left(P^{-1}\right)=\left(\tst P\right)^{-1}$
+  hence $\st \left(P^{-1}\right)=\left(\tst P\right)^{-1}$
   and
   \[
-    \tst(v\_)x=\tst(v\hyper x) = (\tst v)x = (\tst v)x
+    \tst(v\_)x=\tst(v\hyper x) = (\tst v)x 
   \]
   By construction, $\st B=A$, hence \cref{eq:spec-diag} becomes
-  \[
-    A=\left(\tst P\right)^{-1} \left(\tst v\_\right) \tst(P)
-  \]
+  \begin{align*}
+    A&= \st \left(P^{-1} (v\_) P\right) \\
+     &= \st \left(P^{-1} v\_\right) \tst P\\
+    A&=\left(\tst P\right)^{-1} \left(\tst v\_\right) \tst P
+  \end{align*}
 \end{proof}
 
 \end{document}
