@@ -54,7 +54,7 @@ Let $\bullet$ denote pointwise multiplication.
   \[
     A=P^{-1}DP\\
   \]
-  where $P$ is orthogonal and $D = v\bullet\_$ for some real $v\in P(E)$.
+  where $P$ is unitary and $D = v\bullet\_$ for some real $v\in P(E)$.
 \end{cor}
 
 \begin{defn}[standard part of operator]
@@ -80,9 +80,9 @@ Let $\bullet$ denote pointwise multiplication.
   \[
     \Span_{\hyper \C}\standard E \subseteq F \subseteq \hyper E
   \]
-  There is some internal $B\in\End F$ such $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=Ae$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
+  There is some hermetian $B\in\End F$ such that $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=\hyper(Ae)$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
 
-  By \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
+  By transferring \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
   \begin{equation}
     B = P^{-1}(v\bullet\_)P
     \label{eq:spec-diag}
