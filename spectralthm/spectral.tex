@@ -2,14 +2,13 @@
 
 \usepackage{brian}
 \usepackage{mathtools}
-\usepackage{chngcntr}
+%\usepackage{chngcntr}
 \newcommand{\conj}[1]{\overline{#1}}
 \newcommand{\hyper}[1]{\prescript{*}{}{#1}}
 \newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
 \renewcommand{\define}{:=}
 \DeclareMathOperator{\st}{st}
 
-\counterwithout{thms}{section}
 \begin{document}
 
   Let $E$ be a vector space over $\C$. 
@@ -52,9 +51,9 @@ Let $\bullet$ denote pointwise multiplication.
   \label{thm:diag}
   If $A\in\End E$, then 
   \[
-    A=P^{-1}DP\\
+    A=P^{-1}(v\bullet\_)P\\
   \]
-  where $P$ is unitary and $D = v\bullet\_$ for some real $v\in P(E)$.
+  where $P$ is unitary and $v\in P(E)$ is real.
 \end{cor}
 
 \begin{defn}[standard part of operator]
@@ -67,20 +66,20 @@ Let $\bullet$ denote pointwise multiplication.
 \end{defn}
 
 \begin{theorem}[infinite spectral theorem]
-  If $A\in\End E$, then
+  Suppose $E$ is a Hilbert space. 
+  If $A\in\End E$ is hermitian, then
   \[
-    (E,A)\cong (\tilde E,v\bullet \_)
+    A = P^{-1}(v\bullet \_)P
   \]
-  where $v\in \tilde E$ 
-  and $\bullet$ is pointwise multiplication. 
+  with $P$ unitary and $v\in \tilde E$ real.
 \end{theorem}
 \begin{proof}
   Consider a nonstandard model of functional analysis. 
-  Consider the hyperfinite-dimensional subspace $F$ such that
+  Fix a hyperfinite-dimensional subspace $F$ such that
   \[
-    \Span_{\hyper \C}\standard E \subseteq F \subseteq \hyper E
+    \standard E \subseteq F \subseteq \hyper E
   \]
-  There is some hermetian $B\in\End F$ such that $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=\hyper(Ae)$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
+  There is some hermitian $B\in\End F$ such that $B|\standard E = \hyper A|\standard E$. This $B$ simultaneously satisfies hermitian-ness and $B(\hyper e)=\hyper(Ae)$ for each $e$ in some (standard) basis of $E$. Such a $B$ exists, internal to a sufficiently saturated model.
 
   By $*$--transferring \nameref{thm:diag}, there is some unitary $P:F\xrightarrow{\sim} \tilde F$ and real $v\in \tilde F$ such that
   \begin{equation}
