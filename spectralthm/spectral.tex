@@ -53,7 +53,7 @@ Let $\bullet$ denote pointwise multiplication.
   \[
     A=P^{-1}(v\bullet\_)P\\
   \]
-  where $P$ is unitary and $v\in P(E)$ is real.
+  where $P$ is unitary and $v\in E$ is real.
 \end{cor}
 
 \begin{defn}[standard part of operator]
@@ -71,7 +71,7 @@ Let $\bullet$ denote pointwise multiplication.
   \[
     A = P^{-1}(v\bullet \_)P
   \]
-  with $P$ unitary and $v\in \tilde E$ real.
+  with $P$ unitary and $v\in P(E)$ real.
 \end{theorem}
 \begin{proof}
   Consider a nonstandard model of functional analysis. 
@@ -86,9 +86,10 @@ Let $\bullet$ denote pointwise multiplication.
     B = P^{-1}(v\bullet\_)P
     \label{eq:spec-diag}
   \end{equation}
-  By construction, $B(\standard E) \subseteq \standard E$. Permuting rows of the matrices $v\bullet\_$ and $P$ if necessary, assume (without loss of generality) that $P(\standard E)\subseteq \standard E$. 
-  
-  Then
+  By construction, $B(\standard E) \subseteq \standard E$.
+
+  Let $\tilde E$ be a standard Hilbert space such that $\tilde E \subseteq P(\standard E)$. Then say $\st P: E \to \tilde E$ and $\st v \in \tilde E$. 
+  Now
   \[
     (\st P)^{-1}=\st(P^{-1})
   \]
