@@ -6,8 +6,10 @@
 \newcommand{\conj}[1]{\overline{#1}}
 \newcommand{\hyper}[1]{\prescript{*}{}{#1}}
 \newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
-\renewcommand{\define}{:=}
+\renewcommand{\define}{\coloneqq}
 \DeclareMathOperator{\st}{st}
+\DeclareMathOperator{\tst}{\widetilde \st}
+\newcommand{\infeq}{\simeq}
 
 \begin{document}
 
@@ -46,21 +48,21 @@
   Hence $A|e^\perp\in\End(e^\perp)$. Induction on dimension proves the theorem. 
 \end{proof}
 
-Let $\bullet$ denote pointwise multiplication. 
+For vectors $v$, $u$, let $vu$ denote pointwise multiplication. 
 \begin{cor}[diagonalization]
   \label{thm:diag}
   If $A\in\End E$, then 
   \[
-    A=P^{-1}(v\bullet\_)P\\
+    A=P^{-1}(v\_)P\\
   \]
   where $P$ is unitary and $v\in E$ is real.
 \end{cor}
 
-\begin{defn}[standard part of operator]
+\begin{defn}[standard part of map]
   \[
   \begin{matrix}
-   \st: &\End E &\to &E \\
-    &(\st T)(x) &\define& \st( T(\hyper x))
+   \st_X: &(*X \to *Y) &\to& (X \to Y) \\
+    &(\st f)(x) &\define& \st\bigl( f(\hyper x)\bigr)
   \end{matrix}
   \]
 \end{defn}
@@ -69,7 +71,7 @@ Let $\bullet$ denote pointwise multiplication.
   Suppose $E$ is a Hilbert space. 
   If $A\in\End E$ is hermitian, then
   \[
-    A = P^{-1}(v\bullet \_)P
+    A = P^{-1}(v\_)P
   \]
   with $P$ unitary and $v\in P(E)$ real.
 \end{theorem}
@@ -83,23 +85,31 @@ Let $\bullet$ denote pointwise multiplication.
 
   By $*$--transferring \nameref{thm:diag}, there is some unitary $P\in\End F$ and real $v\in F$ such that
   \begin{equation}
-    B = P^{-1}(v\bullet\_)P
+    B = P^{-1}(v\_)P
     \label{eq:spec-diag}
   \end{equation}
-  By construction, $B(\standard E) \subseteq \standard E$.
-
-  Let $\tilde E= P(\standard E)$ be a standard Hilbert space. With slight abuse of notation, say $\st P: E \to \tilde E$ and $\st v \in \tilde E$. 
-  Now
+  It suffices to recover the standard diagonalization from the hyperfinite case. 
+  Let
   \[
-    (\st P)^{-1}=\st(P^{-1})
+    \tilde E= P(\standard E)
   \]
-  similarly,
+  be a standard Hilbert space. 
+  Define $\tst(x)=y$ when $y\in \tilde E$ and $x\infeq y$.
+  Then
   \[
-    \bigl(\st(v\bullet\_)\bigr)(x)=\st(v\bullet\hyper x) = \st v\bullet x = (\st v\bullet\_)x
+  \begin{array}{rllllll}
+    \tst P &=& P|_E &:& E&\to&\tilde E \\ 
+    \tst \left(P^{-1}\right) &=& P^{-1}|_{\tilde E}&:& \tilde E &\to& E
+  \end{array}
+  \]
+  hence $\tst \left(P^{-1}\right)=\left(\tst P\right)^{-1}$
+  and
+  \[
+    \tst(v\_)x=\tst(v\hyper x) = (\tst v)x = (\tst v)x
   \]
   By construction, $\st B=A$, hence \cref{eq:spec-diag} becomes
   \[
-    A=\st(P)^{-1} (\st v\bullet\_) \st(P)
+    A=\left(\tst P\right)^{-1} \left(\tst v\_\right) \tst(P)
   \]
 \end{proof}
 \end{document}
