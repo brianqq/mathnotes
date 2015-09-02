@@ -1,0 +1,62 @@
+\documentclass{scrbook}
+
+\usepackage[dropmargin]{brian}
+\usepackage{mathtools}
+%\usepackage{chngcntr}
+\newcommand{\hyper}[1]{\prescript{*}{}{#1}}
+\newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
+\DeclareMathOperator{\st}{st}
+\newcommand{\infeq}{\simeq}
+\numberwithin{thms}{section}
+
+\newcommand{\der}{\dot}
+\newcommand{\Der}{D}
+ 
+\begin{document}
+\chapter{Equations of motion}
+\section{Lagrangian}
+  \newcommand{\q}{\varq}
+  \newcommand{\derq}{\der \q}
+  \newcommand{\dt}{d\vart}
+\begin{defn}[action]
+  Let $\varL(\q,\derq, \vart)$ be a Lagrangian.
+  Let $\q:\textrm{time}\to\textrm{configuration space}$. 
+  Define action by 
+  \[
+    \varS(\q):=\int_a^b \varL(\q,\derq, \vart) \dt 
+  \]
+\end{defn}
+
+Mechanics will minimize action of the appropriate Lagrangian.
+\begin{theorem}[euler-lagrange]
+  \[
+    \frac{d\varS}{d\q} = \inner{\frac{\partial \varL}{\partial \q} - \frac{d}{d\vart}\frac{\partial \varL}{d\derq}}{-}
+  \]
+\end{theorem}
+\begin{proof}
+  \newcommand{\dq}{h}
+  \newcommand{\derdq}{h'}
+  Let $\dq$ be an infinitesimal perturbation (endpoints are $0$). 
+  \begin{align*}
+    \varS(\q+\dq) &= \int \varL(\q+\dq,\derq + d\derq,t)\dt \\
+           &= \int \varL(\q,\derq,\vart)\dt + \int \varD\varL(\varq,\derq, \vart)(\dq,d\derq,0) + o(\dq) \\
+           &= \int \frac{\partial \varL}{\partial \q} \dq\dt + \underbrace{\frac{\partial L}{\partial \derq}}_{u} \underbrace{d\derq \dt}_{dv} \\
+           &=\int\left(\frac{\partial \varL}{\partial \q} - \frac{d}{d\vart} \frac{\partial \varL}{\partial \derq}\right)\dq \dt + \underbrace{\left[\dq\frac{\partial L}{\partial \derq} \right]_a^b}_{\mathclap{0\textrm{ as $\dq(a)=\dq(b)=0$}}}
+  \end{align*}
+\end{proof}
+\begin{cor}[stationary action]
+  \[
+    \frac{\partial \varL}{\partial \varq} - \frac{d}{d\vart}\frac{\partial \varL}{d\der \varq} = 0
+  \]
+\end{cor}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
