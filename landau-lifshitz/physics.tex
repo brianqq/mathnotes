@@ -2,14 +2,17 @@
 
 \usepackage[dropmargin]{brian}
 \usepackage{mathtools}
+\usepackage{bm}
 %\usepackage{chngcntr}
 \newcommand{\hyper}[1]{\prescript{*}{}{#1}}
 \newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
 \DeclareMathOperator{\st}{st}
 \newcommand{\infeq}{\simeq}
-\numberwithin{thms}{section}
+\numberwithin{thms}{chapter}
 
 \newcommand{\der}{\dot}
+\newcommand{\dder}{\ddot}
+\renewcommand{\vec}[1]{\bm{#1}}
 \newcommand{\Der}{D}
  
 \begin{document}
@@ -29,6 +32,7 @@
 
 Mechanics will minimize action of the appropriate Lagrangian.
 \begin{theorem}[euler-lagrange]
+  \label{th:euler-lagrange}
   \[
     \frac{d\varS}{d\q} = \inner{\frac{\partial \varL}{\partial \q} - \frac{d}{d\vart}\frac{\partial \varL}{d\derq}}{-}
   \]
@@ -47,6 +51,67 @@ Mechanics will minimize action of the appropriate Lagrangian.
 \begin{cor}[stationary action]
   \[
     \frac{\partial \varL}{\partial \varq} - \frac{d}{d\vart}\frac{\partial \varL}{d\der \varq} = 0
+  \]
+\end{cor}
+
+\chapter{conservation laws}
+\section{energy}
+\begin{defn}[energy]
+  \label{def:energy}
+  \[
+    \varE\define  \inner{\Der \varq}{\frac{\partial\varL}{\partial \derq}} - L
+  \]
+\end{defn}
+\begin{theorem}
+  When $\Der(t\mapsto L(\_,\_,t)) =0$ (\eg closed system or constant field), energy is conserved. 
+\end{theorem}
+\begin{proof}
+  By hypothesis, 
+  \[
+    \frac{d\varL}{d\vart} = \inner{\frac{\partial L}{\partial \varq}}{\der \varq} + \inner{\frac{\partial L}{\partial \derq}}{\dder \varq}
+  \]
+  By \nameref{th:euler-lagrange},
+  \[
+    \frac{d\varL}{d\vart} = \inner{\frac{d}{d\vart}\frac{\partial L}{\partial \der\varq}}{\der \varq} + \inner{\frac{\partial L}{\partial \derq}}{\dder \varq}
+  \]
+  By product rule, 
+  \[
+    \frac{d\varL}{d\vart} = \frac{d}{dt}\inner{\derq}{\frac{\partial L}{\partial \der \varq}}
+  \]
+  Subtracting $d\varL/d\vart$ finishes the proof. 
+\end{proof}
+\section{momentum}
+\begin{defn}[momentum]\label{def:momentum}
+  \renewcommand{\varv}{\vec v}
+  \renewcommand{\varr}{\vec r}
+  \[
+    P\define \sum_a \frac{\partial \varL_a}{\partial\varv_a}
+  \]
+  where $a$ indexes over particles. 
+\end{defn}
+\begin{theorem}[conservation of momentum]
+  In a closed system, $\der P=0$. 
+\end{theorem}
+\begin{proof}
+  \newcommand{\nudge}{\vec\varepsilon}
+  \newcommand{\dL}{dL}
+  \renewcommand{\varr}{\vec r}
+  This follows from homogeneity of space. Suppose every particle moves by infinitesimal $\nudge$ with velocities unchanged. Then 
+  \[
+    \dL = \sum_a \inner{\frac{\partial \varL}{\partial L}{\partial \varr_a}}{\nudge}
+  \]
+  which must be $0$ by homogeneity. As $\nudge$ is arbitrary, we conclude 
+  \[
+    \sum_a \frac{\partial \varL}{\partial \varr_a}=0
+  \]
+  By \nameref{th:euler-lagrange},
+  \[
+    \frac{d}{d\vart}\sum_a \frac{\partial \varL}{\partial \varv_a} = 0
+  \]
+\end{proof}
+\begin{cor}[Newton's third law]
+  \[
+    \sum_a \vec \varF_a =0 
   \]
 \end{cor}
 \end{document}

@@ -1,5 +1,5 @@
 \documentclass[10pt]{scrartcl}
-\usepackage{brian}
+\usepackage[dropmargin]{brian}
 %\usepackage{cfr-lm}
 %\usepackage{lmodern}
 \usepackage{float}
@@ -9,20 +9,20 @@
 
 % proof environmnet definition 
 \renewcommand{\ref}{\hyperref}
-
+\newcommand{\E}{\mathbb E}
 
 %categories
 \newcommand{\cattop}{\mathtt{top}}
 \newcommand{\ab}{\mathtt{Ab}}
 
 
-\AtBeginDocument{
-  \pdfhorigin=\dimexpr\pdfhorigin-1.5in\relax
-  \pdfvorigin=\dimexpr\pdfvorigin-1in\relax
-  \pdfpagewidth=\dimexpr\pdfpagewidth-3in\relax
-  \pdfpageheight=\dimexpr\pdfpageheight-2in\relax
-}
-
+% \AtBeginDocument{
+%   \pdfhorigin=\dimexpr\pdfhorigin-1.5in\relax
+%   \pdfvorigin=\dimexpr\pdfvorigin-1in\relax
+%   \pdfpagewidth=\dimexpr\pdfpagewidth-3in\relax
+%   \pdfpageheight=\dimexpr\pdfpageheight-2in\relax
+% }
+\numberwithin{thms}{section}
 \begin{document}
 \section{taylor series}
 \newcommand{\taylor}{\mathtt{taylor}}
