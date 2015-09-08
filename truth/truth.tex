@@ -1,5 +1,5 @@
 \documentclass{scrbook}
-\usepackage{brian}
+\usepackage[dropmargin]{brian}
 \usepackage{epigraph}
 
 \usepackage[style=alphabetic,backend=bibtex]{biblatex}
@@ -16,18 +16,6 @@
 \newcommand{\ord}{\texttt{Ord}}
 
 
-\usepackage{tocstyle}
-\usetocstyle{nopagecolumn}
-\newcommand*{\oldaddchaptertocentry}{}
-\let\oldaddchaptertocentry\addchaptertocentry
-\renewcommand*{\addchaptertocentry}[2]{%
-  \ifstr{#1}{}{%
-    \oldaddchaptertocentry{#1}{#2}%
-  }{% entry with number
-    \oldaddchaptertocentry{\color{gray}\fontsize{72pt}{0pt}\bfseries{{#1}}}{\texorpdfstring{\kern-3em{#2\vspace{10pt}}}{#2}}}%
-  }
-\settocstylefeature[0]{pagenumberhook}{\Huge}
-\settocstylefeature[1]{entryhook}{\kern-3em}
 
 \renewcommand{\emptyset}{\varnothing}
 % \renewcommand{\tan}{\texttt{tan}}

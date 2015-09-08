@@ -1,13 +1,22 @@
 \documentclass{scrbook}
 
 \usepackage[dropmargin]{brian}
-\usepackage{mathtools}
 \usepackage{bm}
+\usepackage[inline]{asymptote}
 %\usepackage{chngcntr}
 \newcommand{\hyper}[1]{\prescript{*}{}{#1}}
 \newcommand{\standard}[1]{\prescript{\sigma}{}{#1}}
 \DeclareMathOperator{\st}{st}
+\DeclareMathOperator{\sn}{sn}
 \newcommand{\infeq}{\simeq}
+
+%no skip page after chapter
+\usepackage{etoolbox}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
 \numberwithin{thms}{chapter}
 
 \newcommand{\der}{\dot}
@@ -15,6 +24,8 @@
 \renewcommand{\vec}[1]{\bm{#1}}
 \newcommand{\Der}{D}
  
+
+
 \begin{document}
 \chapter{Equations of motion}
 \section{Lagrangian}
@@ -54,8 +65,8 @@ Mechanics will minimize action of the appropriate Lagrangian.
   \]
 \end{cor}
 
-\chapter{conservation laws}
-\section{energy}
+\chapter{Conservation laws}
+\section{Energy}
 \begin{defn}[energy]
   \label{def:energy}
   \[
@@ -80,7 +91,7 @@ Mechanics will minimize action of the appropriate Lagrangian.
   \]
   Subtracting $d\varL/d\vart$ finishes the proof. 
 \end{proof}
-\section{momentum}
+\section{Momentum}
 \begin{defn}[momentum]\label{def:momentum}
   \renewcommand{\varv}{\vec v}
   \renewcommand{\varr}{\vec r}
@@ -114,6 +125,305 @@ Mechanics will minimize action of the appropriate Lagrangian.
     \sum_a \vec \varF_a =0 
   \]
 \end{cor}
+\begin{defn}[generalized momenta]
+  \[
+    \varp_i \define \frac{\partial \varL}{\partial \der\varq_i}
+  \]
+\end{defn}
+\begin{defn}[generalized force]
+  \[
+    \varF_i \define \der \varp_i
+  \]
+\end{defn}
+\section{center of mass}
+\renewcommand{\varR}{\vec R}
+\renewcommand{\varr}{\vec r}
+\begin{defn}[Center of mass]
+  \[
+    \varR \define \frac{\sum \varm_a\varr_a}{\sum \varm_a}
+  \]
+\end{defn}
+A \emph{system} is \emph{at rest} ($P=0$) in a frame of reference where $R=0$. 
+\vspace{1ex}
+\begin{defn}[internal energy]
+  The energy of a system at rest, denoted $E_i$.
+\end{defn}
+\renewcommand{\varv}{\vec v}
+\renewcommand{\varV}{\vec V}
+
+\begin{theorem}
+  Energy in different reference frames.
+  Put $\varv_a'=\varv_a+\varV$. Then
+  \[
+    E=E'+\inner \varV {P'} + \frac12 \mu \varV^2
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    \varE&= \frac12 \sum m_a |\varv_a|^2 + U \\
+         &=\frac12 \sum m_a |\varv_a'+\varV|^2 + U \\
+         &=\frac12 \mu \varV^2  + \inner{\varV}{\sum m_a\varv_a'}+\frac 12 \sum m_a|\varv_a'|^2 +U
+  \end{align*}
+\end{proof}
+\renewcommand{\varV}{|\vec V|}
+\begin{cor}
+  \[
+    \varE = \frac{1}{2} \mu \varV^2+\varE_i
+  \]
+\end{cor}
+\begin{cor}
+  \[
+    L=L'+\inner{\varv}{\varP'}+\frac 12 \mu \varV^2
+  \]
+\end{cor}
+\begin{cor}
+  \[
+    S=S'+\mu\inner{\varv}{\varP'}+\frac12 \mu \varV^2t
+  \]
+\end{cor}
+\section{Angular momentum}
+\begin{theorem}
+  $\so(3)$ is a Lie group with Lie algebra 
+  \[
+    \fso(3)\cong (\R^3)^*\wedge\R^3
+  \]
+\end{theorem}
+\begin{proof}
+  \newcommand{\tp}[1]{{#1}^T}
+  Let
+  \[
+    \varf(\varx)\define \tp{\varx}\varx
+  \]
+  Then
+  \[
+    \so(3)\cong \varf^{-1}(I)
+  \]
+  But 
+  \begin{align*}
+    f(I+dx)&=\tp{(I+dx)}(I+dx) \\
+           &=\tp I I + \tp {dx} I + \tp I dx + \tp {dx} dx 
+  \end{align*}
+  Hence
+  \begin{align*}
+    Df|_I(h)&= h + \tp h  \\
+    Df|_x &= (x\_)Df|_I(x^{-1}\_)
+  \end{align*}
+  so
+  \[
+    \fso(3)\cong\ker Df \cong \R^3\wedge\R^3
+  \]
+\end{proof}
+\renewcommand{\varr}{\vec r}
+\renewcommand{\varp}{\vec p}
+\renewcommand{\varP}{\vec P}
+\renewcommand{\varf}{\vec {\dot p}}
+\renewcommand{\varM}{\vec M}
+\begin{defn}[angular momentum]
+  \[
+  \varM \define \sum \varr_a\times \varp_a
+  \]
+\end{defn}
+\begin{theorem}[conservation of angular momentum]\label{th:cons-ang-mom}
+  In a closed system,
+  \[
+    \der\varM=0
+  \]
+\end{theorem}
+\begin{proof}
+  Let $d\phi\in\fso(3)$ be an infinitesimal rotation.  
+  \[
+    d\varr=d\phi\times\varr
+  \]
+  But the Lagrangian is unchanged by $d\phi$, hence
+  \begin{align*}
+    dL=\sum_a \left(\frac{\partial L}{\partial \varr_a} d\varr_a +\frac{\partial L}{\partial \varv_a}d\varv_a\right) &= 0 \\
+    \sum \inner{\varf_a}{d\phi\times\varr_a} + \inner{\varp_a}{d\phi\times\varv_a}&=0 \\
+    \inner{d\phi}{\sum (\varr_a\times \varf_a+\varv_a\times \varp_a)}&=0\\
+    \inner{d\phi}{\frac d{dt}\sum \varr_a\times \varp_a}&=0
+  \end{align*}
+  But $d\phi$ is arbitrary, hence
+  \[
+    \frac{d}{dt} \sum \varr_a\times \varp_a = 0
+  \]
+\end{proof}
+\renewcommand{\vara}{\vec a}
+\begin{theorem}[$M$ in a different frame]
+  If $r_a=r_a'+\vara$, then
+  \[
+    \varM=\varM'+a\times \varP
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    \varM &= \sum \varr_a\times \varp_a \\
+          &=\sum \varr_a'\times \varp_a + \vara\times\sum\varp_a \\
+          &=\varM'+\vara\times\varP
+  \end{align*}
+\end{proof}
+\renewcommand{\vare}{\vec e}
+\begin{cor}
+  If $\varL$ (equivalently, $\varU$) is symmetric around the axis with unit $\vare$, then $\inner{\varM}{\vare}$ is conserved. 
+\end{cor}
+\begin{cor}
+  If $\varL$ is symmetric around the origin, then $\varM$ is conserved. 
+\end{cor}
+\chapter{Integration of the equations of motion}
+\section{One dimension}
+\[
+  L=\frac 12 m\der x - U(x)
+\]
+so 
+\[
+  t=\int_{x_0}^{x_1} dx\sqrt{\frac{m/2}{E-U(x)}}
+\]
+\section{Pendulum}
+\newcommand{\ang}{\phi}
+\newcommand{\scl}{\omega^2}
+Consider the pendulum
+\[
+  z = -ir \exp(i\ang)
+\]
+with
+\begin{align*}
+  K &= \frac12 m|\der z|^2 = \frac12 mr^2|\der\ang|^2 \\
+  U &= -mgr\cos \ang  \\
+  L &= r|\der\ang|^2 +g\cos\ang
+\end{align*}
+Let $\scl=g/r$.
+By \nameref{th:euler-lagrange}
+\begin{align*}
+  \dder\ang + \scl\sin\ang &=0\\
+  \der\ang\dder\ang +\der\ang \scl \sin\ang &= 0 \\
+  \frac d{dt} \left( \frac{\der\ang^2}2-\scl\cos\ang\right)&= 0 
+\end{align*}
+Integrating gives 
+\begin{align*}
+  0&=\left( \frac{\der\ang^2}2-\scl\cos\ang\right)_0^t \\ 
+  \der\ang^2 &=\left.2\scl\cos\ang\right|_0^t+\der\ang(0)^2
+\end{align*}
+Hence 
+\[
+  \pm t=\int_{\ang(0)}^{\ang} \frac{d\ang}{\sqrt{\left.2\omega^2\cos\ang\right|_0^t+\der\ang(0)^2}}
+\]
+But $\cos\phi|_0^t = 2\sin^2(\phi/2)|_t^0$, so 
+\begin{align*}
+  \pm t&=\int_{\ang(0)}^{\ang} \frac{d\ang}{\sqrt{\left.4\omega^2\sin^2\frac\ang2\right|_t^0+\der\ang(0)^2}} \\
+  \pm 2\omega t&=\int_{\ang(0)}^{\ang} \frac{d\ang}{\sqrt{\sin^2\frac{\ang(0)}2+\frac{\der\ang(0)^2}{4\omega^2}-\sin^2\frac{\ang}2}} \\
+\end{align*}
+Let
+\[
+  k=\left(\sin^2\frac{\phi(0)}2 + \frac{\der\phi(0)^2}{4\omega^2}\right)^{-1/2}
+\]
+Then
+\begin{align*}
+  \pm \frac{2\omega t}{k} &= \int_{\phi(0)}^\phi \frac{d\ang}{\sqrt{1-k^2\sin^2\frac{\ang}2}}  \\
+  \pm \frac{\omega t}{k} &= \int_{\phi(0)/2}^{\phi/2} \frac{d\theta}{\sqrt{1-k^2\sin^2\theta}}  \\
+\end{align*}
+\begin{defn}[Incomplete elliptic: 1st kind]
+  \[
+    F(u,k)=\int_0^u \frac{d\theta}{1-k^2\sin^2\theta}
+  \]
+\end{defn}
+\begin{defn}[$\sn$]
+  \[
+    \sn(-,k)=\sin\left( F^{-1}(-,k)\right)
+  \]
+\end{defn}
+So
+\[
+  \phi(t)=2\arcsin\sn\left(F\left(2^{-1}\phi(0),k\right)\pm \frac{\omega t}k,k\right)
+\]
+\section{Two body problem}
+As the system is closed, the center of mass is inertial. Set this as the origin.
+\[
+  \frac{m_1\varz_1+m_2\varz_2}{m_1+m_2} = 0
+\]
+We would like to switch to the reference frame where the Sun is stationary:
+\[
+  \varz=\varz_2-\varz_1
+\]
+Solving in terms of $\varz$ gives 
+\begin{align*}
+  z_1&=\frac{m_2z}{m_1+m_2} \\
+  z_2&=\frac{m_1z}{m_2+m_1} 
+\end{align*}
+To find $K$,
+\begin{align*}
+  K&=\frac12 m_1|\der z_1|^2+\frac12 m_2|\der z_2|^2 \\
+   &=\frac12 m_1\left|\frac{m_2\der z}{m_1m_2}\right|^2+\frac12 m_2\left|\frac{m_1\der z}{m_2+m_1}\right|^2 \\
+   &=\frac12\frac{m_1m_2(m_1+m_2)}{(m_1+m_2)^2}|\der z|^2 \\
+   &=\frac 12 \underbrace{\frac{m_1m_2}{m_1+m_2}}_M |\der z|^2 \\
+   &=\frac 12 M |\der z|^2
+\end{align*}
+The Lagrangian is 
+\begin{align*}
+ LM/2 &= \frac 12 M |\der z|^2+ \frac{Gm_1m_2}{|z|} \\
+  L  &= |\der z|^2 + 2G\frac{m_1+m_2}{|z|} \\
+  L &= |\der z|^2 + \frac {2\varg} {|z|}
+\end{align*}
+where $\varg =  G(m_1+m_2)$. 
+
+By \nameref{th:cons-ang-mom}, $z\times \der z$ is constant. Suppose  $|z\times\der z|=\omega$. Without loss of generality, $z\in\C$. Furthermore, if $z=re^{i\phi}$, then on time interval $dt$,
+\[
+  \omega dt =z\times dz = r\times ird\phi=r^2d\phi
+\]
+So
+\[
+  d\phi = \frac{\omega}{r^2}dt
+\]
+Hence 
+\begin{align*}
+  |dz|^2&=|dr+ird\phi|^2=dr^2+\frac{\omega^2}{r^2}dt^2 \\
+  |\der z|^2&= \der r^2 +\frac{\omega^2}{r^2}
+\end{align*}
+By conservation of energy,
+\begin{align*}
+  E &= \underbrace{\der r^2}_{T} +\underbrace{\frac{\omega^2}{r^2} -\frac {2\varg} r }_V\\
+  \phi &= \int \frac{\omega dr/r^2}{\sqrt{E-V}} \\
+  &=\int \frac{dr/r^2}{\sqrt{\frac{E}{\omega^2}+\frac{2g}{\omega^2}r^{-1}-r^{-2}}} \\
+  &=\int \frac{dr/r^2}{\sqrt{ \underbrace{\frac{E}{\omega^2} +\frac{g^2}{\omega^4}}_{\smash{k^2}}-\left(r^{-1}-\frac{g}{\omega^2}\right)^2 }}
+\end{align*} 
+Substituting
+\begin{align*}
+  k\cos u = r^{-1}-\frac{g}{\omega^2}
+  k\sin u du = dr/r^2
+\end{align*}
+gives 
+\begin{align*}
+  \phi &= \int \frac{k \sin u}{k\sin u} du = u  \\
+  \sin\phi            &= \frac{\omega^2/r-g}{\sqrt{E\omega^2 +g}}+ C \\
+  \sin\phi &= \frac{\omega^2/r}{\sqrt{E\omega^2+g}} +C
+\end{align*}
+Pick an origin for $\phi$ such that
+\[
+  \frac{\omega^2}r = 1+(\cos\phi)\sqrt{E\omega^2+g}
+\]
+This is a conic section with focus $0$ and eccentricity $e=\sqrt{E\omega^2+g}$, as the above implies $r/e=p-er\cos\phi$. 
+\begin{center}
+  \begin{asy}
+    import graph;
+
+    size(220,220);
+    label("\fontspec{Noto Emoji}🌞",(0,0));
+  
+    real p = 1;
+    real e = .6;
+    real rad(real ang){
+      return p/(1+e*cos(ang));
+    }
+    draw(polargraph(rad,0,2*pi),gray(.5));
+    xequals(Label("$x=\frac p e$",position=0),p/e);
+    
+    real ang = 1;
+    real x = rad(ang)*cos(ang);
+    real y = rad(ang)*sin(ang);
+
+    dot((x,y));
+    draw("$r$",(0,0)--(x,y));
+    draw("$\frac r e$",(x,y)--(p/e,y));
+  \end{asy}
+\end{center}
+
 \end{document}
 
 %%% Local Variables:
