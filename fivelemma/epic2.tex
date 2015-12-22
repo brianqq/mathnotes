@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{equation*}
+\usepackage{xcolor}
+%\usepackage{brian}
+\usepackage{lmodern}
+\usepackage{tikz-cd}
+\tikzcdset{
+  arrows = {color = gray}
+}
+\begin{document}
+% \begin{equation*}
+%   \begin{tikzcd}
+%     \phantom{b}\\[-2em]
+%     \color{gray} B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook] \\
+%     \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+%     \phantom{b'}
+%   \end{tikzcd}
+% \end{equation*}
+\begin{equation*}
+  \begin{tikzcd}
+    &\phantom{c}&\phantom{d}&\phantom{0}\\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d'
+  \end{tikzcd}
+\end{equation*}
+
+\begin{equation*}
+  \begin{tikzcd}
+    &\phantom{c}&\phantom{d}&\phantom{0}\\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d' & 0
+  \end{tikzcd}
+\end{equation*}
+
+\begin{equation*}
+  \begin{tikzcd}
+    &\phantom{c} &\phantom{d} & 0 \\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook, black] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d' & 0
+  \end{tikzcd}
+\end{equation*}
+
+\begin{equation*}
+  \begin{tikzcd}
+    &\phantom{c} &d & 0 \\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads,black] & \color{gray}E\dar[hook] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d' & 0
+  \end{tikzcd}
+\end{equation*}
+
+\begin{equation*}
+  \begin{tikzcd}
+    & c&d & 0 \\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d' & 0
+  \end{tikzcd}
+\end{equation*}
+
+
+
+\begin{equation*}
+  \begin{tikzcd}
+    & c&d & 0 \\[-2em]
+    \color{gray}B\rar\dar[two heads] & \color{gray}C\rar\dar[black,two heads] & \color{gray}D\rar\dar[two heads] & \color{gray}E\dar[hook] \\
+    \color{gray}B'\rar &\color{gray} C'\rar &\color{gray} D'\rar &\color{gray} E' \\[-2em]
+    & c' & d' & 0
+  \end{tikzcd}
+\end{equation*}
+
+ 
+
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

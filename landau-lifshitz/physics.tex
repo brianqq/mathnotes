@@ -423,7 +423,57 @@ This is a conic section with focus $0$ and eccentricity $e=\sqrt{E\omega^2+g}$, 
     draw("$\frac r e$",(x,y)--(p/e,y));
   \end{asy}
 \end{center}
-
+\chapter{Hamiltonian}
+\section{Legendre Transforms}
+\begin{defn}[Legendre transform]
+  Given $f:V\to\R$ define 
+  \[
+    \begin{array}{rrlll}
+      \hat f &:& V^* &\to& \R \\
+      && p &\mapsto& \sup_x(px-f(x))
+    \end{array}
+  \]
+\end{defn}
+\begin{defn}
+  Define
+  \[
+    H(q,p,t) = \sup_{\der q}(p(\der q)-L(q,\der q, t))
+  \]
+\end{defn}
+\begin{theorem}[conjugate momenta]
+  \[
+    p=\frac{\partial L}{\partial \der q}
+  \]
+\end{theorem}
+\begin{proof}
+  Suppose $\der q$ is maximal, \ie
+  \[
+    H = p\der q - L(q,\der q, t)
+  \]
+  Hold $p,q,t$ constant. Take partials in $\der q$. By maximality,
+  \[
+    0 = p - \frac{\partial L}{\partial \der q}
+  \]
+\end{proof}
+\begin{note}
+  \begin{equation}
+    dH = pd\der q + dp \der q -\frac{\partial L}{\partial q}dq -\frac{\partial L}{\partial \der q}d\der q-\frac{\partial L}{\partial t}dt
+\label{eq:ham-dh}
+\end{equation}
+\end{note}
+\begin{theorem}[Hamilton's equations]
+  \begin{align*}
+    \frac{\partial H}{\partial q} &= -\der p \\
+    \frac{\partial H}{\partial p} &= \der q \\
+    \frac{\partial H}{\partial t} &= \frac{-\partial L}{\partial t} \\
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  All but the first follow from directly inspecting \cref{eq:ham-dh}. The first gives
+  \[
+    -\frac{\partial L}{\partial q} = -\frac{d}{dt} \frac{\partial L}{\partial \der q} = -\der p
+  \]
+\end{proof}
 \end{document}
 
 %%% Local Variables:
